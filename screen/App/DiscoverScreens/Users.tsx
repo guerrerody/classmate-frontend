@@ -70,7 +70,7 @@ export default function Users() {
         >
           <Image
             style={{ height: 300, width: 300 }}
-            source={require("../../../assets/images/emptySearch.png")}
+            source={require("../../../assets/images/empty_search.png")}
           />
         </Animated.View>
       )}

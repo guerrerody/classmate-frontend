@@ -80,8 +80,8 @@ export default function ListContainer({ data }: { data: IChatList }) {
               transition={1000}
               placeholder={
                 !dark
-                  ? require("../../../assets/images/profile-black.svg")
-                  : require("../../../assets/images/profile-white.svg")
+                  ? require("../../../assets/images/profile_black.svg")
+                  : require("../../../assets/images/profile_white.svg")
               }
               style={{ borderRadius: 999, height: 50, width: 50 }}
               source={{

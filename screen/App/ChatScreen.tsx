@@ -12,7 +12,6 @@ import { ChatScreenProp } from "../../types/navigation";
 
 import { Entypo } from "@expo/vector-icons";
 import ChatBox from "../../components/chat/ChatBox";
-import { dummyChat } from "../../data/dummyChat";
 import ChatBuilderText from "../../components/chat/ChatBuilderText";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import useGetMode from "../../hooks/GetMode";

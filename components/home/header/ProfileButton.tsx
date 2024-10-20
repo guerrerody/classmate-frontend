@@ -26,8 +26,8 @@ export default function ProfileButton({
           <Image
             placeholder={
               dark
-                ? require("../../../assets/images/profile-white.svg")
-                : require("../../../assets/images/profile-black.svg")
+                ? require("../../../assets/images/profile_white.svg")
+                : require("../../../assets/images/profile_black.svg")
             }
             priority={"high"}
             source={{ uri: imageUri }}

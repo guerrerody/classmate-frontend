@@ -3,11 +3,7 @@ import "react-native-get-random-values";
 import { StatusBar } from "expo-status-bar";
 import {
   Text,
-  ImageURISource,
-  StyleSheet,
   View,
-  AppState,
-  useColorScheme,
   Platform,
 } from "react-native";
 import * as Linking from "expo-linking";
@@ -20,8 +16,6 @@ import {
   ReactNode,
   useCallback,
   useEffect,
-  useMemo,
-  useRef,
   useState,
 } from "react";
 import { Provider } from "react-redux";
@@ -37,22 +31,16 @@ import { persistStore } from "redux-persist";
 import CustomToast from "./components/global/Toast";
 import { PaperProvider } from "react-native-paper";
 
-import { LoadingModal } from "./components/global/Modal/LoadingOverlay";
 import { enableFreeze } from "react-native-screens";
 
 import Animated, {
   BounceOutDown,
-  Easing,
-  FadeIn,
-  FadeInDown,
-  FadeInUp,
   FadeOut,
   interpolateColor,
   runOnJS,
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
-  withDelay,
   withSpring,
   withTiming,
 } from "react-native-reanimated";
@@ -249,17 +237,6 @@ function AnimatedSplashScreen({ children }: { children: ReactNode }) {
             animateBackgroundEntryStyle,
           ]}
         >
-          {/* <Animated.Image
-            style={{
-              width: "100%",
-              height: "100%",
-              resizeMode: "contain",
-            }}
-            exiting={BounceOutDown.duration(400)}
-            source={image}
-            onLoadEnd={onImageLoaded}
-            fadeDuration={0}
-          /> */}
           <Animated.View
             exiting={BounceOutDown.duration(800)}
             style={{
@@ -279,29 +256,14 @@ function AnimatedSplashScreen({ children }: { children: ReactNode }) {
               style={[
                 {
                   fontFamily: "uberBold",
-                  fontSize: 110,
-                  paddingLeft: 60,
+                  fontSize: 60,
                   textAlign: "center",
-                  color,
+                  paddingLeft: 60,
+                  color: "#D1C4E9",
                 },
                 animatedStyles,
               ]}
-            >
-              Q
-            </Animated.Text>
-            <Animated.Text
-              style={[
-                {
-                  fontFamily: "uberBold",
-                  fontSize: 110,
-                  color,
-                  textAlign: "center",
-                },
-                animatedStylesK,
-              ]}
-            >
-              ui
-            </Animated.Text>
+            > ClassMate</Animated.Text>
           </Animated.View>
           <Animated.View
             style={{

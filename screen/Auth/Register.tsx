@@ -1,13 +1,11 @@
 import {
   View,
   Text,
-  useColorScheme,
   ScrollView,
   Animated,
   Dimensions,
   TouchableWithoutFeedback,
   Keyboard,
-  Vibration,
   Pressable,
 } from "react-native";
 import AnimatedScreen from "../../components/global/AnimatedScreen";
@@ -15,24 +13,19 @@ import AnimatedScreen from "../../components/global/AnimatedScreen";
 import InputText from "./components/InputText";
 import InputPassword from "./components/InputPassword";
 import Button from "../../components/global/Buttons/Button";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { setRoute } from "../../redux/slice/routes";
+import { useAppDispatch } from "../../redux/hooks/hooks";
 import useGetMode from "../../hooks/GetMode";
 import {
-  LegacyRef,
-  RefObject,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from "react";
 import { openToast } from "../../redux/slice/toast/toast";
-import { useLoginMutation, useRegisterMutation } from "../../redux/api/auth";
-import { signOut } from "../../redux/slice/user";
+import { useRegisterMutation } from "../../redux/api/auth";
 import { useForm, Controller } from "react-hook-form";
 import { RegisterScreen } from "../../types/navigation";
 import ReAnimated, { FadeIn, FadeOut, useAnimatedKeyboard, useAnimatedStyle } from "react-native-reanimated";
-import { Image } from "expo-image";
 
 const width = Dimensions.get("window").width;
 export default function Register({ navigation }: RegisterScreen) {
@@ -192,7 +185,6 @@ export default function Register({ navigation }: RegisterScreen) {
             }}
           >
             <View style={{ alignItems: "center", marginTop: 50 }}>
-             
               <Text style={{ color, fontFamily: "mulishBold", fontSize: 24 }}>
                 Sign up
               </Text>
@@ -268,6 +260,7 @@ export default function Register({ navigation }: RegisterScreen) {
                           onBlur,
                           onChangeText: onChange,
                           placeholder: "Enter Your Name",
+                          autoCapitalize: "words",
                         }}
                       />
                     )}

@@ -8,7 +8,7 @@ export default function ProfileImage({ imageUri }: { imageUri: string }) {
   return (
     <View style={{ width: 50, height: 50 }}>
       <Image
-      placeholder={dark ? require("../../../../assets/images/profile-white.svg"):require("../../../../assets/images/profile-black.svg")}
+      placeholder={dark ? require("../../../../assets/images/profile_white.svg"):require("../../../../assets/images/profile_black.svg")}
         contentFit="cover"
         style={{ flex: 1, borderRadius: 9999 }}
         source={{ uri: imageUri }}

@@ -65,7 +65,7 @@ export default function Notifications() {
         >
           <View>
             <Image
-              source={require("../../assets/images/emptyNot.png")}
+              source={require("../../assets/images/empty_not.png")}
               contentFit="contain"
               style={{ height: "100%", width }}
             />

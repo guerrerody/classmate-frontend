@@ -4,7 +4,7 @@ import { CameraIcon } from "../icons";
 import ImagePicker from "react-native-image-crop-picker";
 import useGetMode from "../../hooks/GetMode";
 import { useAppDispatch } from "../../redux/hooks/hooks";
-import { openToast } from "../../redux/slice/toast/toast";
+
 export default function PickGifButton({
   handleSetPhotoPost,
 }: {

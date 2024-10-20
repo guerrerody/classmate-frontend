@@ -23,35 +23,30 @@ export default function OnboardBuilder({
   const color = !dark ? "black" : "white";
 
   return (
-    <View style={{ width }}>
-      <Animated.View
-        entering={FadeInLeft.delay(200)}
-        style={{
-          width: "90%",
-          justifyContent: "center",
-          height: height / 2.5,
-        }}
-      >
-        <Image style={{ height:"100%" }} contentFit="contain" source={imageUri} />
-      </Animated.View>
-      <Text
-        style={{ fontFamily: "mulishBold", fontSize: 36, width: 300, color }}
-      >
-        {header}
-      </Text>
-      <Text style={{ fontSize: 26, fontFamily: "mulish", color: "#929292" }}>
-        {subText}
-      </Text>
-      <Text
-        style={{
-          fontSize: 12,
-          fontFamily: "mulish",
-          color: "#929292",
-          width: "70%",
-        }}
-      >
-        {quote}
-      </Text>
+    <View style={{ flex: 1 }}>
+        <Image style={{ width, height: "100%" }} contentFit="cover" source={imageUri} />
+        <Animated.View
+          entering={FadeInLeft.delay(200)}
+          style={{
+            position: "absolute",
+            bottom: 30,
+            left: 20,
+            right: 20,
+            padding: 15,
+            borderRadius: 15,
+            backgroundColor: "#FFFFFFDA",
+          }}
+        >
+          <Text style={{ fontFamily: "mulishBold", fontSize: 36, color }}>
+            {header}
+          </Text>
+          <Text style={{ fontFamily: "mulish", fontSize: 26, color: "#929292" }}>
+            {subText}
+          </Text>
+          <Text style={{ fontFamily: "mulish", fontSize: 12, color: "#929292" }}>
+            {quote}
+          </Text>
+        </Animated.View>
     </View>
   );
 }

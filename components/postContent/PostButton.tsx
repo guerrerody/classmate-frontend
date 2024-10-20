@@ -2,7 +2,6 @@ import { View, Text, Pressable } from "react-native";
 import React from "react";
 import useGetMode from "../../hooks/GetMode";
 import { useAppDispatch } from "../../redux/hooks/hooks";
-import { openToast } from "../../redux/slice/toast/toast";
 import { resetPost } from "../../redux/slice/post";
 
 export default function PostButton({

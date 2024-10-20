@@ -18,7 +18,6 @@ import React, {
 import Fab from "../../../components/home/post/components/Fab";
 import { AddIcon, ReloadIcon } from "../../../components/icons";
 import PostBuilder from "../../../components/home/post/PostBuilder";
-import { postLists } from "../../../data/test";
 import { useNetInfo } from "@react-native-community/netinfo";
 import { FlashList } from "@shopify/flash-list";
 import AnimatedScreen from "../../../components/global/AnimatedScreen";

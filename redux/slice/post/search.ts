@@ -1,6 +1,5 @@
 import { IPost } from "./../../../types/api";
 import { createSlice } from "@reduxjs/toolkit";
-import { postLists } from "../../../data/test";
 import { servicesApi } from "../../api/services";
 
 export type postState = {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import Svg, { Path, Image } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
 // export const AddIcon = ({ size, color }: { size: number; color: string }) => (
 //   <Svg width={size} height={size} fill="none" viewBox="0 0 24 24">
 //     <Path

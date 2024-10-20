@@ -13,7 +13,7 @@ import useGetMode from "../../../hooks/GetMode";
 export default function TrackerTag({ color }: { color?: string }) {
   const dark = useGetMode();
   const isDark = dark;
-  const backgroundColor = !isDark ? "black" : "white";
+  const backgroundColor = isDark ? "#D1C4E9" : "#512DA8";
 
   return (
     <Animated.View

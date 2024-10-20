@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  useColorScheme,
   ScrollView,
   Animated,
   Dimensions,
@@ -16,11 +15,8 @@ import InputText from "./components/InputText";
 import InputPassword from "./components/InputPassword";
 import Button from "../../components/global/Buttons/Button";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { setRoute } from "../../redux/slice/routes";
 import useGetMode from "../../hooks/GetMode";
 import {
-  LegacyRef,
-  RefObject,
   useCallback,
   useEffect,
   useRef,
@@ -28,11 +24,9 @@ import {
 } from "react";
 import { openToast } from "../../redux/slice/toast/toast";
 import { useLoginMutation } from "../../redux/api/auth";
-import { clearUserData, signOut } from "../../redux/slice/user";
+import { clearUserData } from "../../redux/slice/user";
 import { useForm, Controller } from "react-hook-form";
 import { LoginScreen } from "../../types/navigation";
-import { servicesApi } from "../../redux/api/services";
-import { userApi } from "../../redux/api/user";
 import { Image } from "expo-image";
 import  ReAnimated,{ useAnimatedKeyboard, useAnimatedStyle } from "react-native-reanimated";
 
@@ -76,8 +70,6 @@ export default function Login({ navigation }: LoginScreen) {
       .unwrap()
       .then((e) => {
         Vibration.vibrate(5);
-
-        dispatch(openToast({ text: "Successful Login", type: "Success" }));
       })
       .catch((e) => {
         console.log(e);
@@ -298,7 +290,6 @@ export default function Login({ navigation }: LoginScreen) {
                   height: "100%",
                   flexDirection: "row",
                   gap: 4,
-
                   borderStyle: "dashed",
                   justifyContent: "center",
                   borderWidth: 1,

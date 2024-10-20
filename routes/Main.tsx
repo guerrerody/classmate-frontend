@@ -1,4 +1,4 @@
-import { Platform, View, StyleSheet, Text } from "react-native";
+import { Platform, View, StyleSheet } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "../types/navigation";
@@ -13,7 +13,6 @@ import useGetMode from "../hooks/GetMode";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
-  BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { BottomSheetContainer } from "../components/global/BottomSheetContainer";
 import PostContent from "../screen/App/PostContent";
@@ -159,15 +158,6 @@ export default function Main() {
         console.log(e);
       });
   }, []);
-
-  useEffect(() => {
-    socket?.on("connected", (connected) => {
-      dispatch(openToast({ text: "Connected", type: "Success" }));
-    });
-    return () => {
-      socket?.off("connected");
-    };
-  }, [socket]);
 
   useEffect(() => {
     socket?.emit("followedStatus");

@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import * as Haptics from "expo-haptics";
 import { Platform } from "react-native";
 const ONE_SECOND_IN_MS = 1000;
 

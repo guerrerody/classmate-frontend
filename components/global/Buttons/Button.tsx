@@ -1,8 +1,6 @@
 import {
   View,
-  Text,
   Pressable,
-  useColorScheme,
   ActivityIndicator,
 } from "react-native";
 import React, { ReactNode } from "react";
@@ -19,7 +17,7 @@ export default function Button({
 }) {
   const dark = useGetMode();
   const isDark = dark;
-  const backgroundColor = isDark ? "white" : "black";
+  const backgroundColor = isDark ? "#D1C4E9" : "#512DA8";
   const color = !isDark ? "white" : "black";
   const loadingColor = isDark ? "black" : "white";
   return (

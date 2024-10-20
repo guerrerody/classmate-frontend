@@ -1,8 +1,6 @@
 import {
   View,
-  Text,
   TextInput,
-  useColorScheme,
   Pressable,
   StyleProp,
   ViewStyle,
@@ -11,15 +9,15 @@ import React, { useState } from "react";
 import { Eye, EyeSlash } from "../../../components/icons";
 import useGetMode from "../../../hooks/GetMode";
 import { TextInputProps } from "react-native-paper";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 
 export default function InputPassword({
   props,
   style,
-}: {
+}: Readonly<{
   props: TextInputProps;
   style?: StyleProp<ViewStyle>;
-}) {
+}>) {
   const dark = useGetMode();
   const isDark = dark;
   const backgroundColor = isDark ? "#292828" : "#f1f1f1";
@@ -46,6 +44,7 @@ export default function InputPassword({
         secureTextEntry={!show}
         placeholder="Enter Password"
         placeholderTextColor={placeholderColor}
+        autoCapitalize="none"
         style={{
           width: "90%",
           height: "100%",
@@ -75,7 +74,6 @@ export default function InputPassword({
             width: "100%",
             borderRadius: 999,
             alignItems: "center",
-
             justifyContent: "center",
           }}
           android_ripple={{ color: "#FFFFFF" }}
