@@ -23,18 +23,14 @@ export default function InputPassword({
   const backgroundColor = isDark ? "#292828" : "#f1f1f1";
   const color = isDark ? "white" : "black";
   const [show, setShow] = useState(false);
-  const placeholderColor = isDark ? "#959595" : "#393939";
+  const placeholderColor = isDark ? "#959595" : "#A9A9A9";
   return (
     <View
       style={[
         {
           width: "100%",
           height: 50,
-          paddingHorizontal: 20,
-          borderRadius: 10,
           flexDirection: "row",
-          alignItems: "center",
-          backgroundColor,
         },
         style,
       ]}
@@ -51,7 +47,11 @@ export default function InputPassword({
           fontSize: 16,
           color,
           fontFamily: "jakara",
-          includeFontPadding: false,
+          includeFontPadding: true,
+          borderStyle: "solid",
+          borderBottomWidth: 1,
+          borderBottomColor: color,
+          paddingHorizontal: 10,
         }}
         {...props}
       />
@@ -61,8 +61,10 @@ export default function InputPassword({
           height: "100%",
           overflow: "hidden",
           alignItems: "center",
-          borderRadius: 999,
           justifyContent: "center",
+          borderStyle: "solid",
+          borderBottomWidth: 1,
+          borderBottomColor: color,
         }}
       >
         <Pressable
@@ -72,7 +74,6 @@ export default function InputPassword({
           style={{
             height: "100%",
             width: "100%",
-            borderRadius: 999,
             alignItems: "center",
             justifyContent: "center",
           }}

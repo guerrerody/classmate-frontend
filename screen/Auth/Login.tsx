@@ -52,7 +52,7 @@ export default function Login({ navigation }: LoginScreen) {
       password: "",
     },
   });
-  //
+
   const animUser = useRef(new Animated.Value(0));
   const animPass = useRef(new Animated.Value(0));
   const scrollViewRef = useRef<ScrollView | null>(null);
@@ -160,7 +160,12 @@ export default function Login({ navigation }: LoginScreen) {
           >
             <View style={{ alignItems: "center" }}>
               <View>
-                {!user ? (
+                <Image
+                    source={require("../../assets/images/auth.png")}
+                    contentFit="contain"
+                    style={{ height: 200, width }}
+                />
+                {/*!user ? (
                   <Image
                     source={require("../../assets/images/auth.png")}
                     contentFit="contain"
@@ -173,7 +178,7 @@ export default function Login({ navigation }: LoginScreen) {
                       source={{ uri: user?.imageUri }}
                     />
                   </View>
-                )}
+                )*/}
               </View>
               <Text style={{ color, fontFamily: "mulishBold", fontSize: 24 }}>
                 Welcome Back{user?.name && `, ${user?.name?.split(" ")[0]}`}
@@ -213,6 +218,7 @@ export default function Login({ navigation }: LoginScreen) {
                           value: value,
                           onBlur,
                           onChangeText: onChange,
+                          placeholder: "Username/Email",
                         }}
                       />
                     )}
@@ -239,6 +245,7 @@ export default function Login({ navigation }: LoginScreen) {
                           value,
                           onChangeText: onChange,
                           onBlur,
+                          placeholder: "Password",
                         }}
                       />
                     )}
@@ -290,11 +297,7 @@ export default function Login({ navigation }: LoginScreen) {
                   height: "100%",
                   flexDirection: "row",
                   gap: 4,
-                  borderStyle: "dashed",
                   justifyContent: "center",
-                  borderWidth: 1,
-                  borderColor,
-                  borderRadius: 10,
                   alignItems: "center",
                 }}
                 onPress={() => navigation.replace("Register")}

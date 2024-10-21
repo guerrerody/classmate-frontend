@@ -23,7 +23,7 @@ export default function Button({
   return (
     <View
       style={{
-        height: 50,
+        height: 55,
         width: "100%",
         borderRadius: 10,
         overflow: "hidden",

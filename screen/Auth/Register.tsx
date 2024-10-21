@@ -13,7 +13,7 @@ import AnimatedScreen from "../../components/global/AnimatedScreen";
 import InputText from "./components/InputText";
 import InputPassword from "./components/InputPassword";
 import Button from "../../components/global/Buttons/Button";
-import { useAppDispatch } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import useGetMode from "../../hooks/GetMode";
 import {
   useCallback,
@@ -25,7 +25,9 @@ import { openToast } from "../../redux/slice/toast/toast";
 import { useRegisterMutation } from "../../redux/api/auth";
 import { useForm, Controller } from "react-hook-form";
 import { RegisterScreen } from "../../types/navigation";
+import { Image } from "expo-image";
 import ReAnimated, { FadeIn, FadeOut, useAnimatedKeyboard, useAnimatedStyle } from "react-native-reanimated";
+import user from "../../redux/slice/user";
 
 const width = Dimensions.get("window").width;
 export default function Register({ navigation }: RegisterScreen) {
@@ -35,6 +37,7 @@ export default function Register({ navigation }: RegisterScreen) {
   const color = isDark ? "white" : "black";
   const buttonColor = !isDark ? "white" : "black";
   const borderColor = isDark ? "white" : "black";
+  const user = useAppSelector((state) => state?.user?.data);
   const dispatch = useAppDispatch();
   const [registerUser, regResponse] = useRegisterMutation();
 
@@ -184,27 +187,56 @@ export default function Register({ navigation }: RegisterScreen) {
               paddingBottom: 50,
             }}
           >
-            <View style={{ alignItems: "center", marginTop: 50 }}>
-              <Text style={{ color, fontFamily: "mulishBold", fontSize: 24 }}>
-                Sign up
+            <View>
+              <Image
+                source={require("../../assets/images/auth.png")}
+                contentFit="contain"
+                style={{ height: 200, width }}
+              />
+            </View>
+            <View style={{ alignItems: "center", marginTop: 0 }}>
+              <Text style={{ color, fontFamily: "mulish", fontSize: 24 }}>
+                Hi, Lest's Make a
               </Text>
-              <Text style={{ color, fontFamily: "mulish", fontSize: 14 }}>
-                register to gain acccess to a whole new world
+              <Text style={{ color, fontFamily: "mulish", fontSize: 24 }}>
+                Journey with Us
               </Text>
-              <View style={{ marginTop: 70 }}>
+              <View style={{ marginTop: 10 }}>
+              <Animated.View
+                  style={{
+                    transform: [{ translateX: animName.current }],
+                    marginBottom: 10,
+                  }}
+                >
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: "Name is required",
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <InputText
+                        style={{
+                          borderColor: errors.name ? "red" : "",
+                          borderWidth: errors.name ? 1 : 0,
+                        }}
+                        props={{
+                          value: value,
+                          onBlur,
+                          onChangeText: onChange,
+                          placeholder: "First name",
+                          autoCapitalize: "words",
+                        }}
+                      />
+                    )}
+                    name="name"
+                  />
+                </Animated.View>
                 <Animated.View
                   style={{
                     transform: [{ translateX: animEmail.current }],
                     marginBottom: 10,
                   }}
                 >
-                  <ReAnimated.View
-                    entering={FadeIn.springify()}
-                    style={{ marginVertical: 5 }}
-                    exiting={FadeOut.springify()}
-                  >
-                    <Text style={{ color: "grey" }}>Enter Email</Text>
-                  </ReAnimated.View>
                   <Controller
                     control={control}
                     rules={{
@@ -224,7 +256,7 @@ export default function Register({ navigation }: RegisterScreen) {
                           value: value,
                           onBlur,
                           onChangeText: onChange,
-                          placeholder: "Enter Email",
+                          placeholder: "Email",
                         }}
                       />
                     )}
@@ -233,66 +265,10 @@ export default function Register({ navigation }: RegisterScreen) {
                 </Animated.View>
                 <Animated.View
                   style={{
-                    transform: [{ translateX: animName.current }],
-                    marginBottom: 10,
-                  }}
-                >
-                  <ReAnimated.View
-                    entering={FadeIn.springify()}
-                    style={{ marginVertical: 5 }}
-                    exiting={FadeOut.springify()}
-                  >
-                    <Text style={{ color: "grey" }}>Enter Your name</Text>
-                  </ReAnimated.View>
-                  <Controller
-                    control={control}
-                    rules={{
-                      required: "Name is required",
-                    }}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <InputText
-                        style={{
-                          borderColor: errors.name ? "red" : "",
-                          borderWidth: errors.name ? 1 : 0,
-                        }}
-                        props={{
-                          value: value,
-                          onBlur,
-                          onChangeText: onChange,
-                          placeholder: "Enter Your Name",
-                          autoCapitalize: "words",
-                        }}
-                      />
-                    )}
-                    name="name"
-                  />
-                </Animated.View>
-
-                <Animated.View
-                  style={{
                     transform: [{ translateX: animUser.current }],
                     marginBottom: 10,
                   }}
                 >
-                  {errors.userName?.message ? (
-                    <ReAnimated.View
-                      entering={FadeIn.springify()}
-                      style={{ marginVertical: 5 }}
-                      exiting={FadeOut.springify()}
-                    >
-                      <Text style={{ color: "red" }}>
-                        {errors.userName?.message}
-                      </Text>
-                    </ReAnimated.View>
-                  ) : (
-                    <ReAnimated.View
-                      entering={FadeIn.springify()}
-                      style={{ marginVertical: 5 }}
-                      exiting={FadeOut.springify()}
-                    >
-                      <Text style={{ color: "grey" }}>Enter Username</Text>
-                    </ReAnimated.View>
-                  )}
                   <Controller
                     control={control}
                     rules={{
@@ -312,6 +288,7 @@ export default function Register({ navigation }: RegisterScreen) {
                           value: value,
                           onBlur,
                           onChangeText: onChange,
+                          placeholder: "Username",
                         }}
                       />
                     )}
@@ -325,14 +302,6 @@ export default function Register({ navigation }: RegisterScreen) {
                     marginBottom: 10,
                   }}
                 >
-                  <ReAnimated.View
-                    entering={FadeIn.springify()}
-                    style={{ marginVertical: 5 }}
-                    exiting={FadeOut.springify()}
-                  >
-                    <Text style={{ color: "grey" }}>Strong password</Text>
-                  </ReAnimated.View>
-
                   <Controller
                     control={control}
                     rules={{
@@ -352,6 +321,7 @@ export default function Register({ navigation }: RegisterScreen) {
                           value,
                           onChangeText: onChange,
                           onBlur,
+                          placeholder: "Password",
                         }}
                       />
                     )}
@@ -378,7 +348,7 @@ export default function Register({ navigation }: RegisterScreen) {
                       entering={FadeIn.springify()}
                       exiting={FadeOut.springify()}
                     >
-                      <Text style={{ color: "grey" }}>
+                      <Text style={{ color: "gray" }}>
                         {"Passwords should match"}
                       </Text>
                     </ReAnimated.View>
@@ -402,7 +372,7 @@ export default function Register({ navigation }: RegisterScreen) {
                           value,
                           onChangeText: onChange,
                           onBlur,
-                          placeholder: "Verify Password",
+                          placeholder: "Confirm Password",
                         }}
                       />
                     )}
@@ -417,6 +387,7 @@ export default function Register({ navigation }: RegisterScreen) {
                 justifyContent: "center",
                 alignItems: "center",
                 paddingTop: 40,
+                paddingHorizontal: 35,
               }}
             >
               <Button
@@ -452,12 +423,7 @@ export default function Register({ navigation }: RegisterScreen) {
                     height: "100%",
                     flexDirection: "row",
                     gap: 4,
-
-                    borderStyle: "dashed",
                     justifyContent: "center",
-                    borderWidth: 1,
-                    borderColor,
-                    borderRadius: 10,
                     alignItems: "center",
                   }}
                   onPress={() => navigation.replace("Login")}

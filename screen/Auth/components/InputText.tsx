@@ -20,7 +20,7 @@ export default function InputText({
   const isDark = dark;
   const backgroundColor = isDark ? "#292828" : "#f1f1f1";
   const color = isDark ? "white" : "black";
-  const placeholderColor = isDark ? "#959595" : "#393939";
+  const placeholderColor = isDark ? "#959595" : "#A9A9A9";
   return (
     <View
       style={[
@@ -42,11 +42,11 @@ export default function InputText({
             fontSize: 16,
             color,
             fontFamily: "jakara",
-            includeFontPadding: false,
+            includeFontPadding: true,
             borderStyle: "solid",
-            borderBottomWidth: 2,
-            borderBottomColor: backgroundColor,
-            paddingHorizontal: 20,
+            borderBottomWidth: 1,
+            borderBottomColor: color,
+            paddingHorizontal: 10,
           },
         ]}
         autoCapitalize={props.autoCapitalize ?? "none"}
