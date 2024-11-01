@@ -46,7 +46,7 @@ export default function UserContainer({
 
   useEffect(() => {
     socket?.on("hello", (hello) => {
-      console.log("😒", hello);
+      console.log(">>>> ", hello);
     });
   }, [socket]);
 

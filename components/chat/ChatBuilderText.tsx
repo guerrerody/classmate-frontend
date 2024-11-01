@@ -43,7 +43,7 @@ function ChatBuilderText({
   photo?: { imageWidth: number; imageHeight: number };
   isLast: boolean;
 }) {
-  console.log("🚀 ~ file: ChatBuilderText.tsx:45 ~ isClicked:", isClicked);
+  console.log(">>>> file: ChatBuilderText.tsx:45 ~ isClicked:", isClicked);
   const dark = useGetMode();
   const backgroundColorForMe = dark ? "#35383A" : "#0c81f8";
   const backgroundColor = dark ? "#181B1D" : "#e8e8eb";

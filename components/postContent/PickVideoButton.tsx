@@ -37,7 +37,7 @@ export default function PickVideoButton({
           launchImageLibrary({ mediaType: "video" }, async (video) => {
             setIsCompressing(false);
             console.log(
-              "🚀 ~ file: PickVideoButton.tsx:37 ~ launchImageLibrary ~ video:",
+              ">>>> file: PickVideoButton.tsx:37 ~ launchImageLibrary ~ video:",
               video
             );
 
@@ -57,7 +57,7 @@ export default function PickVideoButton({
                 }
               );
               console.log(
-                "🚀 ~ file: PickVideoButton.tsx:46 ~ launchImageLibrary ~ result:",
+                ">>>> file: PickVideoButton.tsx:46 ~ launchImageLibrary ~ result:",
                 result
               );
 

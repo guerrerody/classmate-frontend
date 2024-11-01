@@ -34,7 +34,7 @@ export default function MyPosts({ onScroll }: { onScroll: ScrollHandlerProcessed
   const [getLazyPost, postRes] = useLazyGetMyPostsQuery();
   const [isLoading, setIsLoading] = useState(false);
   console.log(
-    "🚀 ~ file: MyPosts.tsx:30 ~ MyPosts ~ postRes:",
+    ">>>> file: MyPosts.tsx:30 ~ MyPosts ~ postRes:",
     postRes.isLoading
   );
 
@@ -72,12 +72,11 @@ export default function MyPosts({ onScroll }: { onScroll: ScrollHandlerProcessed
 
   const fetchMoreData = () => {
     setIsLoading(true);
-    console.log("🔥🔥🔥🔥re fetched");
     if (!noMore && !postRes.error && skip > 0)
       getLazyPost({ take: 10, skip })
         .unwrap()
         .then((e) => {
-          console.log("🚀 ~ file: MyPosts.tsx:73 ~ .then ~ e:", e.posts.length);
+          console.log(">>>> file: MyPosts.tsx:73 ~ .then ~ e:", e.posts.length);
           setIsLoading(false);
           setPosts((prev) => [...prev, ...e.posts]);
           setSkip(skip + e.posts.length);

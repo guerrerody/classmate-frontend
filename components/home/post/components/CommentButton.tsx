@@ -1,39 +1,26 @@
 import {
   View,
-  Text,
-  useColorScheme,
   Pressable,
   StyleSheet,
 } from "react-native";
-import React, { ElementType, Ref, useEffect, useState } from "react";
+import React from "react";
 import Animated, {
-  Extrapolate,
-  FadeIn,
-  FadeInDown,
-  FadeOut,
+  Extrapolation,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
 import useGetMode from "../../../../hooks/GetMode";
-import LikeLottie from "../misc/Robot";
-import Lottie from "lottie-react-native";
 import {
-  HeartUnfocused,
-  HeartsFocused,
   MessageUnfocused,
   MessagesIcon,
 } from "../../../icons";
-import MaterialIcons from "@expo/vector-icons/MaterialCommunityIcons";
+
 export default function CommentButton({
-
   clicked,
-
-
   setClicked,
 }: {
-
   setClicked: (isClicked: boolean) => void;
   clicked: boolean;
 }) {
@@ -47,7 +34,7 @@ export default function CommentButton({
     return {
       transform: [
         {
-          scale: interpolate(liked.value, [0, 1], [1, 0], Extrapolate.CLAMP),
+          scale: interpolate(liked.value, [0, 1], [1, 0], Extrapolation.CLAMP),
         },
       ],
     };

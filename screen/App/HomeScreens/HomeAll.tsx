@@ -2,55 +2,27 @@ import {
   View,
   Dimensions,
   RefreshControl,
-  Text,
-  Pressable,
-  FlatList,
   ViewToken,
 } from "react-native";
 import React, {
   useCallback,
   useEffect,
-  useLayoutEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
 import Fab from "../../../components/home/post/components/Fab";
-import { AddIcon, ReloadIcon } from "../../../components/icons";
+import { AddIcon } from "../../../components/icons";
 import PostBuilder from "../../../components/home/post/PostBuilder";
-import { useNetInfo } from "@react-native-community/netinfo";
 import { FlashList } from "@shopify/flash-list";
-import AnimatedScreen from "../../../components/global/AnimatedScreen";
 import useGetMode from "../../../hooks/GetMode";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
-import { useGetUserQuery, useTokenValidQuery } from "../../../redux/api/user";
-import { signOut } from "../../../redux/slice/user";
 import { ActivityIndicator } from "react-native-paper";
 import { IPost } from "../../../types/api";
-import {
-  useGetAllPostsQuery,
-  useGetRandomPeopleQuery,
-  useGetRandomPostsQuery,
-  useLazyGetAllPostsQuery,
-} from "../../../redux/api/services";
+import { useLazyGetAllPostsQuery } from "../../../redux/api/services";
 import { openToast } from "../../../redux/slice/toast/toast";
-import Animated, {
-  FadeIn,
-  FadeInDown,
-  FadeInUp,
-  FadeOut,
-  FadeOutDown,
-  SequencedTransition,
-  ZoomIn,
-} from "react-native-reanimated";
-import EmptyLottie from "../../../components/home/post/components/EmptyLottie";
+import Animated from "react-native-reanimated";
 import SkeletonGroupPost from "../../../components/home/misc/SkeletonGroupPost";
 import EmptyList from "../../../components/home/misc/EmptyList";
-import { resetPost } from "../../../redux/slice/post";
-import { resetPost as resetFollowedPosts } from "../../../redux/slice/post/followed";
-import { DrawerHomeProp, HomeProp } from "../../../types/navigation";
-import storage from "../../../redux/storage";
-import Robot from "../../../components/home/post/misc/Robot";
 import { setPlayingIds } from "../../../redux/slice/post/audio";
 
 export default function HomeAll() {
@@ -107,7 +79,6 @@ export default function HomeAll() {
             alignItems: "center",
           }}
         >
-          <Robot />
         </View>
       );
     } else if (posts.loading) {
@@ -250,15 +221,9 @@ export default function HomeAll() {
       indexes.push(view.index);
     });
     setIndexInView(indexes);
-    dispatch(setPlayingIds(indexes));
+    dispatch(setPlayingIds(indexes.filter((index): index is number => index !== null)));
     console.log("view", indexes);
     console.log("Changed in this interaction:", changed);
-  });
-
-  const getItemLayout = (data, index) => ({
-    length: data[index].height,
-    offset: data.slice(0, index).reduce((acc, item) => acc + item.height, 0),
-    index,
   });
 
   return (

@@ -1,16 +1,12 @@
 import { Image } from "expo-image";
 import {
   View,
-  Text,
   Animated,
-  Image as NativeImage,
   ImageBackground,
   Pressable,
 } from "react-native";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Button from "../global/Buttons/Button";
-import ButtonOutlined from "./FollowerUser";
 import { ProfileIcon } from "../icons";
 import useGetMode from "../../hooks/GetMode";
 import { useNavigation } from "@react-navigation/native";
@@ -43,6 +39,7 @@ export default function Header({
     outputRange: [HEADER_HEIGHT + insets.top, insets.top + 58],
     extrapolate: "clamp",
   });
+
   const imageSize = animatedValue.interpolate({
     inputRange: [0, 80 + insets.top],
     outputRange: [80, 0],
@@ -54,6 +51,7 @@ export default function Header({
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
+  
   const opacityText = animatedValue.interpolate({
     inputRange: [0, 1 + insets.top + 58],
     outputRange: [0, 1],
@@ -68,7 +66,6 @@ export default function Header({
     setIsOpen(!isOpen);
   };
 
-  console.log("rocket",user.data?.imageUri)
   return (
     <>
     <ViewProfilePhoto isOpen={isOpen} closeModal={handleSetOpen} imageUri={imageUri} />

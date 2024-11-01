@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { UserState } from "../slice/user";
 import {
   FollowData,
   FollowingData,
@@ -7,7 +6,6 @@ import {
   IUSerData,
   Notifications,
 } from "../../types/api";
-import storage from "../storage";
 import { RootState } from "../store";
 
 interface loginResult {

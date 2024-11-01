@@ -1,5 +1,4 @@
-import { PayloadAction, createReducer, createSlice } from "@reduxjs/toolkit";
-import { useState } from "react";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const onLineUserIDs = createSlice({
   name: "onlineUserIds",
@@ -8,7 +7,7 @@ const onLineUserIDs = createSlice({
   } as { ids: Array<string> },
   reducers: {
     updateOnlineIds: (state, action: PayloadAction<{ ids: Array<string> }>) => {
-      console.log("🚀 ~ file: online.ts:11 ~ state:", state)
+      console.log(">>>> file: online.ts:11 ~ state:", state)
       state.ids = action.payload.ids;
     },
   },

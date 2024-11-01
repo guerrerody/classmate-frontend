@@ -31,7 +31,8 @@ import { Image } from "expo-image";
 import  ReAnimated,{ useAnimatedKeyboard, useAnimatedStyle } from "react-native-reanimated";
 
 const width = Dimensions.get("window").width;
-export default function Login({ navigation }: LoginScreen) {
+
+export default function Login({ navigation }: Readonly<LoginScreen>) {
   const dark = useGetMode();
   const isDark = dark;
   const [login, loginResponse] = useLoginMutation();
@@ -75,14 +76,15 @@ export default function Login({ navigation }: LoginScreen) {
         console.log(e);
         Vibration.vibrate(5);
         if (e?.data?.msg) {
-          console.log("🚀 ~ file: Login.tsx:84 ~ onSubmit ~ e:", e.status);
+          console.log(">>>> file: Login.tsx:84 ~ onSubmit ~ e:", e.status);
           dispatch(openToast({ text: `${e?.data?.msg}`, type: "Failed" }));
         } else {
-          console.log("🚀 ~ file: Login.tsx:84 ~ onSubmit ~ e:", e.data);
+          console.log(">>>> file: Login.tsx:84 ~ onSubmit ~ e:", e.data);
           dispatch(openToast({ text: e?.data, type: "Failed" }));
         }
       });
   };
+  
   useEffect(() => {
     if (errors.userName) {
       shakeUserName();
@@ -123,7 +125,6 @@ export default function Login({ navigation }: LoginScreen) {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
       () => {
-        console.log("shsh");
         scrollViewRef.current?.scrollTo({ x: 300, y: 0 });
         setKeyboardVisible(true); // or some other action
       }
@@ -145,6 +146,7 @@ export default function Login({ navigation }: LoginScreen) {
     transform: [{ translateY: -keyboard.height.value }],
     paddingTop:keyboard.height.value
   }));
+
   return (
     <AnimatedScreen>
       <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
@@ -159,27 +161,21 @@ export default function Login({ navigation }: LoginScreen) {
             }}
           >
             <View style={{ alignItems: "center" }}>
-              <View>
-                <Image
-                    source={require("../../assets/images/auth.png")}
-                    contentFit="contain"
-                    style={{ height: 200, width }}
-                />
-                {/*!user ? (
+              <Image
+                source={require("../../assets/images/auth.png")}
+                contentFit="contain"
+                style={{ height: 200, width: 200 }}
+              />
+              {user && (
+                <View style={{ width: 100, height: 100 }}>
                   <Image
-                    source={require("../../assets/images/auth.png")}
-                    contentFit="contain"
-                    style={{ height: 200, width }}
+                    placeholder={dark ? require("../../assets/images/profile_white.svg"):require("../../assets/images/profile_black.svg")}
+                    contentFit="cover"
+                    style={{ flex: 1, borderRadius: 9999 }}
+                    source={{ uri: user?.imageUri }}
                   />
-                ) : (
-                  <View style={{ paddingBottom: 10, marginTop: 40 }}>
-                    <Image
-                      style={{ height: 100, width: 100, borderRadius: 999 }}
-                      source={{ uri: user?.imageUri }}
-                    />
-                  </View>
-                )*/}
-              </View>
+                </View>
+              )}
               <Text style={{ color, fontFamily: "mulishBold", fontSize: 24 }}>
                 Welcome Back{user?.name && `, ${user?.name?.split(" ")[0]}`}
               </Text>

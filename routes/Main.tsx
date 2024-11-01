@@ -1,4 +1,4 @@
-import { Platform, View, StyleSheet } from "react-native";
+import { Platform, View, StyleSheet, AppState } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "../types/navigation";
@@ -41,7 +41,6 @@ import {
 } from "../redux/slice/chat/chatlist";
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
-import { AppState } from "react-native";
 
 import { updateOnlineIds } from "../redux/slice/chat/online";
 import { openToast } from "../redux/slice/toast/toast";
@@ -143,7 +142,7 @@ export default function Main() {
 
     registerForPushNotificationsAsync()
       .then((e) => {
-        console.log("🚀 ~ file: Main.tsx:187 ~ .then ~ e:", e);
+        console.log(">>>> file: Main.tsx:187 ~ .then ~ e:", e);
         updateNotificationId({ notificationId: e?.data as string });
       })
       .catch((e) => {
@@ -189,7 +188,7 @@ export default function Main() {
     if (socket) {
       socket?.on("newChat", (chatMessages) => {
         console.log(
-          "🚀 ~ file: Main.tsx:203 ~ socket?.on ~ chatMessages:",
+          ">>>> file: Main.tsx:203 ~ socket?.on ~ chatMessages:",
           chatMessages
         );
         if (chatMessages) {
@@ -219,7 +218,7 @@ export default function Main() {
     socket?.on("message", (data: IMessageSocket) => {
       if (data) {
         console.log(
-          "🚀 ~ file: Main.tsx:267 ~ socket?.on ~ data:",
+          ">>>> file: Main.tsx:267 ~ socket?.on ~ data:",
           new Date(),
           data
         );
@@ -246,7 +245,7 @@ export default function Main() {
 
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   console.log(
-    "🚀 ~ file: Main.tsx:159 ~ Main ~ appStateVisible:",
+    ">>>> file: Main.tsx:159 ~ Main ~ appStateVisible:",
     appStateVisible
   );
 

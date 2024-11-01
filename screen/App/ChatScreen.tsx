@@ -160,7 +160,7 @@ export default function ChatScreen({ navigation, route }: ChatScreenProp) {
       }
     });
     socket?.on("sent", (sent) => {
-      console.log("🚀 ~ file: ChatScreen.tsx:155 ~ socket?.on ~ sent:", sent);
+      console.log(">>>> file: ChatScreen.tsx:155 ~ socket?.on ~ sent:", sent);
       setSentSuccess(sent);
     });
   }, [socket]);

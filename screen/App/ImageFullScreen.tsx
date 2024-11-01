@@ -1,21 +1,15 @@
-import { Pressable, View, StyleSheet } from "react-native";
+import { Pressable, View } from "react-native";
 import { ImageFullScreenProp } from "../../types/navigation";
 
 import Animated, {
-  Easing,
   FadeIn,
   FadeOut,
-  SharedTransition,
   useAnimatedStyle,
   useSharedValue,
-  withTiming,
 } from "react-native-reanimated";
 
 import { StatusBar } from "expo-status-bar";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useEffect, useLayoutEffect } from "react";
-import axios from "axios";
-
+import { useLayoutEffect } from "react";
 
 import { useAppDispatch } from "../../redux/hooks/hooks";
 import { openToast } from "../../redux/slice/toast/toast";
@@ -25,10 +19,11 @@ import uuid from "react-native-uuid";
 import ReactNativeBlobUtil from "react-native-blob-util";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Feather from '@expo/vector-icons/Feather';
+
 export default function ImageFullScreen({
   route,
   navigation,
-}: ImageFullScreenProp) {
+}: Readonly<ImageFullScreenProp>) {
   const { photoUri, id, width, height } = route.params;
 
   const dispatch = useAppDispatch();
@@ -115,38 +110,33 @@ export default function ImageFullScreen({
       ],
     };
   });
+
   const pinchGesture = Gesture.Pinch()
     .onBegin(() => {
+      'worklet';
       scaleContext.value = scale.value - 1;
     })
-
     .onUpdate((event) => {
-      console.log(
-        "🚀 ~ file: index.tsx:47 ~ App ~ event:",
-        event,
-        scaleContext.value
-      );
+      'worklet';
       if (scaleContext.value + event.scale < 0.5) return;
       if (scaleContext.value + event.scale > 4) return;
       scale.value = scaleContext.value + event.scale;
     })
-    .onEnd((e) => {});
+    .onEnd((e) => {
+      'worklet';
+    });
 
   const panGesture = Gesture.Pan()
     .onBegin((event) => {
+      'worklet';
       translateContext.value = { x: translateX.value, y: translateY.value };
     })
     .onUpdate((event) => {
-      console.log(
-        "x y",
-        translateContext.value.x + event.translationX,
-        translateContext.value.y + event.translationY
-      );
-
+      'worklet';
       translateX.value = translateContext.value.x + event.translationX / 4;
       translateY.value = translateContext.value.y + event.translationY / 4;
-      console.log("🚀 ~ file: index.tsx:pan ~ App ~ event:", event);
     });
+
   const composed = Gesture.Simultaneous(pinchGesture, panGesture);
   return (
     <>

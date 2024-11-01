@@ -27,7 +27,7 @@ export default function AudioPost({
   idx: number;
 }) {
   const visibleIds = useAppSelector((state) => state.audio?.playingId);
-  console.log("🚀 ~ file: AudioPost.tsx:29 ~ visibleIds:", visibleIds);
+  console.log(">>>> file: AudioPost.tsx:29 ~ visibleIds:", visibleIds);
 
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const animationRef = useRef<Lottie>(null);

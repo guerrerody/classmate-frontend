@@ -17,9 +17,9 @@ import {
 export default function Profile() {
   const getFollowData = useGetFollowDetailsQuery(null);
   const offset = useSharedValue(0);
-  console.log("🚀 ~ file: Profile.tsx:16 ~ Profile ~ offset:", offset);
+  console.log(">>>> file: Profile.tsx:16 ~ Profile ~ offset:", offset);
   const scrollHandler = useAnimatedScrollHandler((event) => {
-    console.log("🚀 ~ file: Profile.tsx:22 ~ scrollHandler ~ event:", event)
+    console.log(">>>> file: Profile.tsx:22 ~ scrollHandler ~ event:", event)
 
     offset.value = event.contentOffset.y;
   });

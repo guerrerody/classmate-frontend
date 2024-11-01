@@ -1,7 +1,6 @@
 import {
   View,
   Dimensions,
-  Pressable,
   ScrollView,
   Text,
 } from "react-native";
@@ -9,8 +8,7 @@ import React, { useEffect, useState } from "react";
 import OnboardBuilder from "./components/OnboardBuilder";
 import TrackerTag from "./components/TrackerTag";
 import Button from "../../components/global/Buttons/Button";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import Animated, {
+import {
   cancelAnimation,
   interpolate,
   useAnimatedStyle,

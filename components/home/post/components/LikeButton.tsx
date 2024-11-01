@@ -1,31 +1,24 @@
 import {
   View,
   Text,
-  useColorScheme,
   Pressable,
   StyleSheet,
 } from "react-native";
-import React, { ElementType, Ref, useEffect, useState } from "react";
+import React from "react";
 import Animated, {
-  Extrapolate,
-  FadeIn,
-  FadeInDown,
-  FadeOut,
+  Extrapolation,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
 import useGetMode from "../../../../hooks/GetMode";
-import LikeLottie from "../misc/Robot";
-import Lottie from "lottie-react-native";
 import { HeartUnfocused, HeartsFocused } from "../../../icons";
-import MaterialIcons from "@expo/vector-icons/MaterialCommunityIcons";
+
 export default function LikeButton({
   isLiked,
   clicked,
   text,
-
   setClicked,
 }: {
   text?: string;
@@ -43,7 +36,7 @@ export default function LikeButton({
     return {
       transform: [
         {
-          scale: interpolate(liked.value, [0, 1], [1, 0], Extrapolate.CLAMP),
+          scale: interpolate(liked.value, [0, 1], [1, 0], Extrapolation.CLAMP),
         },
       ],
     };
@@ -58,6 +51,7 @@ export default function LikeButton({
       ],
     };
   });
+  
   return (
     <View
       style={{

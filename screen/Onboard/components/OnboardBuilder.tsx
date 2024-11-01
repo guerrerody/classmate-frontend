@@ -7,7 +7,7 @@ import useGetMode from "../../../hooks/GetMode";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
-console.log("🚀 ~ file: OnboardBuilder.tsx:10 ~ width:", width)
+console.log(">>>> file: OnboardBuilder.tsx:10 ~ width:", width)
 export default function OnboardBuilder({
   header,
   subText,

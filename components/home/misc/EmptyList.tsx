@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
 import React from "react";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import EmptyLottie from "../post/components/EmptyLottie";
@@ -12,6 +12,7 @@ export default function EmptyList({handleRefetch}:{handleRefetch:()=>void}) {
   const [getPosts] = useLazyGetAllPostsQuery();
   const color = isDark ? "white" : "black";
   const backgroundColor = !isDark ? "#FFFFFFD2" : "#0000008F";
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Animated.View
@@ -31,7 +32,6 @@ export default function EmptyList({handleRefetch}:{handleRefetch:()=>void}) {
             alignItems: "center",
             height: 40,
             bottom: 11,
-
             width: 40,
             borderRadius: 9999,
             overflow: "hidden",
@@ -43,7 +43,6 @@ export default function EmptyList({handleRefetch}:{handleRefetch:()=>void}) {
             android_ripple={{ color }}
             style={{
               backgroundColor,
-
               alignItems: "center",
               height: 40,
               width: 40,

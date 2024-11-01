@@ -15,7 +15,7 @@ export default function Notifications() {
   const color = dark ? "white" : "black";
   const notifications = useGetNotificationsQuery(null);
   console.log(
-    "🚀 ~ file: Notifications.tsx:16 ~ Notifications ~ notifications:",
+    ">>>> file: Notifications.tsx:16 ~ Notifications ~ notifications:",
     notifications.data
   );
 

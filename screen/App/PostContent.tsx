@@ -211,7 +211,7 @@ export default function PostContent({ navigation }: PostContentProp) {
     }
     if (postAudio) {
       console.log(
-        "🚀 ~ file: PostContent.tsx:197 ~ useEffect ~ postAudio:",
+        ">>>> file: PostContent.tsx:197 ~ useEffect ~ postAudio:",
         postAudio
       );
       setDone(false);
@@ -222,7 +222,7 @@ export default function PostContent({ navigation }: PostContentProp) {
           setFTServer(r.audio);
         })
         .catch((e) => {
-          console.log("🚀 ~ file: PostContent.tsx:206 ~ useEffect ~ e:", e);
+          console.log(">>>> file: PostContent.tsx:206 ~ useEffect ~ e:", e);
           setDone(true);
 
           dispatch(openToast({ text: "Audio didn't upload", type: "Failed" }));
@@ -233,14 +233,14 @@ export default function PostContent({ navigation }: PostContentProp) {
       video(postPhoto)
         .unwrap()
         .then((r) => {
-          console.log("🚀 ~ file: PostContent.tsx:229 ~ .then ~ r:", r)
+          console.log(">>>> file: PostContent.tsx:229 ~ .then ~ r:", r)
 
           setDone(true);
           setFTServer(r.video);
           setVideoThumbnail(r.thumbNail);
         })
         .catch((e) => {
-          console.log("🚀 ~ file: PostContent.tsx:236 ~ useEffect ~ e:", e)
+          console.log(">>>> file: PostContent.tsx:236 ~ useEffect ~ e:", e)
 
           setDone(true);
 
@@ -267,9 +267,6 @@ export default function PostContent({ navigation }: PostContentProp) {
           postText,
         })
           .then((e) => {
-            dispatch(
-              openToast({ text: "Successfully posted", type: "Success" })
-            );
             navigation.pop();
             dispatch(closeLoadingModal());
           })
@@ -292,9 +289,6 @@ export default function PostContent({ navigation }: PostContentProp) {
         dispatch(openLoadingModal());
         postContent({ audioUri: fileToServer, postText, audioTitle: "Audio" })
           .then((e) => {
-            dispatch(
-              openToast({ text: "Successfully posted", type: "Success" })
-            );
             navigation.pop();
             dispatch(closeLoadingModal());
           })
@@ -322,9 +316,6 @@ export default function PostContent({ navigation }: PostContentProp) {
           postText,
         })
           .then((e) => {
-            dispatch(
-              openToast({ text: "Successfully posted", type: "Success" })
-            );
             navigation.pop();
             dispatch(closeLoadingModal());
           })
@@ -345,7 +336,6 @@ export default function PostContent({ navigation }: PostContentProp) {
       dispatch(openLoadingModal());
       postContent({ postText })
         .then((e) => {
-          dispatch(openToast({ text: "Successfully posted", type: "Success" }));
           navigation.pop();
           dispatch(closeLoadingModal());
         })
@@ -356,16 +346,8 @@ export default function PostContent({ navigation }: PostContentProp) {
     }
   };
   const [progress, setProgress] = useState(0);
-  console.log(
-    "🚀 ~ file: PostContent.tsx:348 ~ PostContent ~ progress:",
-    progress
-  );
 
   const [compressing, setCompressing] = useState(false);
-  console.log(
-    "🚀 ~ file: PostContent.tsx:338 ~ PostContent ~ compressing:",
-    compressing
-  );
 
   useEffect(() => {
     if (progress > 0.9) {

@@ -67,7 +67,7 @@ export const servicesApi = createApi({
       { mimeType: string; uri: string; name: string }
     >({
       query: (payload) => {
-        console.log("🚀 ~ file: services.ts:70 ~ payload:", payload)
+        console.log(">>>> file: services.ts:70 ~ payload:", payload)
         const blob: any = {
           name: payload.name,
           type: payload.mimeType,

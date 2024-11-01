@@ -10,11 +10,11 @@ export default function Button({
   children,
   onPress,
   loading,
-}: {
+}: Readonly<{
   children: ReactNode;
   onPress: () => void;
   loading: boolean;
-}) {
+}>) {
   const dark = useGetMode();
   const isDark = dark;
   const backgroundColor = isDark ? "#D1C4E9" : "#512DA8";

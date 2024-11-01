@@ -171,37 +171,31 @@ export default function VideoPostFullScreen({
   });
   const pinchGesture = Gesture.Pinch()
     .onBegin(() => {
+      'worklet';
       scaleContext.value = scale.value - 1;
     })
-
     .onUpdate((event) => {
-      console.log(
-        "🚀 ~ file: index.tsx:47 ~ App ~ event:",
-        event,
-        scaleContext.value
-      );
+      'worklet';
       if (scaleContext.value + event.scale < 0.5) return;
       if (scaleContext.value + event.scale > 4) return;
       scale.value = scaleContext.value + event.scale;
     })
-    .onEnd((e) => {});
+    .onEnd((e) => {
+      'worklet';
+    });
 
 
   const panGesture = Gesture.Pan()
-  .onBegin((event) => {
-    translateContext.value = { x: translateX.value, y: translateY.value };
-  })
-  .onUpdate((event) => {
-    console.log(
-      "x y",
-      translateContext.value.x + event.translationX,
-      translateContext.value.y + event.translationY
-    );
+    .onBegin((event) => {
+      'worklet';
+      translateContext.value = { x: translateX.value, y: translateY.value };
+    })
+    .onUpdate((event) => {
+      'worklet';
+      translateX.value = translateContext.value.x + event.translationX / 4;
+      translateY.value = translateContext.value.y + event.translationY / 4;
+    });
 
-    translateX.value = translateContext.value.x + event.translationX / 4;
-    translateY.value = translateContext.value.y + event.translationY / 4;
-    console.log("🚀 ~ file: index.tsx:pan ~ App ~ event:", event);
-  });
 const composed = Gesture.Simultaneous(pinchGesture, panGesture);
   return (
     <View
