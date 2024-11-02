@@ -67,7 +67,7 @@ export default function Login({ navigation }: Readonly<LoginScreen>) {
   const onSubmit = (data: { userName: string; password: string }) => {
     // userApi.util.resetApiState();
     // servicesApi.util.resetApiState();
-    login({ userName: data.userName.trim(), password: data.password })
+    login({ userName: data.userName.trim().toLowerCase(), password: data.password })
       .unwrap()
       .then((e) => {
         Vibration.vibrate(5);
@@ -172,13 +172,21 @@ export default function Login({ navigation }: Readonly<LoginScreen>) {
                     placeholder={dark ? require("../../assets/images/profile_white.svg"):require("../../assets/images/profile_black.svg")}
                     contentFit="cover"
                     style={{ flex: 1, borderRadius: 9999 }}
-                    source={{ uri: user?.imageUri }}
+                    source={require("../../assets/content_temp/profile_image.png")}
+                    //source={{ uri: user?.imageUri }}
                   />
                 </View>
               )}
-              <Text style={{ color, fontFamily: "mulishBold", fontSize: 24 }}>
-                Welcome Back{user?.name && `, ${user?.name?.split(" ")[0]}`}
-              </Text>
+              {user ? (
+                <Text style={{ color, fontFamily: "mulishBold", fontSize: 24 }}>
+                  {/* Welcome Back{user?.name && `, ${user?.name?.split(" ")[0]}`} */}
+                  Welcome Back{user && ", Dorieliz"}
+                </Text>
+              ) : (
+                <Text style={{ color, fontFamily: "mulishBold", fontSize: 24 }}>
+                  Welcome
+              </Text> 
+              )}
               <Text style={{ color, fontFamily: "mulish", fontSize: 14 }}>
                 sign in to access your account
               </Text>
@@ -195,7 +203,7 @@ export default function Login({ navigation }: Readonly<LoginScreen>) {
                   <Text style={{ color }}>Not you ?</Text>
                 </Pressable>
               )}
-              <View style={{ gap: 30, marginTop: 70 }}>
+              <View style={{ gap: 30, marginTop: 50 }}>
                 <Animated.View
                   style={{ transform: [{ translateX: animUser.current }] }}
                 >
@@ -249,6 +257,17 @@ export default function Login({ navigation }: Readonly<LoginScreen>) {
                   />
                 </Animated.View>
               </View>
+              <Pressable
+                style={{
+                  width: "100%",
+                  marginTop: 10,
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                }}
+                onPress={() => navigation.replace("Register")}
+              >
+                <Text style={{ color }}>Forgot password?</Text>
+              </Pressable>
             </View>
           </ScrollView>
           <View
@@ -256,7 +275,7 @@ export default function Login({ navigation }: Readonly<LoginScreen>) {
               width: "100%",
               justifyContent: "center",
               alignItems: "center",
-              paddingBottom: 40,
+              paddingBottom: 70,
               paddingHorizontal: 25,
             }}
           >

@@ -11,6 +11,7 @@ import { useAppSelector } from "../../redux/hooks/hooks";
 
 const Drawer = createDrawerNavigator<DrawerRootStackParamList>();
 const { width } = Dimensions.get("window");
+
 export default function DrawerNavigator() {
   const dark = useGetMode();
   const isDark = dark;
@@ -21,6 +22,7 @@ export default function DrawerNavigator() {
   const backgroundColor = isDark ? "black" : "white";
   const isHighEndDevice = useAppSelector((state) => state.prefs?.isHighEnd);
   const [getCurrentFollowData] = useLazyGetFollowDetailsQuery();
+
   return (
     <Drawer.Navigator
       drawerContent={CustomDrawerContent}
@@ -68,10 +70,10 @@ export default function DrawerNavigator() {
             },
             headerTransparent: true,
             headerTitleAlign: "center",
-            headerLeft: () => (
+            headerRight: () => (
               <ProfileButton
                 color={color}
-                style={{ paddingLeft: 20 }}
+                style={{ paddingRight: 20 }}
                 size={40}
                 onPress={() => {
                   navigation.toggleDrawer();
@@ -79,12 +81,12 @@ export default function DrawerNavigator() {
               />
             ),
             headerStyle: {
-              height:Platform.OS=="ios"? 100: undefined,
+              height: Platform.OS == "ios" ? 100: undefined,
               backgroundColor: !isHighEndDevice
                 ? backgroundColor
                 : "transparent",
             },
-            title: "Classmate ",
+            title: "Classmate",
           };
         }}
       />

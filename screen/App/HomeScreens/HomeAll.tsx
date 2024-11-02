@@ -32,8 +32,7 @@ export default function HomeAll() {
   const posts = useAppSelector((state) => state.post);
 
   const isDark = dark;
-  const color = isDark ? "white" : "black";
-  const backgroundColor = !isDark ? "white" : "black";
+  const color = !isDark ? "white" : "black";
   const height = Dimensions.get("window").height;
   const width = Dimensions.get("window").width;
 
@@ -241,7 +240,6 @@ export default function HomeAll() {
             ListFooterComponent={renderFooter}
             refreshControl={
               <RefreshControl
-                
                 refreshing={refreshing}
                 onRefresh={onRefresh}
                 colors={["red", "blue"]}

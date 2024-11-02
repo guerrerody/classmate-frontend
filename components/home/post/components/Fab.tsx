@@ -10,7 +10,7 @@ export default function Fab({ item }: { item: JSX.Element }) {
   const isDark = dark;
   const navigation = useNavigation<HomeNavigationProp>();
   const tint = isDark ? "dark" : "light";
-  const backgroundColor = !isDark ? "#DEDEDE" : "#303030";
+  const backgroundColor = !isDark ? "#512DA8" : "#D1C4E9";
   const isHighEndDevice = useAppSelector((state) => state?.prefs?.isHighEnd);
 
   return (
@@ -19,10 +19,9 @@ export default function Fab({ item }: { item: JSX.Element }) {
         position: "absolute",
         bottom: 100,
         borderRadius: 999,
-        right: 10,
-        borderColor: dark?"#FFFFFF1E":"#00000012",
+        right: 15,
+        borderColor: dark ? "#FFFFFF1E" : "#00000012",
         borderWidth: 0.5,
-      
         alignItems: "center",
         backgroundColor: !isHighEndDevice ? backgroundColor : undefined,
         justifyContent: "center",
@@ -53,7 +52,6 @@ export default function Fab({ item }: { item: JSX.Element }) {
               style={{
                 width: "100%",
                 height: "100%",
-
                 position: "absolute",
                 alignItems: "center",
                 justifyContent: "center",

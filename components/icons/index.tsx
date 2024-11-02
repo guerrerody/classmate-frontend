@@ -1,18 +1,19 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
-// export const AddIcon = ({ size, color }: { size: number; color: string }) => (
-//   <Svg width={size} height={size} fill="none" viewBox="0 0 24 24">
-//     <Path
-//       fill={color}
-//       d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81v8.37C2 19.83 4.17 22 7.81 22h8.37c3.64 0 5.81-2.17 5.81-5.81V7.81C22 4.17 19.83 2 16.19 2Z"
-//       opacity={0.4}
-//     />
-//     <Path
-//       fill={color}
-//       d="M16 11.25h-3.25V8c0-.41-.34-.75-.75-.75s-.75.34-.75.75v3.25H8c-.41 0-.75.34-.75.75s.34.75.75.75h3.25V16c0 .41.34.75.75.75s.75-.34.75-.75v-3.25H16c.41 0 .75-.34.75-.75s-.34-.75-.75-.75Z"
-//     />
-//   </Svg>
-// );
+
+export const AddIcon = ({ size, color }: { size: number; color: string }) => (
+   <Svg width={size} height={size} fill="none" viewBox="0 0 24 24">
+     <Path
+       fill={color}
+       d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81v8.37C2 19.83 4.17 22 7.81 22h8.37c3.64 0 5.81-2.17 5.81-5.81V7.81C22 4.17 19.83 2 16.19 2Z"
+       opacity={0.4}
+     />
+     <Path
+       fill={color}
+       d="M16 11.25h-3.25V8c0-.41-.34-.75-.75-.75s-.75.34-.75.75v3.25H8c-.41 0-.75.34-.75.75s.34.75.75.75h3.25V16c0 .41.34.75.75.75s.75-.34.75-.75v-3.25H16c.41 0 .75-.34.75-.75s-.34-.75-.75-.75Z"
+     />
+   </Svg>
+);
 
 export const HomeIcon = ({ size, color }: { size: number; color: string }) => (
   <Svg width={size} height={size} fill="none" viewBox="0 0 24 24">
@@ -92,7 +93,7 @@ export const CalendarIcon = ({
   </Svg>
 );
 
-export const AddIcon = ({ size, color }: { size: number; color: string }) => (
+/* export const AddIcon = ({ size, color }: { size: number; color: string }) => (
   <Svg width={size} height={size} fill="none" viewBox="0 0 24 24">
     <Path
       stroke={color}
@@ -110,7 +111,7 @@ export const AddIcon = ({ size, color }: { size: number; color: string }) => (
       d="M12 18V6"
     />
   </Svg>
-);
+); */
 
 export const More = ({ size, color }: { size: number; color: string }) => (
   <Svg width={size} height={size} fill="none" viewBox="0 0 24 24">

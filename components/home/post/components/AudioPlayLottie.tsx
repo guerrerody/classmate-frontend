@@ -1,7 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Lottie from "lottie-react-native";
 import { View } from "react-native";
-import { useAppSelector } from "../../../../redux/hooks/hooks";
 import { Image } from "expo-image";
 
 

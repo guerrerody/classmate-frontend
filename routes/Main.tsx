@@ -57,9 +57,11 @@ import FollowingFollowers from "../screen/App/FollowingFollowers";
 import EditProfile from "../screen/App/EditProfile";
 import ChangeData from "../screen/App/ChangeData";
 import { createStackNavigator } from "@react-navigation/stack";
+
 const BACKGROUND_FETCH_TASK = "background-fetch";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const JStack = createStackNavigator()
+
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
   const now = Date.now();
 
@@ -280,12 +282,15 @@ export default function Main() {
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
+  
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index);
   }, []);
+
   useEffect(() => {
     handlePresentModalPress();
   }, []);
+
   return (
     <BottomSheetModalProvider>
       {/* <BottomSheetModal

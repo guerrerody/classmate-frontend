@@ -331,28 +331,6 @@ export default function Register({ navigation }: RegisterScreen) {
                 <Animated.View
                   style={{ transform: [{ translateX: animVPass.current }] }}
                 >
-                  {errors.verifyPassword?.message ===
-                  "Passwords do not match" ? (
-                    <ReAnimated.View
-                      style={{ marginVertical: 5 }}
-                      entering={FadeIn.springify()}
-                      exiting={FadeOut.springify()}
-                    >
-                      <Text style={{ color: "red" }}>
-                        {errors.verifyPassword?.message}
-                      </Text>
-                    </ReAnimated.View>
-                  ) : (
-                    <ReAnimated.View
-                      style={{ marginVertical: 5 }}
-                      entering={FadeIn.springify()}
-                      exiting={FadeOut.springify()}
-                    >
-                      <Text style={{ color: "gray" }}>
-                        {"Passwords should match"}
-                      </Text>
-                    </ReAnimated.View>
-                  )}
                   <Controller
                     control={control}
                     rules={{

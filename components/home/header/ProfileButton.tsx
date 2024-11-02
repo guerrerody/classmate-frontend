@@ -1,6 +1,5 @@
 import { Pressable, StyleProp, View, ViewStyle } from "react-native";
 import { ProfileIcon } from "../../icons";
-import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 import { useAppSelector } from "../../../redux/hooks/hooks";
 import { Image } from "expo-image";
 import useGetMode from "../../../hooks/GetMode";
