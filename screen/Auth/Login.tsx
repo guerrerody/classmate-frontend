@@ -24,11 +24,12 @@ import {
 } from "react";
 import { openToast } from "../../redux/slice/toast/toast";
 import { useLoginMutation } from "../../redux/api/auth";
-import { clearUserData } from "../../redux/slice/user";
+import { clearUserData, setUserData } from "../../redux/slice/user";
 import { useForm, Controller } from "react-hook-form";
 import { LoginScreen } from "../../types/navigation";
 import { Image } from "expo-image";
 import  ReAnimated,{ useAnimatedKeyboard, useAnimatedStyle } from "react-native-reanimated";
+import { IUSerData } from "../../types/api";
 
 const width = Dimensions.get("window").width;
 
@@ -49,7 +50,7 @@ export default function Login({ navigation }: Readonly<LoginScreen>) {
     reset,
   } = useForm({
     defaultValues: {
-      userName: user?.userName ? user?.userName : "",
+      userName: user?.userName ?? "",
       password: "",
     },
   });
@@ -64,25 +65,44 @@ export default function Login({ navigation }: Readonly<LoginScreen>) {
     vibrateAnimation(animPass);
   }, []);
 
+  // PRIMERA ENTREGA. Usuario ficticio.
+  const fakeUser: IUSerData = {
+    id: "670c384ad3d17966d66b6304",
+    email: "dorielizguerrero2000@gmail.com",
+    name: "Dorieliz Guerrero",
+    userName: "guerrerody",
+    followersCount: "350",
+    followingCount: "58",
+    imageUri: "https://classmate-space.s3.amazonaws.com/profile/profile_image.png",
+    verified: false,
+    emailIsVerified: false,
+  };
+
   const onSubmit = (data: { userName: string; password: string }) => {
-    // userApi.util.resetApiState();
-    // servicesApi.util.resetApiState();
+    // PRIMERA ENTREGA. Login con usuario ficticio.
+    if (data.userName.trim().toLowerCase() === fakeUser.userName && data.password === "password123*") {
+      Vibration.vibrate(5);
+      dispatch(setUserData({
+        userData: fakeUser,
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imd1ZXJyZXJvZHkiLCJpZCI6IjY3MGMzODRhZDNkMTc5NjZkNjZiNjMwNCIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzMwNjU0ODczfQ.hFsZbf2fs5Uv18hIR0lPn9c0_56s4gttvN5gcXZY8sg", // Token generado mmanualmente solo para el Fake User
+      }));
+    } else {
+      Vibration.vibrate(5);
+      dispatch(openToast({ text: "Invalid username or password", type: "Failed" }));
+    }
+
+    /*
     login({ userName: data.userName.trim().toLowerCase(), password: data.password })
       .unwrap()
-      .then((e) => {
+      .then((payload) => {
         Vibration.vibrate(5);
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((err) => {
+        console.log(">>>> file: Login.tsx ~ onSubmit ~ e: ", err);
         Vibration.vibrate(5);
-        if (e?.data?.msg) {
-          console.log(">>>> file: Login.tsx:84 ~ onSubmit ~ e:", e.status);
-          dispatch(openToast({ text: `${e?.data?.msg}`, type: "Failed" }));
-        } else {
-          console.log(">>>> file: Login.tsx:84 ~ onSubmit ~ e:", e.data);
-          dispatch(openToast({ text: e?.data, type: "Failed" }));
-        }
+        dispatch(openToast({ text: err?.error, type: "Failed" }));
       });
+    */
   };
   
   useEffect(() => {
@@ -169,18 +189,16 @@ export default function Login({ navigation }: Readonly<LoginScreen>) {
               {user && (
                 <View style={{ width: 100, height: 100 }}>
                   <Image
-                    placeholder={dark ? require("../../assets/images/profile_white.svg"):require("../../assets/images/profile_black.svg")}
+                    placeholder={dark ? require("../../assets/images/profile_white.svg") : require("../../assets/images/profile_black.svg")}
                     contentFit="cover"
                     style={{ flex: 1, borderRadius: 9999 }}
-                    source={require("../../assets/content_temp/profile_image.png")}
-                    //source={{ uri: user?.imageUri }}
+                    source={{ uri: user?.imageUri }}
                   />
                 </View>
               )}
               {user ? (
                 <Text style={{ color, fontFamily: "mulishBold", fontSize: 24 }}>
-                  {/* Welcome Back{user?.name && `, ${user?.name?.split(" ")[0]}`} */}
-                  Welcome Back{user && ", Dorieliz"}
+                  Welcome Back{user?.name && `, ${user?.name?.split(" ")[0]}`}
                 </Text>
               ) : (
                 <Text style={{ color, fontFamily: "mulishBold", fontSize: 24 }}>

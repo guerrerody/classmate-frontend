@@ -29,11 +29,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "e618bb47-6149-4585-8cc8-884c5992795e"
-      }
-    },
     "plugins": [
       [
         "expo-notifications",
@@ -44,6 +39,11 @@
       ],
       "react-native-compressor"
     ],
-    "owner": "Team3-LabIII"
+    "owner": "guerreroje",
+    "extra": {
+      "eas": {
+        "projectId": "a85dca28-6ce3-421c-b5a6-2313ae8fab1e"
+      }
+    }
   }
 }

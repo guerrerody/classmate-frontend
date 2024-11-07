@@ -58,7 +58,7 @@ export default function Recent({ offset }: { offset: SharedValue<number> }) {
     <Animated.View style={recentStyle}>
       <View style={{ paddingHorizontal: 14, paddingTop: 0, paddingBottom: 20 }}>
         <Text style={{ fontFamily: "jakara", letterSpacing: 4, color }}>
-          ONLINE
+          Achievement Users
         </Text>
       </View>
       <FlatList

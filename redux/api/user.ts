@@ -8,12 +8,6 @@ import {
 } from "../../types/api";
 import { RootState } from "../store";
 
-interface loginResult {
-  msg: string;
-  token: string;
-  data: IUSerData;
-}
-
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({

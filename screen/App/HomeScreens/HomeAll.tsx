@@ -25,28 +25,47 @@ import SkeletonGroupPost from "../../../components/home/misc/SkeletonGroupPost";
 import EmptyList from "../../../components/home/misc/EmptyList";
 import { setPlayingIds } from "../../../redux/slice/post/audio";
 
+// PRIMERA ENTREGA. Importar fake posts.
+import fakePosts from "../../../data/fakeAllPosts.json";
+
 export default function HomeAll() {
   const dark = useGetMode();
   const dispatch = useAppDispatch();
   const authId = useAppSelector((state) => state.user.data?.id);
-  const posts = useAppSelector((state) => state.post);
-
+  
+  // PRIMERA ENTREGA. Quitamos el state de post y establecemos el nuevo con fakePosts.
+  //const posts = useAppSelector((state) => state.post);
+  const [posts, setPosts] = useState<IPost[]>(
+    fakePosts.map((post) => ({
+      ...post,
+      createdAt: new Date(post.createdAt),
+    }))
+  );
+  
   const isDark = dark;
   const color = !isDark ? "white" : "black";
   const height = Dimensions.get("window").height;
   const width = Dimensions.get("window").width;
 
+  // PRIMERA ENTREGA. NO lo necesitamos.
+  /*
   const [skip, setSkip] = useState(0);
-
   const [noMore, setNoMore] = useState(false);
-
   const [getLazyPost, postRes] = useLazyGetAllPostsQuery({});
+  */
   const [refreshing, setRefreshing] = React.useState(false);
+
+  // PRIMERA ENTREGA. NO obtenemos Posts desde API.
+  /*
   useEffect(() => {
     getLazyPost({ take: 20, skip: 0 })
       .unwrap()
       .then((r) => {});
   }, []);
+  */
+
+  // PRIMERA ENTREGA. NO hacemos refresh con respecto al API.
+  /*
   const onRefresh = useCallback(() => {
     if (!authId) return;
     setSkip(0);
@@ -66,7 +85,26 @@ export default function HomeAll() {
         );
       });
   }, [authId, dispatch, getLazyPost]);
+  */
 
+  // PRIMERA ENTREGA. Nuevo refresh donde simulamos una pequeña demora para mostrar el refresh.
+  const onRefresh = useCallback(() => {
+    if (!authId) return;
+    setRefreshing(true);
+    setTimeout(() => {
+      // Refrescar los datos ficticios (simulando un pull-to-refresh)
+      setPosts(
+        fakePosts.map((post) => ({
+          ...post,
+          createdAt: new Date(post.createdAt), // Asegurarse de convertir a Date al refrescar
+        }))
+      );
+      setRefreshing(false);
+    }, 1000);
+  }, []);
+
+  // PRIMERA ENTREGA. NO necesitamos este renderFooter ya que no tendremos More ni Loading. Lo refactorizamos.
+  /*
   const renderFooter = () => {
     if (noMore) {
       return (
@@ -95,77 +133,86 @@ export default function HomeAll() {
       );
     }
   };
+  */
 
-  // useEffect(() => {
-  //   if (skip !== 0 && !noMore && !posts.loading)
-  //     getLazyPost({ take: 10, skip })
-  //       .unwrap()
-  //       .then((r) => {
-  //         setSkip(r.posts?.length || 0);
-  //         setNoMore(r.posts?.length === 0);
-  //       })
-  //       .catch((e) => {
-  //         dispatch(
-  //           openToast({ text: "couldn't get recent posts", type: "Failed" })
-  //         );
-  //       });
-  // }, [skip, noMore]);
+  const renderFooter = () => {
+    return (
+      <View
+        style={{
+          width: "100%",
+          marginTop: 20,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator color={color} size={20} />
+      </View>
+    );
+  };
 
+  // PRIMERA ENTREGA. NO obtenemos Posts desde API.
+  /*
   useEffect(() => {
     getLazyPost({ take: 20, skip })
       .unwrap()
-      .then((e) => {
-        setSkip(e.posts?.length);
+      .then((payload) => {
+        setSkip(payload.posts?.length);
       })
-      .catch((e) => {
+      .catch((err) => {
         // dispatch(
         //   openToast({ text: "couldn't get recent posts", type: "Failed" })
         // );
       });
   }, []);
+  */
 
+  // PRIMERA ENTREGA. NO necesitamos fetchMoreData ya que no tendremos More Data
+  /*
   const fetchMoreData = () => {
     if (!noMore)
       getLazyPost({ take: 20, skip })
         .unwrap()
-        .then((e) => {
-          setSkip(skip + e.posts.length);
-
-          if (e.posts.length === 0) {
+        .then((payload) => {
+          setSkip(skip + payload.posts.length);
+          if (payload.posts.length === 0) {
             setNoMore(true);
           }
         })
-        .catch((e) => {
+        .catch((err) => {
           // dispatch(
           //   openToast({ text: "couldn't get recent posts", type: "Failed" })
           // );
         });
   };
+  */
+
+  // PRIMERA ENTREGA. NO necesitamos handleRefetch ya que no tendremos Refetch con el API.
+  /*
   const handleRefetch = () => {
     setSkip(0);
     setNoMore(false);
     getLazyPost({ take: 10, skip: 0 })
       .unwrap()
-      .then((r) => {
+      .then((payload) => {
         setRefreshing(false);
       })
-      .catch((e) => {
+      .catch((err) => {
         setRefreshing(false);
         // dispatch(
         //   openToast({ text: "couldn't get recent posts", type: "Failed" })
         // );
       });
   };
+  */
 
-  const [indexInView, setIndexInView] = useState<Array<number | null>>([]);
+  // PRIMERA ENTREGA. NO necesitamos indexar items de la vista de Posts.
+  //const [indexInView, setIndexInView] = useState<Array<number | null>>([]);
 
   const renderItem = ({ item, index }: { item: IPost; index: number }) => (
     <PostBuilder
       id={item.id}
       isReposted={
-        item?.repostUser?.find((repostUser) => repostUser?.id === authId)
-          ? true
-          : false
+        item?.repostUser?.find((repostUser) => repostUser?.id === authId) ? true : false
       }
       date={item.createdAt}
       link={item.link}
@@ -198,13 +245,19 @@ export default function HomeAll() {
       idx={index}
     />
   );
+
   const keyExtractor = (item: IPost) => item?.id?.toString();
 
+  // PRIMERA ENTREGA. NO lo necesitamos. Igualmente no se usa.
+  /*
   const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
   const viewabilityConfig = {
     itemVisiblePercentThreshold: 50, // This means a component is considered visible if at least 50% of it is visible
   };
+  */
 
+  // PRIMERA ENTREGA. NO lo necesitamos. Igualmente no se usa.
+  /*
   const onViewableItemsChanged = useRef<
     ({
       viewableItems,
@@ -224,7 +277,10 @@ export default function HomeAll() {
     console.log("view", indexes);
     console.log("Changed in this interaction:", changed);
   });
+  */
 
+  // PRIMERA ENTREGA. Refactorizar Render.
+  /*
   return (
     <View style={{ flex: 1 }}>
       {posts.loading && posts.data.length === 0 ? (
@@ -245,14 +301,42 @@ export default function HomeAll() {
                 colors={["red", "blue"]}
               />
             }
-            // onViewableItemsChanged={onViewableItemsChanged.current}
-            // viewabilityConfig={viewabilityConfig}
             keyExtractor={keyExtractor}
             estimatedListSize={{ width: width, height: height }}
             onEndReachedThreshold={0.3}
             onEndReached={fetchMoreData}
             renderItem={renderItem}
-            contentContainerStyle={{ paddingTop: 100, paddingBottom: 100 }}
+            contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
+          />
+        </Animated.View>
+      )}
+      <Fab item={<AddIcon size={30} color={color} />} />
+    </View>
+  );
+  */
+
+  return (
+    <View style={{ flex: 1 }}>
+      {posts.length === 0 ? (
+        <EmptyList handleRefetch={onRefresh} />
+      ) : (
+        <Animated.View style={{ flex: 1 }}>
+          <FlashList
+            data={posts}
+            decelerationRate={0.991}
+            estimatedItemSize={100}
+            ListFooterComponent={renderFooter}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={["red", "blue"]}
+              />
+            }
+            keyExtractor={keyExtractor}
+            estimatedListSize={{ width: width, height: height }}
+            renderItem={renderItem}
+            contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
           />
         </Animated.View>
       )}

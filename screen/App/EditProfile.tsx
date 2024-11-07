@@ -1,23 +1,19 @@
-import { View, Text, Pressable, BackHandler } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import AnimatedScreen from "../../components/global/AnimatedScreen";
 import { Image } from "expo-image";
 import { useAppSelector } from "../../redux/hooks/hooks";
-import { BlurView } from "expo-blur";
 import { StatusBar } from "expo-status-bar";
 import useGetMode from "../../hooks/GetMode";
 import EditContent from "../../components/editProfile/EditContent";
-import Profile from "./Profile";
 import {
   CloseCircleIcon,
-  Eye,
   LockIcon,
   ProfileIcon,
-  TrashIcon,
   UserNameIcon,
 } from "../../components/icons";
 import { EditProfileProp } from "../../types/navigation";
 import { DeleteAccountModal } from "./ChangeData/DeleteAccountModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { UploadPhotoModal } from "../../components/profile/UploadPhotoModal";
 
 export default function EditProfile({ navigation }: EditProfileProp) {
@@ -35,8 +31,6 @@ export default function EditProfile({ navigation }: EditProfileProp) {
   const handleSetOpen = () => {
     setIsOpenProfile(false);
   };
-
-  const isHighEndDevice = useAppSelector((state) => state?.prefs?.isHighEnd);
 
   return (
     <>
@@ -60,12 +54,6 @@ export default function EditProfile({ navigation }: EditProfileProp) {
               borderRadius: 999,
             }}
           >
-            {isHighEndDevice && (
-              <BlurView
-                experimentalBlurMethod="dimezisBlurView"
-                style={{ height: 150, width: 150, position: "absolute" }}
-              />
-            )}
             {user?.data?.imageUri ? (
               <Image
                 source={{ uri: user?.data?.imageUri }}

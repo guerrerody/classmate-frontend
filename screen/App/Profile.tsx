@@ -15,7 +15,8 @@ import {
 } from "react-native-reanimated";
 
 export default function Profile() {
-  const getFollowData = useGetFollowDetailsQuery(null);
+  // PRIMERA ENTREGA
+  //const getFollowData = useGetFollowDetailsQuery(null);
   const offset = useSharedValue(0);
   console.log(">>>> file: Profile.tsx:16 ~ Profile ~ offset:", offset);
   const scrollHandler = useAnimatedScrollHandler((event) => {
@@ -23,10 +24,14 @@ export default function Profile() {
 
     offset.value = event.contentOffset.y;
   });
+
+  // PRIMERA ENTREGA
+  /*
   useEffect(() => {
     console.log(getFollowData.data);
     getFollowData.refetch();
   }, []);
+  */
 
   return (
     <AnimatedScreen>

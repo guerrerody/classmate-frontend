@@ -24,27 +24,46 @@ import EmptyList from "../../../components/home/misc/EmptyList";
 import { resetPost } from "../../../redux/slice/post/followed";
 import { resetPost as resetAllPosts } from "../../../redux/slice/post";
 
-export default function HomeFollowed() {
-  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+// PRIMERA ENTREGA. Importar fake posts.
+import fakePosts from "../../../data/fakeFollowedPosts.json";
 
+export default function HomeFollowed() {
   const dark = useGetMode();
   const dispatch = useAppDispatch();
-  const posts = useAppSelector((state) => state.followedPost);
+  const authId = useAppSelector((state) => state.user.data?.id);
+
+  // PRIMERA ENTREGA. Quitamos el state de post y establecemos el nuevo con fakePosts.
+  //  const posts = useAppSelector((state) => state.followedPost);
+  const [posts, setPosts] = useState<IPost[]>(
+    fakePosts.map((post) => ({
+      ...post,
+      createdAt: new Date(post.createdAt),
+    }))
+  );
+
   const isDark = dark;
-  const color = isDark ? "white" : "black";
+  const color = !isDark ? "white" : "black";
   const backgroundColor = !isDark ? "white" : "black";
   const height = Dimensions.get("window").height;
   const width = Dimensions.get("window").width;
 
+    // PRIMERA ENTREGA. NO lo necesitamos.
+  /*
   const [skip, setSkip] = useState(0);
-  const authId = useAppSelector((state) => state.user.data?.id);
   const [noMore, setNoMore] = useState(false);
+  const [getLazyPost, postRes] = useLazyGetFollowedPostsQuery();
+  */
+  const [refreshing, setRefreshing] = React.useState(false);
 
+// PRIMERA ENTREGA. NO obtenemos Posts desde API.
+  /*
   useEffect(() => {
     dispatch(resetAllPosts());
   }, []);
-  const [getLazyPost, postRes] = useLazyGetFollowedPostsQuery();
-  const [refreshing, setRefreshing] = React.useState(false);
+  */
+
+   // PRIMERA ENTREGA. NO hacemos refresh con respecto al API.
+  /*
   const onRefresh = useCallback(() => {
     dispatch(resetPost());
     setSkip(0);
@@ -65,7 +84,26 @@ export default function HomeFollowed() {
           // );
         });
   }, []);
+  */
 
+  // PRIMERA ENTREGA. Nuevo refresh donde simulamos una pequeña demora para mostrar el refresh.
+  const onRefresh = useCallback(() => {
+    if (!authId) return;
+    setRefreshing(true);
+    setTimeout(() => {
+      // Refrescar los datos ficticios (simulando un pull-to-refresh)
+      setPosts(
+        fakePosts.map((post) => ({
+          ...post,
+          createdAt: new Date(post.createdAt), // Asegurarse de convertir a Date al refrescar
+        }))
+      );
+      setRefreshing(false);
+    }, 1000);
+  }, []);
+
+    // PRIMERA ENTREGA. NO necesitamos este renderFooter ya que no tendremos More ni Loading. Lo refactorizamos.
+  /*
   const renderFooter = () => {
     if (noMore) {
       return (
@@ -97,7 +135,25 @@ export default function HomeFollowed() {
       );
     }
   };
+ */
 
+  const renderFooter = () => {
+    return (
+      <View
+        style={{
+          width: "100%",
+          marginTop: 20,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator color={color} size={20} />
+      </View>
+    );
+  };
+
+    // PRIMERA ENTREGA. NO obtenemos Posts desde API.
+  /*
   useEffect(() => {
     getLazyPost({ take: 20, skip })
       .unwrap()
@@ -110,7 +166,10 @@ export default function HomeFollowed() {
         // );
       });
   }, []);
+  */
 
+    // PRIMERA ENTREGA. NO necesitamos fetchMoreData ya que no tendremos More Data
+  /*
   const fetchMoreData = () => {
     if (!noMore)
       getLazyPost({ take: 20, skip })
@@ -128,6 +187,10 @@ export default function HomeFollowed() {
           // );
         });
   };
+  */
+
+  // PRIMERA ENTREGA. NO necesitamos handleRefetch ya que no tendremos Refetch con el API.
+  /*
   const handleRefetch = () => {
     setSkip(0);
     setNoMore(false);
@@ -143,15 +206,14 @@ export default function HomeFollowed() {
         // );
       });
   };
+  */
 
-  const renderItem = ({ item }: { item: IPost }) => (
+  const renderItem = ({ item, index }: { item: IPost; index: number }) => (
     <PostBuilder
       id={item.id}
       date={item.createdAt}
       isReposted={
-        item?.repostUser?.find((repostUser) => repostUser?.id === authId)
-          ? true
-          : false
+        item?.repostUser?.find((repostUser) => repostUser?.id === authId) ? true : false
       }
       link={item.link}
       photo={
@@ -179,9 +241,14 @@ export default function HomeFollowed() {
       videoUri={item.videoUri || undefined}
       postText={item.postText}
       videoViews={item.videoViews?.toString()}
+      idx={index}
     />
   );
+
   const keyExtractor = (item: IPost) => item.id?.toString();
+
+  // PRIMERA ENTREGA. NO lo necesitamos. Igualmente no se usa.
+  /*
   return (
     <AnimatedScreen>
       {posts.loading && posts.data.length === 0 ? (
@@ -189,10 +256,7 @@ export default function HomeFollowed() {
       ) : posts.data.length === 0 ? (
         <EmptyList handleRefetch={handleRefetch} />
       ) : (
-        <Animated.View
-          style={{ flex: 1 }}
-    
-        >
+        <Animated.View style={{ flex: 1 }}>
           <FlashList
             data={posts.data}
             decelerationRate={0.991}
@@ -200,7 +264,7 @@ export default function HomeFollowed() {
             ListFooterComponent={renderFooter}
             refreshControl={
               <RefreshControl
-              style={{marginTop:200}}
+                style={{marginTop:200}}
                 refreshing={refreshing}
                 onRefresh={onRefresh}
                 colors={["red", "blue"]}
@@ -217,5 +281,35 @@ export default function HomeFollowed() {
       )}
       <Fab item={<AddIcon size={30} color={color} />} />
     </AnimatedScreen>
+  );
+  */
+
+  return (
+    <View style={{ flex: 1 }}>
+      {posts.length === 0 ? (
+        <EmptyList handleRefetch={onRefresh} />
+      ) : (
+        <Animated.View style={{ flex: 1 }}>
+          <FlashList
+            data={posts}
+            decelerationRate={0.991}
+            estimatedItemSize={100}
+            ListFooterComponent={renderFooter}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={["red", "blue"]}
+              />
+            }
+            keyExtractor={keyExtractor}
+            estimatedListSize={{ width: width, height: height }}
+            renderItem={renderItem}
+            contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
+          />
+        </Animated.View>
+      )}
+      <Fab item={<AddIcon size={30} color={color} />} />
+    </View>
   );
 }

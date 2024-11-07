@@ -50,13 +50,12 @@ export default function TextArea({
           style={{
             fontSize: 16,
             color,
-
             fontFamily: "mulishMedium",
             minHeight: height,
             alignItems: "flex-start",
           }}
           placeholderTextColor={"grey"}
-          placeholder="What's happening?"
+          placeholder="What's What do you what to contribute?"
         />
       </View>
     </View>

@@ -1,38 +1,17 @@
 import "react-native-gesture-handler";
 import "react-native-get-random-values";
 import { StatusBar } from "expo-status-bar";
-import {
-  Text,
-  View,
-  Platform,
-} from "react-native";
+import { Text, View, Platform } from "react-native";
 import * as Linking from "expo-linking";
-
 import { NavigationContainer } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
-import Main from "./routes/Main";
-import {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
-
-import OnboardNavigation from "./routes/OnBoard";
-import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
-import Auth from "./routes/Auth";
-import { FadeInView } from "./components/global/AnimatedScreen/FadeInView";
-import useGetMode from "./hooks/GetMode";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-import CustomToast from "./components/global/Toast";
 import { PaperProvider } from "react-native-paper";
-
 import { enableFreeze } from "react-native-screens";
-
 import Animated, {
   BounceOutDown,
   FadeOut,
@@ -45,17 +24,25 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useNetInfo } from "@react-native-community/netinfo";
-import { openToast } from "./redux/slice/toast/toast";
-
 import * as Sentry from "@sentry/react-native";
-import { useGetFollowDetailsQuery } from "./redux/api/user";
 import * as Device from "expo-device";
 import * as NavigationBar from "expo-navigation-bar";
-import Notifications from "./util/notification";
-import { PixelRatio } from "react-native";
 import DeviceInfo from "react-native-device-info";
-import { setHighEnd } from "./redux/slice/prefs";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+import { FadeInView } from "./components/global/AnimatedScreen/FadeInView";
+import { store } from "./redux/store";
+import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
+import { openToast } from "./redux/slice/toast/toast";
+import { useGetFollowDetailsQuery } from "./redux/api/user";
+import { setHighEnd } from "./redux/slice/prefs";
+import useGetMode from "./hooks/GetMode";
+import Main from "./routes/Main";
+import OnboardNavigation from "./routes/OnBoard";
+import Auth from "./routes/Auth";
+import CustomToast from "./components/global/Toast";
+import Notifications from "./util/notification";
+
 enableFreeze(true);
 Sentry.init({
   dsn: "https://a5db1485b6b50a45db57917521128254@o4505750037725184.ingest.sentry.io/4505750586195968",
@@ -66,12 +53,14 @@ const persistor = persistStore(store);
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+
   useEffect(() => {
     const subscription = Notifications.addNotificationReceivedListener(
       (notification) => {
         console.log(">>>> ", notification.request.content.data);
       }
     );
+
     const subscriptionResponse =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log("response", response.actionIdentifier);
@@ -84,14 +73,15 @@ export default function App() {
         }
       });
 
-    Notifications.getNotificationCategoriesAsync().then((e) => {
-      console.log(e[0]);
-    });
-    return () => {
-      subscription.remove();
-      subscriptionResponse.remove();
-    };
+      Notifications.getNotificationCategoriesAsync().then((e) => {
+        console.log(e[0]);
+      });
+      return () => {
+        subscription.remove();
+        subscriptionResponse.remove();
+      };
   }, []);
+
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
@@ -104,6 +94,7 @@ export default function App() {
     </Provider>
   );
 }
+
 function AnimatedSplashScreen({ children }: { children: ReactNode }) {
   const isAnimationCompleteForClassmate = useSharedValue(false);
   const isAllAnimationComplete = useSharedValue(false);
@@ -157,6 +148,7 @@ function AnimatedSplashScreen({ children }: { children: ReactNode }) {
       );
     }
   );
+
   const animatedStylesK = useAnimatedStyle(() => {
     return {
       opacity: withTiming(opacityK.value),
@@ -174,6 +166,7 @@ function AnimatedSplashScreen({ children }: { children: ReactNode }) {
       ],
     };
   });
+
   const animateBackgroundEntryStyle = useAnimatedStyle(() => {
     return {
       backgroundColor: interpolateColor(
@@ -183,6 +176,7 @@ function AnimatedSplashScreen({ children }: { children: ReactNode }) {
       ),
     };
   });
+
   useEffect(() => {
     offset.value = -40;
     colorSwitch.value = withTiming(1, {
@@ -206,6 +200,7 @@ function AnimatedSplashScreen({ children }: { children: ReactNode }) {
       }
     }
   );
+  
   useAnimatedReaction(
     () => {
       return isAllAnimationComplete.value;
@@ -242,7 +237,6 @@ function AnimatedSplashScreen({ children }: { children: ReactNode }) {
               right: 0,
               bottom: 0,
               justifyContent: "center",
-
               alignItems: "center",
               width: "100%",
               aspectRatio: 1278 / 2278,

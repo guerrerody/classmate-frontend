@@ -52,7 +52,6 @@ export type RootStackParamList = {
 
 export type BottomRootStackParamList = {
   BottomHome: undefined;
-
   Messages: undefined;
   Discover: undefined;
   Notifications: undefined;

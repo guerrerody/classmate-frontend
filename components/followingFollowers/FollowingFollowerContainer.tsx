@@ -1,7 +1,6 @@
 import { View, Text, Dimensions, Pressable, Modal } from "react-native";
 
 import { ActivityIndicator, Button, Portal } from "react-native-paper";
-import { BlurView } from "expo-blur";
 import Animated, { FadeInLeft } from "react-native-reanimated";
 import { useEffect, useState } from "react";
 import { IPerson } from "../../types/api";
@@ -15,6 +14,7 @@ import { addToChatList } from "../../redux/slice/chat/chatlist";
 import { Image } from "expo-image";
 
 const { width } = Dimensions.get("window");
+
 export default function FFContainer({
   name,
   userName,
@@ -74,7 +74,7 @@ export default function FFContainer({
       }
     });
   }, [socket]);
-  const isHighEndDevice = useAppSelector((state) => state?.prefs?.isHighEnd);
+
   return (
     <>
       <Portal>
@@ -88,14 +88,6 @@ export default function FFContainer({
               style={{ justifyContent: "center", alignItems: "center" }}
               onRequestClose={closeModal}
             >
-              {isHighEndDevice && (
-                <BlurView
-                  experimentalBlurMethod= {isHighEndDevice ?"dimezisBlurView": undefined}
-                  tint={tint}
-                  style={{ position: "absolute", height, width }}
-                  intensity={10}
-                />
-              )}
               <View
                 style={{
                   flex: 1,

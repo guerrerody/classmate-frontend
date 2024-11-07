@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, TouchableWithoutFeedback } from "react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Animated, {
   FadeInUp,
   FadeOutUp,
@@ -11,7 +11,6 @@ import { BlurView } from "expo-blur";
 import { ForbiddenIcon, InfoIcon, VerifyIcon } from "../../icons";
 import useGetMode from "../../../hooks/GetMode";
 import { Portal } from "react-native-paper";
-import { useForm } from "react-hook-form";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
@@ -52,7 +51,7 @@ export default function CustomToast() {
     }
   };
   const insets = useSafeAreaInsets();
-  const isHighEndDevice = useAppSelector((state) => state?.prefs?.isHighEnd);
+  
   return (
     <Portal>
       {toastState?.open && (
@@ -78,7 +77,7 @@ export default function CustomToast() {
             exiting={FadeOutUp.springify().delay(1000)}
           >
             <BlurView
-              experimentalBlurMethod= {isHighEndDevice ?"dimezisBlurView": undefined}
+              experimentalBlurMethod= {undefined}
               tint={tint}
               style={{ position: "absolute", width, height: 60 + insets.top }}
               intensity={50}

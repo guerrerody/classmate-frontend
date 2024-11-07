@@ -1,85 +1,46 @@
-import { Text, Pressable } from "react-native";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useState } from "react";
+import { Dimensions, View } from "react-native";
+import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 
-import AnimatedScreen from "../../components/global/AnimatedScreen";
 import useGetMode from "../../hooks/GetMode";
-import { useAppDispatch } from "../../redux/hooks/hooks";
-import { useTokenValidQuery } from "../../redux/api/user";
-import { signOut } from "../../redux/slice/user";
-
-import Animated, { FadeInRight, FadeOutRight } from "react-native-reanimated";
-
-import { DrawerHomeProp } from "../../types/navigation";
-
 import HomeAll from "./HomeScreens/HomeAll";
 import HomeFollowed from "./HomeScreens/HomeFollowed";
 
-export default function Home({ navigation }: DrawerHomeProp) {
-  const dark = useGetMode();
+const initialLayout = { width: Dimensions.get("window").width };
 
+export default function Home() {
+  const dark = useGetMode();
   const isDark = dark;
   const color = isDark ? "white" : "black";
-  const dispatch = useAppDispatch();
-  const [isAll, setIsAll] = useState(true);
+  const backgroundColor = isDark ? "black" : "white";
 
-  // useGetRandomPostsQuery(null);
-  // useGetRandomPeopleQuery(null);
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    { key: "homeAll", title: "For You" },
+    { key: "homeFollowed", title: "Following" },
+  ]);
 
-  const userAuthValidate = useTokenValidQuery(null);
-  useEffect(() => {
-    //@ts-ignore
-    if (userAuthValidate.isError) {
-      dispatch(signOut());
-    }
-  }, [userAuthValidate]);
-
-  const ref = useRef<any>(null);
-  
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => {
-        return (
-          <Pressable
-            onPress={() => {
-              setIsAll(!isAll);
-            }}
-            style={{
-              marginRight: 20,
-              borderColor: color,
-              borderWidth: 1,
-              padding: 2,
-              borderRadius: 999,
-              borderStyle: "dotted",
-            }}
-          >
-            {isAll ? (
-              <Animated.View
-                key={"all"}
-                entering={FadeInRight.springify()}
-                exiting={FadeOutRight.springify()}
-              >
-                <Text style={{ fontFamily: "uberBold", fontSize: 12, color }}>
-                  {"For you"}
-                </Text>
-              </Animated.View>
-            ) : (
-              <Animated.View
-                key={"followed"}
-                entering={FadeInRight.springify()}
-                exiting={FadeOutRight.springify()}
-              >
-                <Text style={{ fontFamily: "uberBold", fontSize: 12, color }}>
-                  {"Following"}
-                </Text>
-              </Animated.View>
-            )}
-          </Pressable>
-        );
-      },
-    });
-  }, [color, isAll]);
+  const renderScene = SceneMap({
+    homeAll: HomeAll,
+    homeFollowed: HomeFollowed,
+  });
 
   return (
-    <AnimatedScreen>{isAll ? <HomeAll /> : <HomeFollowed />}</AnimatedScreen>
+    <View style={{ flex: 1, backgroundColor }}>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={initialLayout}
+        renderTabBar={(props) => (
+          <TabBar
+            {...props}
+            indicatorStyle={{ backgroundColor: color }}
+            style={{ backgroundColor }}
+            labelStyle={{ color, fontFamily: "uberBold" }}
+          />
+        )}
+      />
+    </View>
   );
 }

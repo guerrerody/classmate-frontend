@@ -1,6 +1,8 @@
 import { View, Text, useColorScheme, Pressable } from "react-native";
 import React, { Ref, useEffect, useRef, useState } from "react";
 import LikeButton from "./LikeButton";
+import MessageButton from "./MessageButton";
+import FavoritesButton from "./FavoritesButton";
 import {
   ActivityUnfocused,
   HeartUnfocused,
@@ -65,38 +67,41 @@ export default function Engagements({
       style={{
         flexDirection: "row",
         paddingHorizontal: 20,
-
         alignItems: "center",
-
         gap: 6,
         justifyContent: "space-between",
       }}
     >
       {title && <Text>{title}</Text>}
-      <View style={{ flexDirection: "row", gap: 10 }}>
-        {/* <IconWithValue
-        animationRef={animationRef}
-          IconUnfocused={MessageUnfocused}
-          text={comments?.toString() || "0"}
-          IconFocused={MessageUnfocused}
-          clicked={clicked}
-          setClicked={handleClicked}
-        /> */}
+      <Pressable onPress={handleShare}>
+        <ShareUnfocused size={20} color={shareColor} />
+      </Pressable>
+      <View style={{ flexDirection: "row", gap: 20 }}>
         <LikeButton
           isLiked={isLiked}
           text={likeAmount.toString()}
           clicked={clicked}
           setClicked={handleClicked}
         />
-        <RepostButton
+        <MessageButton
+          isLiked={false}
+          text={"20"}
+          clicked={false}
+          setClicked={() => {}}
+        />
+        <FavoritesButton
+          isLiked={false}
+          text={"1.2K"}
+          clicked={false}
+          setClicked={() => {}}
+        />
+        {/* <RepostButton
           isPosted={isReposted}
           clicked={reposted}
           setReposted={handleRepost}
-        />
+        /> */}
       </View>
-      <Pressable onPress={handleShare}>
-        <ShareUnfocused size={20} color={shareColor} />
-      </Pressable>
+
     </View>
   );
 }

@@ -1,7 +1,6 @@
 import { BlurView } from "expo-blur";
-import React, { useState } from "react";
+import React from "react";
 import {
-  Alert,
   Modal,
   StyleSheet,
   Text,
@@ -10,13 +9,11 @@ import {
   Dimensions,
   useWindowDimensions,
 } from "react-native";
-import { ActivityIndicator, Portal } from "react-native-paper";
 import useGetMode from "../../../hooks/GetMode";
 
-import ChatBuilderText from "../../chat/ChatBuilderText";
-import Animated, { FadeInRight, FadeOutRight } from "react-native-reanimated";
+import Animated, { FadeInRight } from "react-native-reanimated";
 import ModalChatText from "../../chat/ModalChatText";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
+import { useAppDispatch } from "../../../redux/hooks/hooks";
 import { deleteMessage } from "../../../redux/slice/chat/chatlist";
 import useSocket from "../../../hooks/Socket";
 
@@ -59,7 +56,6 @@ export const ChatModal = React.memo(
       dispatch(deleteMessage({ id: text.id, chatId }));
     
     };
-    const isHighEndDevice = useAppSelector((state) => state?.prefs?.isHighEnd);
   const {height:h,width:w} = useWindowDimensions()
 console.log("pageY",text.pageY)
     return (
@@ -72,7 +68,7 @@ console.log("pageY",text.pageY)
           onRequestClose={closeModal}
         >
           <BlurView
-            experimentalBlurMethod= {isHighEndDevice ?"dimezisBlurView": undefined}
+            experimentalBlurMethod={undefined}
             tint={tint}
             style={{ position: "absolute", height, width }}
             intensity={40}

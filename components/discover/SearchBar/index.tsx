@@ -55,7 +55,7 @@ export default function SearchBar() {
     >
       <TextInput
         cursorColor={color}
-        placeholder="Search Classmate"
+        placeholder="Search"
         onChangeText={(text) => setSearchParam(text)}
         placeholderTextColor={placeholderColor}
         style={{

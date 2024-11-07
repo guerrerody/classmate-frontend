@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { UserState } from "../slice/user";
 import {
   IComment,
   IPerson,
@@ -7,14 +6,7 @@ import {
   IPostContent,
   IUSerData,
 } from "../../types/api";
-import storage from "../storage";
 import { RootState } from "../store";
-
-interface loginResult {
-  msg: string;
-  token: string;
-  data: IUSerData;
-}
 
 export const servicesApi = createApi({
   reducerPath: "servicesApi",

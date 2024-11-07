@@ -1,21 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { UserState } from "../slice/user";
 import {
   IChatList,
-  IComment,
-  IPerson,
-  IPost,
-  IPostContent,
   IUSerData,
 } from "../../types/api";
-import storage from "../storage";
 import { RootState } from "../store";
-
-interface loginResult {
-  msg: string;
-  token: string;
-  data: IUSerData;
-}
 
 export const chatApi = createApi({
   reducerPath: "chatApi",
@@ -34,7 +22,6 @@ export const chatApi = createApi({
   endpoints: (builder) => ({
     getAllChats: builder.query<{ chatList: IChatList[] }, null>({
       query: () => `/get-all-chats`,
-
       extraOptions: { maxRetries: 2 },
     }),
     getAllMessages: builder.query<{ chatList: IChatList }, { id: string }>({
@@ -44,4 +31,4 @@ export const chatApi = createApi({
   }),
 });
 
-export const { useGetAllChatsQuery,useLazyGetAllMessagesQuery,useLazyGetAllChatsQuery } = chatApi;
+export const { useGetAllChatsQuery, useLazyGetAllMessagesQuery, useLazyGetAllChatsQuery } = chatApi;

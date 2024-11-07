@@ -1,9 +1,7 @@
-import { View, Text, FlatList } from "react-native";
+import { View } from "react-native";
 import React, { useEffect, useState } from "react";
 import Animated, {
-  FadeIn,
   FadeInLeft,
-  FadeOut,
   cancelAnimation,
   interpolate,
   runOnJS,
@@ -13,13 +11,11 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { postState } from "../../../redux/slice/post";
 import { FlashList } from "@shopify/flash-list";
 import { ActivityIndicator } from "react-native-paper";
 import useGetMode from "../../../hooks/GetMode";
 import { PostSearchSkeleton } from "../../../components/discover/Skeleton/PostSearchSkeleton";
 import PostsContainer from "../../../components/discover/PostsContainer";
-import { useLazySearchPostsQuery } from "../../../redux/api/services";
 import { useAppSelector } from "../../../redux/hooks/hooks";
 
 export default function Posts() {

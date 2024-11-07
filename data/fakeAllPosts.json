@@ -1,0 +1,317 @@
+[
+    {
+      "id": "672f6e7ff26c068fa251d0b9",
+      "userId": "670c384ad3d17966d66b6304",
+      "postText": "La lectura diaria tiene un impacto positivo en el desarrollo cognitivo de los estudiantes, ya que mejora la concentración y estimula la imaginación. En este post exploramos las maneras en que un hábito de lectura consistente puede transformar el aprendizaje.",
+      "_count": { "like": 10, "comments": 5, "repostUser": 0 },
+      "like": [{ "userId": "6705978be3969468a2767754" }, { "userId": "670c384ad3d17966d66b6304" }],
+      "repostUser": [],
+      "link": null,
+      "audioUri": null,
+      "audioTitle": null,
+      "videoUri": null,
+      "videoTitle": null,
+      "photoUri": ["https://classmate-space.s3.amazonaws.com/post/fomentar-la-lectura.jpg"],
+      "photo": {
+        "id": "67196e7ff26c068fa251d0b8",
+        "imageUri": "https://classmate-space.s3.amazonaws.com/post/fomentar-la-lectura.jpg",
+        "imageHeight": 628,
+        "imageWidth": 1000
+      },
+      "videoThumbnail": null,
+      "videoViews": null,
+      "user": {
+        "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image.png",
+        "id": "670c384ad3d17966d66b6304",
+        "name": "Dorieliz Guerrero",
+        "userName": "guerrerody",
+        "verified": false
+      },
+      "createdAt": "2024-07-20T10:30:00"
+    },
+    {
+      "id": "67366e7ff26c068fa251d0b9",
+      "userId": "670e394ad3d17966d66b6305",
+      "postText": "El cuerpo humano está compuesto por órganos vitales que trabajan juntos para mantener la salud. En este video exploramos cómo funcionan estos órganos y su importancia para nuestra salud.",
+      "_count": { "like": 20, "comments": 5, "repostUser": 1 },
+      "like": [{ "userId": "670d394ad3d17966d66b6304" }, { "userId": "670f394ad3d17966d66b6306" }],
+      "repostUser": [{ "id": "670d384ad3d17966d66b6305" }],
+      "link": null,
+      "audioUri": null,
+      "audioTitle": null,
+      "videoUri": "https://classmate-space.s3.amazonaws.com/post/humano-cuerpo-organos-salud-medica.mp4",
+      "videoTitle": "El cuerpo humano y sus órganos",
+      "photoUri": [],
+      "photo": null,
+      "videoThumbnail": "https://classmate-space.s3.amazonaws.com/post/thumbnails/humano-cuerpo-thumbnail.jpg",
+      "videoViews": 150,
+      "user": {
+        "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image5.png",
+        "id": "670e394ad3d17966d66b6305",
+        "name": "Valeria Torres",
+        "userName": "valeriat",
+        "verified": true
+      },
+      "createdAt": "2024-11-06T09:00:00"
+    },
+    {
+      "id": "673b6e7ff26c068fa251d0b9",
+      "userId": "670c384ad3d17966d66b6304",
+      "postText": "La biblioteca infinita es un concepto que busca dar acceso ilimitado a libros y conocimiento. En este video exploramos cómo este concepto está transformando la educación y el acceso al aprendizaje.",
+      "_count": { "like": 23, "comments": 10, "repostUser": 3 },
+      "like": [{ "userId": "670e394ad3d17966d66b6305" }, { "userId": "670d394ad3d17966d66b6304" }],
+      "repostUser": [{ "id": "670d384ad3d17966d66b6305" }],
+      "link": null,
+      "audioUri": null,
+      "audioTitle": null,
+      "videoUri": "https://classmate-space.s3.amazonaws.com/post/biblioteca_infinita.mp4",
+      "videoTitle": "El concepto de la biblioteca infinita",
+      "photoUri": [],
+      "photo": null,
+      "videoThumbnail": "https://classmate-space.s3.amazonaws.com/post/thumbnails/biblioteca_infinita-thumbnail.jpg",
+      "videoViews": 250,
+      "user": {
+        "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image.png",
+        "id": "670c384ad3d17966d66b6304",
+        "name": "Dorieliz Guerrero",
+        "userName": "guerrerody",
+        "verified": false
+      },
+      "createdAt": "2024-11-11T08:45:00"
+    },
+    {
+      "id": "67286e7ff26c068fa251d0b9",
+      "userId": "670d394ad3d17966d66b6304",
+      "postText": "Aprender un segundo idioma desde temprana edad no solo mejora las habilidades comunicativas, sino también la capacidad de resolución de problemas. En este artículo discutimos cómo aprender un nuevo idioma en la infancia contribuye al desarrollo integral.",
+      "_count": { "like": 15, "comments": 8, "repostUser": 1 },
+      "like": [{ "userId": "6705978be3969468a2767754" }, { "userId": "670d394ad3d17966d66b6304" }],
+      "repostUser": [{ "id": "670e394ad3d17966d66b6305" }],
+      "link": null,
+      "audioUri": null,
+      "audioTitle": null,
+      "videoUri": null,
+      "videoTitle": null,
+      "photoUri": ["https://classmate-space.s3.amazonaws.com/post/idiomas.jpg"],
+      "photo": {
+        "id": "67216e7ff26c068fa251d0b8",
+        "imageUri": "https://classmate-space.s3.amazonaws.com/post/idiomas.jpg",
+        "imageHeight": 499,
+        "imageWidth": 1000
+      },
+      "videoThumbnail": null,
+      "videoViews": null,
+      "user": {
+        "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image2.png",
+        "id": "670d394ad3d17966d66b6304",
+        "name": "Mario Sánchez",
+        "userName": "mariosan",
+        "verified": true
+      },
+      "createdAt": "2024-08-15T14:15:00"
+    },
+    {
+      "id": "67296e7ff26c068fa251d0b9",
+      "userId": "670d384ad3d17966d66b6305",
+      "postText": "Las matemáticas nos rodean en cada aspecto de la vida diaria. Este post destaca cómo los conceptos matemáticos pueden aplicarse para solucionar problemas prácticos, desde finanzas personales hasta el diseño de nuevas tecnologías.",
+      "_count": { "like": 25, "comments": 12, "repostUser": 3 },
+      "like": [{ "userId": "6705978be3969468a2767754" }, { "userId": "670d384ad3d17966d66b6305" }, { "userId": "670d394ad3d17966d66b6304" }],
+      "repostUser": [{ "id": "670f394ad3d17966d66b6306" }, { "id": "670e394ad3d17966d66b6305" }],
+      "link": null,
+      "audioUri": null,
+      "audioTitle": null,
+      "videoUri": null,
+      "videoTitle": null,
+      "photoUri": ["https://classmate-space.s3.amazonaws.com/post/matematicas.jpg"],
+      "photo": {
+        "id": "67226e7ff26c068fa251d0b8",
+        "imageUri": "https://classmate-space.s3.amazonaws.com/post/matematicas.jpg",
+        "imageHeight": 513,
+        "imageWidth": 1000
+      },
+      "videoThumbnail": null,
+      "videoViews": null,
+      "user": {
+        "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image3.png",
+        "id": "670d384ad3d17966d66b6305",
+        "name": "Laura Mendoza",
+        "userName": "lauram",
+        "verified": false
+      },
+      "createdAt": "2024-08-18T11:45:00"
+    },
+    {
+      "id": "672a6e7ff26c068fa251d0b9",
+      "userId": "670f394ad3d17966d66b6306",
+      "postText": "La incorporación de la tecnología en el aula ha revolucionado la enseñanza. Aquí analizamos las principales herramientas digitales que los educadores están usando para crear experiencias de aprendizaje más dinámicas y efectivas.",
+      "_count": { "like": 18, "comments": 7, "repostUser": 2 },
+      "like": [{ "userId": "670d394ad3d17966d66b6304" }, { "userId": "670f394ad3d17966d66b6306" }],
+      "repostUser": [{ "id": "670d384ad3d17966d66b6305" }],
+      "link": null,
+      "audioUri": null,
+      "audioTitle": null,
+      "videoUri": null,
+      "videoTitle": null,
+      "photoUri": ["https://classmate-space.s3.amazonaws.com/post/tecnologia.jpg"],
+      "photo": {
+        "id": "67236e7ff26c068fa251d0b8",
+        "imageUri": "https://classmate-space.s3.amazonaws.com/post/tecnologia.jpg",
+        "imageHeight": 587,
+        "imageWidth": 1000
+      },
+      "videoThumbnail": null,
+      "videoViews": null,
+      "user": {
+        "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image4.png",
+        "id": "670f394ad3d17966d66b6306",
+        "name": "Carlos Pérez",
+        "userName": "carlosp",
+        "verified": false
+      },
+      "createdAt": "2024-09-05T13:20:00"
+    },
+    {
+      "id": "672b6e7ff26c068fa251d0b9",
+      "userId": "670e394ad3d17966d66b6305",
+      "postText": "Hacer de las ciencias naturales algo divertido es clave para motivar a los estudiantes. Este post ofrece sugerencias de actividades experimentales y juegos interactivos para despertar el interés por la ciencia desde una edad temprana.",
+      "_count": { "like": 30, "comments": 10, "repostUser": 4 },
+      "like": [{ "userId": "670f394ad3d17966d66b6306" }, { "userId": "670d384ad3d17966d66b6305" }],
+      "repostUser": [{ "id": "670c384ad3d17966d66b6304" }],
+      "link": null,
+      "audioUri": null,
+      "audioTitle": null,
+      "videoUri": null,
+      "videoTitle": null,
+      "photoUri": ["https://classmate-space.s3.amazonaws.com/post/ciencias-naturales.jpg"],
+      "photo": {
+        "id": "67246e7ff26c068fa251d0b8",
+        "imageUri": "https://classmate-space.s3.amazonaws.com/post/ciencias-naturales.jpg",
+        "imageHeight": 625,
+        "imageWidth": 1000
+      },
+      "videoThumbnail": null,
+      "videoViews": null,
+      "user": {
+        "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image5.png",
+        "id": "670e394ad3d17966d66b6305",
+        "name": "Valeria Torres",
+        "userName": "valeriat",
+        "verified": true
+      },
+      "createdAt": "2024-09-10T15:00:00"
+    },
+    {
+      "id": "672c6e7ff26c068fa251d0b9",
+      "userId": "670c384ad3d17966d66b6304",
+      "postText": "Las clases en línea presentan desafíos para la concentración de los estudiantes. En este post compartimos estrategias como la creación de un ambiente adecuado y técnicas de gestión del tiempo para ayudar a los estudiantes a mantenerse enfocados.",
+      "_count": { "like": 12, "comments": 6, "repostUser": 0 },
+      "like": [{ "userId": "6705978be3969468a2767754" }, { "userId": "670d394ad3d17966d66b6304" }],
+      "repostUser": [],
+      "link": null,
+      "audioUri": null,
+      "audioTitle": null,
+      "videoUri": null,
+      "videoTitle": null,
+      "photoUri": ["https://classmate-space.s3.amazonaws.com/post/online.png"],
+      "photo": {
+        "id": "67256e7ff26c068fa251d0b8",
+        "imageUri": "https://classmate-space.s3.amazonaws.com/post/online.png",
+        "imageHeight": 475,
+        "imageWidth": 1000
+      },
+      "videoThumbnail": null,
+      "videoViews": null,
+      "user": {
+        "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image.png",
+        "id": "670c384ad3d17966d66b6304",
+        "name": "Dorieliz Guerrero",
+        "userName": "guerrerody",
+        "verified": false
+      },
+      "createdAt": "2024-09-22T10:45:00"
+    },
+    {
+      "id": "672d6e7ff26c068fa251d0b9",
+      "userId": "670e394ad3d17966d66b6305",
+      "postText": "Las actividades extracurriculares no solo son una excelente manera de explorar intereses personales, sino que también fomentan habilidades sociales cruciales. Este post destaca cómo los deportes, el arte y otras actividades contribuyen al desarrollo integral de los estudiantes.",
+      "_count": { "like": 22, "comments": 14, "repostUser": 1 },
+      "like": [{ "userId": "670d384ad3d17966d66b6305" }, { "userId": "670e394ad3d17966d66b6305" }, { "userId": "670f394ad3d17966d66b6306" }],
+      "repostUser": [{ "id": "670d394ad3d17966d66b6304" }],
+      "link": null,
+      "audioUri": null,
+      "audioTitle": null,
+      "videoUri": null,
+      "videoTitle": null,
+      "photoUri": ["https://classmate-space.s3.amazonaws.com/post/actividades-extracurriculares.jpg"],
+      "photo": {
+        "id": "67266e7ff26c068fa251d0b8",
+        "imageUri": "https://classmate-space.s3.amazonaws.com/post/actividades-extracurriculares.jpg",
+        "imageHeight": 525,
+        "imageWidth": 1000
+      },
+      "videoThumbnail": null,
+      "videoViews": null,
+      "user": {
+        "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image5.png",
+        "id": "670e394ad3d17966d66b6305",
+        "name": "Valeria Torres",
+        "userName": "valeriat",
+        "verified": true
+      },
+      "createdAt": "2024-10-02T17:25:00"
+    },
+    {
+      "id": "67386e7ff26c068fa251d0b9",
+      "userId": "670d384ad3d17966d66b6305",
+      "postText": "El planeta Tierra es solo una pequeña parte del vasto universo. Este video nos lleva a un viaje a través del espacio, explorando el planeta Tierra y su lugar en el cosmos.",
+      "_count": { "like": 25, "comments": 10, "repostUser": 3 },
+      "like": [{ "userId": "670d394ad3d17966d66b6304" }, { "userId": "670e394ad3d17966d66b6305" }, { "userId": "670f394ad3d17966d66b6306" }],
+      "repostUser": [{ "id": "670e394ad3d17966d66b6305" }],
+      "link": null,
+      "audioUri": null,
+      "audioTitle": null,
+      "videoUri": "https://classmate-space.s3.amazonaws.com/post/tierra-planeta-espacio-mundo-universo.mp4",
+      "videoTitle": "Explorando el planeta Tierra y el universo",
+      "photoUri": [],
+      "photo": null,
+      "videoThumbnail": "https://classmate-space.s3.amazonaws.com/post/thumbnails/tierra-planeta-thumbnail.jpg",
+      "videoViews": 300,
+      "user": {
+        "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image3.png",
+        "id": "670d384ad3d17966d66b6305",
+        "name": "Laura Mendoza",
+        "userName": "lauram",
+        "verified": false
+      },
+      "createdAt": "2024-11-08T10:30:00"
+    },
+    {
+      "id": "672e6e7ff26c068fa251d0b9",
+      "userId": "670d394ad3d17966d66b6304",
+      "postText": "La creatividad y el pensamiento crítico son habilidades fundamentales para el siglo XXI. En este post discutimos cómo las actividades artísticas y los proyectos en equipo pueden ayudar a los estudiantes a desarrollar estas habilidades desde una edad temprana.",
+      "_count": { "like": 20, "comments": 9, "repostUser": 2 },
+      "like": [{ "userId": "6705978be3969468a2767754" }, { "userId": "670d394ad3d17966d66b6304" }, { "userId": "670f394ad3d17966d66b6306" }],
+      "repostUser": [{ "id": "670e394ad3d17966d66b6305" }, { "id": "670d384ad3d17966d66b6305" }],
+      "link": null,
+      "audioUri": null,
+      "audioTitle": null,
+      "videoUri": null,
+      "videoTitle": null,
+      "photoUri": ["https://classmate-space.s3.amazonaws.com/post/creatividad.png"],
+      "photo": {
+        "id": "67276e7ff26c068fa251d0b8",
+        "imageUri": "https://classmate-space.s3.amazonaws.com/post/creatividad.png",
+        "imageHeight": 618,
+        "imageWidth": 1000
+      },
+      "videoThumbnail": null,
+      "videoViews": null,
+      "user": {
+        "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image2.png",
+        "id": "670d394ad3d17966d66b6304",
+        "name": "Mario Sánchez",
+        "userName": "mariosan",
+        "verified": true
+      },
+      "createdAt": "2024-10-10T09:10:00"
+    }
+]

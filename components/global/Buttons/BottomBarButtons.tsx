@@ -1,20 +1,25 @@
-import { View, Text, Pressable, useColorScheme } from "react-native";
+import { View, Pressable } from "react-native";
 import React, { ElementType } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { HomeNavigationProp, RootStackParamList } from "../../../types/navigation";
+import { HomeNavigationProp } from "../../../types/navigation";
 import useGetMode from "../../../hooks/GetMode";
 
 export default function IconButtons({
   Icon,
   onPress,
+  size = 25,
+  color,
 }: {
   Icon: ElementType;
   onPress: () => void;
+  size?: number;
+  color?: string;
 }) {
   const navigate = useNavigation<HomeNavigationProp>();
   const dark = useGetMode();
   const isDark = dark;
-  const color = isDark ? "white" : "black";
+  const resolvedColor = color || (isDark ? "white" : "black");
+
   return (
     <View
       style={{
@@ -43,7 +48,7 @@ export default function IconButtons({
     
         }}
       >
-        <Icon size={25} color={color} />
+        <Icon size={size} color={resolvedColor} />
       </Pressable>
     </View>
   );

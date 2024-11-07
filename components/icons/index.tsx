@@ -1,6 +1,77 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 
+export const PdfIcon = ({ size, color }: { size: number; color: string }) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 15 15">
+    <Path
+      d="M3.5 8H3V7H3.5C3.77614 7 4 7.22386 4 7.5C4 7.77614 3.77614 8 3.5 8Z"
+      fill={color}
+    />
+    <Path
+      d="M7 10V7H7.5C7.77614 7 8 7.22386 8 7.5V9.5C8 9.77614 7.77614 10 7.5 10H7Z"
+      fill={color}
+    />
+    <Path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M1 1.5C1 0.671573 1.67157 0 2.5 0H10.7071L14 3.29289V13.5C14 14.3284 13.3284 15 12.5 15H2.5C1.67157 15 1 14.3284 1 13.5V1.5ZM3.5 6H2V11H3V9H3.5C4.32843 9 5 8.32843 5 7.5C5 6.67157 4.32843 6 3.5 6ZM7.5 6H6V11H7.5C8.32843 11 9 10.3284 9 9.5V7.5C9 6.67157 8.32843 6 7.5 6ZM10 11V6H13V7H11V8H12V9H11V11H10Z"
+      fill={color}
+    />
+  </Svg>
+);
+
+export const SearchIcon2 = ({ size, color }: { size: number; color: string }) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24">
+    <Path
+      fill={color}
+      d="M15.796 15.811L21 21m-3-10.5a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
+      stroke="#000"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+export const GraduationIcon = ({ size, color }: { size: number; color: string }) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24">
+    <Path
+      fill={color}
+      d="M22 9L12 4 2 9l4.737 2.368M22 9l-4.737 2.368M22 9v8m0-8H12m-5.263 2.368l-.609 5.479c-.077.693.286 1.36.91 1.672a11.095 11.095 0 009.924 0c.624-.312.987-.98.91-1.672l-.609-5.479m-10.526 0L12 14l5.263-2.632"
+      stroke="#000"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+export const TrophyIcon = ({ size, color }: { size: number; color: string }) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24">
+    <Path
+      fill={color}
+      d="M12 14v3m0-3a5.002 5.002 0 01-4.9-4m4.9 4a5.002 5.002 0 004.9-4m.1-5h2.75c.232 0 .349 0 .445.02a1 1 0 01.786.785c.019.097.019.213.019.445 0 .697 0 1.045-.058 1.335a3 3 0 01-2.357 2.357c-.29.058-.638.058-1.335.058h-.35M7 5H4.25c-.232 0-.348 0-.445.02a1 1 0 00-.786.785C3 5.902 3 6.018 3 6.25c0 .697 0 1.045.058 1.335a3 3 0 002.357 2.357c.29.058.638.058 1.335.058h.35m4.9 7c.93 0 1.395 0 1.777.102a3 3 0 012.12 2.122C16 19.605 16 20.07 16 21H8c0-.93 0-1.395.102-1.776a3 3 0 012.121-2.122C10.605 17 11.07 17 12 17zm-4.9-7A5.023 5.023 0 017 9V4.571c0-.533 0-.8.099-1.005a1 1 0 01.467-.467C7.772 3 8.038 3 8.571 3h6.858c.533 0 .8 0 1.005.099a1 1 0 01.467.467c.099.206.099.472.099 1.005V9c0 .342-.034.677-.1 1"
+      stroke="#000"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+export const FavoriteIcon = ({ size, color }: { size: number; color: string }) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 64 64">
+    <Path
+      fill={color}
+      d="M30.051 45.6071L17.851 54.7401C17.2728 55.1729 16.5856 55.4363 15.8662 55.5008C15.1468 55.5652 14.4237 55.4282 13.7778 55.1049C13.1319 54.7817 12.5887 54.2851 12.209 53.6707C11.8293 53.0563 11.6281 52.3483 11.628 51.626V15.306C11.628 13.2423 12.4477 11.2631 13.9069 9.8037C15.3661 8.34432 17.3452 7.52431 19.409 7.52405H45.35C47.4137 7.52431 49.3929 8.34432 50.8521 9.8037C52.3112 11.2631 53.131 13.2423 53.131 15.306V51.625C53.1309 52.3473 52.9297 53.0553 52.55 53.6697C52.1703 54.2841 51.6271 54.7807 50.9812 55.1039C50.3353 55.4272 49.6122 55.5642 48.8928 55.4998C48.1734 55.4353 47.4862 55.1719 46.908 54.739L34.715 45.6071C34.0419 45.1031 33.2238 44.8308 32.383 44.8308C31.5422 44.8308 30.724 45.1031 30.051 45.6071V45.6071Z"
+      stroke="#000000"
+      strokeWidth={4}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
 export const AddIcon = ({ size, color }: { size: number; color: string }) => (
    <Svg width={size} height={size} fill="none" viewBox="0 0 24 24">
      <Path

@@ -44,7 +44,6 @@ export default function CustomDrawerContent(
   const toolbarColor = isDark ? "black" : "white";
   const pressColor = isDark ? "#BEBEBE" : "#4F4F4F";
   const dispatch = useAppDispatch();
-  const isHighEndDevice = useAppSelector((state) => state?.prefs?.isHighEnd);
   const navigation = useNavigation<HomeNavigationProp>();
   const [logout] = useLazyLogoutQuery();
   const [result, setResult] = useState<WebBrowser.WebBrowserResult | null>(
@@ -57,26 +56,13 @@ export default function CustomDrawerContent(
     setResult(result);
   };
   const onToggleSwitch = () => {
-    dispatch(setHighEnd({ isHighEnd: !isHighEndDevice }));
+    dispatch(setHighEnd({ isHighEnd: true }));
   };
   const modal = useBottomSheetModal()
+
   return (
     <View style={{ flex: 1, padding: 20,paddingBottom:Platform.select({ios:insets.bottom,android:40}) }}>
-      {isHighEndDevice ? (
-        <BlurView
-          experimentalBlurMethod= {isHighEndDevice ?"dimezisBlurView": undefined}
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-
-            right: 0,
-            top: 0,
-          }}
-          tint={style}
-          intensity={200}
-        />
-      ) : (
+      {(
         <View
           style={{
             position: "absolute",
@@ -128,17 +114,17 @@ export default function CustomDrawerContent(
           }}
         />
       </DrawerContentScrollView>
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           alignItems: "center",
           paddingRight: 20,
-          paddingBottom: 10,
+          paddingBottom: 20,
         }}
       >
         <View>
           <Text style={{ fontFamily: "mulishBold",color }}>
-            {isHighEndDevice ? "Disable" : "Enable"} Glass UI
+            {"Enable Glass UI"}
           </Text>
           <Text style={{ fontFamily: "mulish",color }}>
             {"May cause performance issue on low end devices"}
@@ -146,15 +132,16 @@ export default function CustomDrawerContent(
         </View>
         <Switch
           color={color}
-          value={isHighEndDevice}
+          value={false}
           onValueChange={onToggleSwitch}
         />
-      </View>
+      </View> */}
       <View
         style={{
           width: "100%",
           justifyContent: "space-between",
           flexDirection: "row",
+          paddingBottom: 20,
         }}
       >
         <View

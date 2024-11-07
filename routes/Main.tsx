@@ -56,11 +56,9 @@ import { useLazyGetAllChatsQuery } from "../redux/api/chat";
 import FollowingFollowers from "../screen/App/FollowingFollowers";
 import EditProfile from "../screen/App/EditProfile";
 import ChangeData from "../screen/App/ChangeData";
-import { createStackNavigator } from "@react-navigation/stack";
 
 const BACKGROUND_FETCH_TASK = "background-fetch";
 const Stack = createNativeStackNavigator<RootStackParamList>();
-const JStack = createStackNavigator()
 
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
   const now = Date.now();
@@ -74,8 +72,10 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 });
 
 export default function Main() {
-  const [updateNotificationId] = useUpdateNotificationIdMutation();
-  const chatList = useAppSelector((state) => state?.chatlist?.data);
+  // PRIMERA ENTREGA. No es necesario los mensajes Push
+  //const [updateNotificationId] = useUpdateNotificationIdMutation();
+  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats ni socket
+  //const chatList = useAppSelector((state) => state?.chatlist?.data);
   const id = useAppSelector((state) => state.user?.data?.id);
   const dark = useGetMode();
   const isDark = dark;
@@ -83,24 +83,32 @@ export default function Main() {
   const backgroundColor = isDark ? "black" : "white";
   const color = !isDark ? "black" : "white";
   const dispatch = useAppDispatch();
-  const socket = useSocket();
+  // PRIMERA ENTREGA. No es necesario. No trabajeremos con socket
+  //const socket = useSocket();
   const borderColor = isDark ? "#FFFFFF7D" : "#4545452D";
-  const [getAllChats] = useLazyGetAllChatsQuery();
-  useGetUserQuery(null);
+  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats
+  //const [getAllChats] = useLazyGetAllChatsQuery();
+
+  // PRIMERA ENTREGA. No es necesario. Ya tenemos establecido el setUserData desde el Login
+  //useGetUserQuery(null);
+  
+  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats
+  /*
   useEffect(() => {
     getAllChats(null)
       .then((e) => {})
       .catch((e) => e);
   }, []);
+  */
 
+  // PRIMERA ENTREGA. No es necesario los mensajes Push
+  /*
   useEffect(() => {
     console.log(process.env.EXPO_PUBLIC_PROJECT_ID);
     async function registerForPushNotificationsAsync() {
       try {
         let token;
-
-        const { status: existingStatus } =
-          await Notifications.getPermissionsAsync();
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
         let finalStatus = existingStatus;
         if (existingStatus !== "granted") {
           const { status } = await Notifications.requestPermissionsAsync();
@@ -137,14 +145,13 @@ export default function Main() {
             },
           ]);
         }
-
         return token;
       } catch (e) {}
     }
 
     registerForPushNotificationsAsync()
       .then((e) => {
-        console.log(">>>> file: Main.tsx:187 ~ .then ~ e:", e);
+        console.log(">>>> file: Main.tsx ~ .then ~ e:", e);
         updateNotificationId({ notificationId: e?.data as string });
       })
       .catch((e) => {
@@ -159,7 +166,10 @@ export default function Main() {
         console.log(e);
       });
   }, []);
+  */
 
+  // PRIMERA ENTREGA. No es necesario. No trabajeremos con socket
+  /*
   useEffect(() => {
     socket?.emit("followedStatus");
     socket?.on("following", (following: number) => {
@@ -173,7 +183,10 @@ export default function Main() {
       socket?.off("followers");
     };
   }, [socket]);
+  */
 
+  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats ni socket
+  /*
   useEffect(() => {
     const rooms: string[] = [];
     for (let i in chatList) {
@@ -185,14 +198,14 @@ export default function Main() {
       socket?.off("chat");
     };
   }, [chatList]);
+  */
 
+  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats ni socket
+  /*
   useEffect(() => {
     if (socket) {
       socket?.on("newChat", (chatMessages) => {
-        console.log(
-          ">>>> file: Main.tsx:203 ~ socket?.on ~ chatMessages:",
-          chatMessages
-        );
+        console.log(">>>> file: Main.tsx ~ socket?.on ~ chatMessages:", chatMessages);
         if (chatMessages) {
           if (chatMessages?.isNew) {
             dispatch(
@@ -211,7 +224,10 @@ export default function Main() {
       socket?.off("newChat");
     };
   }, [socket]);
+  */
 
+  // PRIMERA ENTREGA. No es necesario. No trabajeremos con socket
+  /*
   useEffect(() => {
     socket?.on("online", (online) => {
       dispatch(updateOnlineIds({ ids: online }));
@@ -220,7 +236,7 @@ export default function Main() {
     socket?.on("message", (data: IMessageSocket) => {
       if (data) {
         console.log(
-          ">>>> file: Main.tsx:267 ~ socket?.on ~ data:",
+          ">>>> file: Main.tsx ~ socket?.on ~ data:",
           new Date(),
           data
         );
@@ -242,15 +258,15 @@ export default function Main() {
       socket?.off("message");
     };
   }, [socket]);
+  */
 
   const appState = useRef(AppState.currentState);
 
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
-  console.log(
-    ">>>> file: Main.tsx:159 ~ Main ~ appStateVisible:",
-    appStateVisible
-  );
+  console.log(">>>> file: Main.tsx ~ Main ~ appStateVisible:", appStateVisible);
 
+  // PRIMERA ENTREGA. No es necesario. No trabajeremos con socket
+  /*
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
       if (
@@ -272,11 +288,9 @@ export default function Main() {
       subscription.remove();
     };
   }, []);
-  const isHighEndDevice = useAppSelector((state) => state?.prefs?.isHighEnd);
+  */
+  
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-
-  // variables
-  const snapPoints = useMemo(() => ["25%", "50%"], []);
 
   // callbacks
   const handlePresentModalPress = useCallback(() => {
@@ -293,22 +307,8 @@ export default function Main() {
 
   return (
     <BottomSheetModalProvider>
-      {/* <BottomSheetModal
-          ref={bottomSheetModalRef}
-          index={1}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}
-        >
-          <BottomSheetView style={styles.contentContainer}>
-            <Text>Awesome 🎉</Text>
-          </BottomSheetView>
-        </BottomSheetModal> */}
       <BottomSheetContainer />
-      <Stack.Navigator
-        screenOptions={{
-          contentStyle: { backgroundColor },
-        }}
-      >
+      <Stack.Navigator screenOptions={{ contentStyle: { backgroundColor } }}>
         <Stack.Screen
           name="Main"
           options={{ headerShown: false, title: "Home" }}
@@ -318,7 +318,6 @@ export default function Main() {
           name="Profile"
           options={{
             headerTitle: "",
-
             animation: Platform.OS === "ios" ? "fade_from_bottom" : "none",
             headerTransparent: true,
             headerTintColor: "white",
@@ -340,7 +339,6 @@ export default function Main() {
           options={{
             title: "",
             animation: "fade_from_bottom",
-
             headerTransparent: true,
             headerShadowVisible: false,
             headerTintColor: "white",
@@ -351,7 +349,6 @@ export default function Main() {
           name="PostContent"
           options={{
             title: "",
-
             headerShown: false,
             animation: "fade_from_bottom",
             headerTransparent: true,
@@ -365,23 +362,7 @@ export default function Main() {
           options={{
             headerBackground: () => (
               <>
-                {isHighEndDevice ? (
-                  <BlurView
-                    experimentalBlurMethod="dimezisBlurView"
-                    style={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      top: 0,
-                      right: 0,
-                      borderColor,
-                      height: 300,
-                      borderBottomWidth: 0.5,
-                    }}
-                    tint={tint}
-                    intensity={200}
-                  />
-                ) : (
+                {(
                   <View
                     style={{
                       position: "absolute",
@@ -401,7 +382,6 @@ export default function Main() {
             animation: "fade_from_bottom",
             headerTitleStyle: { fontFamily: "uberBold", fontSize: 20, color },
             headerShadowVisible: false,
-
             headerTransparent: true,
             headerTitleAlign: "center",
             headerTintColor: color,
@@ -443,11 +423,9 @@ export default function Main() {
             //   />
             // ),
             title: "Post",
-      animation:"fade_from_bottom",
-
+            animation:"fade_from_bottom",
             headerTitleStyle: { fontFamily: "uberBold", fontSize: 20, color },
             headerShadowVisible: false,
-
             headerTransparent: true,
             headerTitleAlign: "center",
             headerTintColor: color,
@@ -464,7 +442,6 @@ export default function Main() {
             animation: "fade_from_bottom",
             headerTitleStyle: { fontFamily: "uberBold", fontSize: 20, color },
             headerShadowVisible: false,
-
             headerTransparent: true,
             headerTitleAlign: "center",
             headerTintColor: color,
@@ -481,7 +458,6 @@ export default function Main() {
             animation: "none",
             headerTitleStyle: { fontFamily: "uberBold", fontSize: 20, color },
             headerShadowVisible: false,
-
             headerTransparent: true,
             headerTitleAlign: "center",
             headerTintColor: color,

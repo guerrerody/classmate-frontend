@@ -1,8 +1,9 @@
 import { View, Text, Pressable } from "react-native";
 import React from "react";
-import { AudioIcon, CameraIcon } from "../icons";
+import { AudioIcon, PdfIcon } from "../icons";
 import DocumentPicker from "react-native-document-picker";
 import useGetMode from "../../hooks/GetMode";
+
 export default function PickAudioButton({
   handleSetAudioPost,
 }: {
@@ -53,7 +54,7 @@ export default function PickAudioButton({
           alignItems: "center",
         }}
       >
-        <AudioIcon color={backgroundColor} size={40} />
+        <PdfIcon color={backgroundColor} size={40} />
       </Pressable>
     </View>
   );

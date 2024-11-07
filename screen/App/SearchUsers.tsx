@@ -86,10 +86,10 @@ export default function SearchUsers({ navigation }: SearchUserProp) {
             height: "100%",
           }}
         >
-          <Image
+          {/* <Image
             style={{ height: 300, width: 300 }}
             source={require("../../assets/images/empty_search.png")}
-          />
+          /> */}
         </Animated.View>
       )}
       <FlatList

@@ -16,28 +16,36 @@ import { openToast } from "../../../redux/slice/toast/toast";
 
 import Bio from "../../../components/profile/Bio";
 import Animated, { AnimatedRef, LinearTransition, ScrollHandlerProcessed, SequencedTransition } from "react-native-reanimated";
-import { ScrollView } from "react-native-gesture-handler";
+
+// PRIMERA ENTREGA. Importar fake posts.
+import fakePosts from "../../../data/fakeFollowedPosts.json";
 
 export default function MyPosts({ onScroll }: { onScroll: ScrollHandlerProcessed<Record<string, unknown>> }) {
   const dark = useGetMode();
   const dispatch = useAppDispatch();
-  const [posts, setPosts] = useState<IPost[]>([]);
   const authId = useAppSelector((state) => state.user.data?.id);
   const isDark = dark;
   const color = isDark ? "white" : "black";
 
   const [skip, setSkip] = useState(0);
-
   const [noMore, setNoMore] = useState(false);
 
   const ref = useRef<any>(null);
-  const [getLazyPost, postRes] = useLazyGetMyPostsQuery();
+  // PRIMERA ENTREGA.
+  //const [getLazyPost, postRes] = useLazyGetMyPostsQuery();
   const [isLoading, setIsLoading] = useState(false);
-  console.log(
-    ">>>> file: MyPosts.tsx:30 ~ MyPosts ~ postRes:",
-    postRes.isLoading
+
+    // PRIMERA ENTREGA. Quitamos el state de post y establecemos el nuevo con fakePosts.
+  //const [posts, setPosts] = useState<IPost[]>([]);
+  const [posts, setPosts] = useState<IPost[]>(
+    fakePosts.map((post) => ({
+      ...post,
+      createdAt: new Date(post.createdAt),
+    }))
   );
 
+  // PRIMERA ENTREGA. NO necesitamos este renderFooter ya que no tendremos More ni Loading. Lo refactorizamos.
+  /*
   const renderFooter = () => {
     if (postRes.isLoading || isLoading) {
       return (
@@ -55,7 +63,25 @@ export default function MyPosts({ onScroll }: { onScroll: ScrollHandlerProcessed
       );
     }
   };
+  */
 
+  const renderFooter = () => {
+    return (
+      <View
+        style={{
+          width: "100%",
+          marginTop: 20,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator color={color} size={20} />
+      </View>
+    );
+  };
+
+  // PRIMERA ENTREGA. NO obtenemos Posts desde API.
+  /*
   useEffect(() => {
     getLazyPost({ take: 10, skip })
       .unwrap()
@@ -69,7 +95,10 @@ export default function MyPosts({ onScroll }: { onScroll: ScrollHandlerProcessed
         // );
       });
   }, []);
+  */
 
+  // PRIMERA ENTREGA. NO obtenemos Posts desde API.
+  /*
   const fetchMoreData = () => {
     setIsLoading(true);
     if (!noMore && !postRes.error && skip > 0)
@@ -92,19 +121,26 @@ export default function MyPosts({ onScroll }: { onScroll: ScrollHandlerProcessed
           // );
         });
   };
+  */
 
+  // PRIMERA ENTREGA.
+  /*
   const [deletePostById] = useDeletePostByIdMutation();
+
   const deletePost = (id: string) => {
     deletePostById({ id }).then((e) => console.log(e));
     setPosts((prev) => [...prev.filter((prev) => prev.id !== id)]);
   };
+  */
   
-  const renderItem = ({ item }: { item: IPost }) => (
+  const renderItem = ({ item, index }: { item: IPost; index: number }) => (
     <>
       <PostBuilder
         id={item.id}
         myPost={true}
-        deletePost={deletePost}
+        // PRIMERA ENTREGA.
+        //deletePost={deletePost}
+        deletePost={() => {}}
         date={item.createdAt}
         comments={item._count.comments}
         isReposted={
@@ -137,10 +173,15 @@ export default function MyPosts({ onScroll }: { onScroll: ScrollHandlerProcessed
         videoUri={item.videoUri || undefined}
         postText={item.postText}
         videoViews={item.videoViews?.toString()}
+        idx={index}
       />
     </>
   );
+
   const keyExtractor = (item: IPost) => item.id?.toString();
+
+  // PRIMERA ENTREGA. Refactorizar Render.
+  /*
   return (
     <>
       <View style={{ flex: 1 }}>
@@ -156,7 +197,28 @@ export default function MyPosts({ onScroll }: { onScroll: ScrollHandlerProcessed
           onEndReachedThreshold={0.3}
           onEndReached={fetchMoreData}
           renderItem={renderItem}
-          contentContainerStyle={{ paddingTop: 10, paddingBottom: 100 }}
+          contentContainerStyle={{ paddingTop: 10, paddingBottom: 20 }}
+        />
+      </View>
+    </>
+  );
+  */
+
+  return (
+    <>
+      <View style={{ flex: 1 }}>
+        <Animated.FlatList
+          onScroll={onScroll}
+          itemLayoutAnimation={LinearTransition.springify()}
+          data={posts}
+          decelerationRate={0.991}
+          ListHeaderComponent={<Bio />}
+          ListFooterComponent={renderFooter}
+          scrollEventThrottle={16}
+          keyExtractor={keyExtractor}
+          onEndReachedThreshold={0.3}
+          renderItem={renderItem}
+          contentContainerStyle={{ paddingTop: 10, paddingBottom: 20 }}
         />
       </View>
     </>

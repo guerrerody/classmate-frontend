@@ -49,6 +49,7 @@ export default function PostScreen({ navigation, route }: ViewPost) {
   const backgroundColor = !dark ? "white" : "black";
   const [getComments, commentResponse] = useLazyGetCommentByPostQuery();
   const [getSinglePost, singlePostResponse] = useLazyGetSinglePostQuery();
+
   useEffect(() => {
     if (params.id) {
       getComments({ id: params.id })
@@ -127,7 +128,9 @@ export default function PostScreen({ navigation, route }: ViewPost) {
       postComment({ id: params.id, comment: commentText });
     }
   };
+
   const tint = dark ? "dark" : "light";
+  
   return (
     <View
      

@@ -8,13 +8,13 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 
 import { ActivityIndicator } from "react-native-paper";
 import { IPost } from "../../../types/api";
-import {
-  useLazyGetGuestPostsQuery,
-  useLazyGetMyPostsQuery,
-} from "../../../redux/api/services";
-import { openToast } from "../../../redux/slice/toast/toast";
+import { useLazyGetGuestPostsQuery } from "../../../redux/api/services";
 
 import Bio from "../../../components/profilePeople/Bio";
+
+
+// PRIMERA ENTREGA. Importar fake posts.
+import fakePosts from "../../../data/fakeAllPosts.json";
 
 export default function PeoplePosts({
   offset,
@@ -38,12 +38,24 @@ export default function PeoplePosts({
   const color = isDark ? "white" : "black";
 
   const [skip, setSkip] = useState(0);
-  const [posts, setPosts] = useState<IPost[]>([]);
   const [noMore, setNoMore] = useState(false);
 
-  const ref = useRef<any>(null);
-  const [getLazyPost, postRes] = useLazyGetGuestPostsQuery();
+  // PRIMERA ENTREGA. Quitamos el state de post y establecemos el nuevo con fakePosts.
+  //const [posts, setPosts] = useState<IPost[]>([]);
+  const [posts, setPosts] = useState<IPost[]>(
+    fakePosts.map((post) => ({
+      ...post,
+      createdAt: new Date(post.createdAt),
+    }))
+  );
 
+  const ref = useRef<any>(null);
+  
+  // PRIMERA ENTREGA.
+  //const [getLazyPost, postRes] = useLazyGetGuestPostsQuery();
+
+  // PRIMERA ENTREGA. NO necesitamos este renderFooter ya que no tendremos More ni Loading. Lo refactorizamos.
+  /*
   const renderFooter = () => {
     if (postRes.isLoading) {
       return (
@@ -60,7 +72,25 @@ export default function PeoplePosts({
       );
     }
   };
+  */
 
+  const renderFooter = () => {
+    return (
+      <View
+        style={{
+          width: "100%",
+          marginTop: 20,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator color={color} size={20} />
+      </View>
+    );
+  };
+
+  // PRIMERA ENTREGA. NO obtenemos Posts desde API.
+  /*
   useEffect(() => {
     getLazyPost({ id, take: 20, skip })
       .unwrap()
@@ -74,7 +104,10 @@ export default function PeoplePosts({
         // );
       });
   }, []);
+  */
 
+  // PRIMERA ENTREGA. NO obtenemos Posts desde API.
+  /*
   const fetchMoreData = () => {
     if (!noMore && !postRes.error)
       getLazyPost({ take: 20, skip, id })
@@ -92,8 +125,9 @@ export default function PeoplePosts({
           // );
         });
   };
+  */
 
-  const renderItem = ({ item }: { item: IPost }) => (
+  const renderItem = ({ item, index }: { item: IPost; index: number }) => (
     <>
       <PostBuilder
         id={item.id}
@@ -129,10 +163,15 @@ export default function PeoplePosts({
         videoUri={item.videoUri || undefined}
         postText={item.postText}
         videoViews={item.videoViews?.toString()}
+        idx={index}
       />
     </>
   );
+
   const keyExtractor = (item: IPost) => item.id?.toString();
+
+  // PRIMERA ENTREGA. Refactorizar Render.
+  /*
   return (
     <>
       <View style={{ flex: 1 }}>
@@ -156,4 +195,28 @@ export default function PeoplePosts({
       </View>
     </>
   );
+  */
+
+  return (
+    <>
+      <View style={{ flex: 1 }}>
+          <NativeAnimated.FlatList
+            ref={ref}
+            data={posts}
+            decelerationRate={0.991}
+            ListHeaderComponent={<Bio name={name} userTag={userTag} id={id} />}
+            ListFooterComponent={renderFooter}
+            scrollEventThrottle={16}
+            onScroll={NativeAnimated.event(
+              [{ nativeEvent: { contentOffset: { y: offset } } }],
+              { useNativeDriver: false }
+            )}
+            keyExtractor={keyExtractor}
+            onEndReachedThreshold={0.3}
+            renderItem={renderItem}
+            contentContainerStyle={{ paddingTop: 10, paddingBottom: 20 }}
+          />
+      </View>
+    </>
+  );  
 }

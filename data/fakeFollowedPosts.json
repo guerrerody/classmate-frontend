@@ -1,0 +1,232 @@
+[
+  {
+    "id": "67396e7ff26c068fa251d0b9",
+    "userId": "670e394ad3d17966d66b6305",
+    "postText": "La educación en la escuela es clave para el desarrollo de los niños. En este video exploramos cómo los niños aprenden y crecen en el entorno escolar.",
+    "_count": { "like": 22, "comments": 8, "repostUser": 1 },
+    "like": [{ "userId": "670f394ad3d17966d66b6306" }, { "userId": "670d384ad3d17966d66b6305" }],
+    "repostUser": [{ "id": "670d394ad3d17966d66b6304" }],
+    "link": null,
+    "audioUri": null,
+    "audioTitle": null,
+    "videoUri": "https://classmate-space.s3.amazonaws.com/post/educacion-escuela.mp4",
+    "videoTitle": "Educación en la escuela para niños",
+    "photoUri": [],
+    "photo": null,
+    "videoThumbnail": "https://classmate-space.s3.amazonaws.com/post/thumbnails/educacion-escuela-thumbnail.jpg",
+    "videoViews": 220,
+    "user": {
+      "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image5.png",
+      "id": "670e394ad3d17966d66b6305",
+      "name": "Valeria Torres",
+      "userName": "valeriat",
+      "verified": true
+    },
+    "createdAt": "2024-11-09T09:45:00"
+  },
+  {
+    "id": "673a6e7ff26c068fa251d0b9",
+    "userId": "670d394ad3d17966d66b6304",
+    "postText": "Los libros digitales ofrecen una nueva forma de acceder al conocimiento. En este video exploramos los beneficios de los libros digitales y cómo pueden complementar el aprendizaje tradicional.",
+    "_count": { "like": 19, "comments": 7, "repostUser": 2 },
+    "like": [{ "userId": "670e394ad3d17966d66b6305" }, { "userId": "670f394ad3d17966d66b6306" }],
+    "repostUser": [{ "id": "670d384ad3d17966d66b6305" }],
+    "link": null,
+    "audioUri": null,
+    "audioTitle": null,
+    "videoUri": "https://classmate-space.s3.amazonaws.com/post/libros_digitales.mp4",
+    "videoTitle": "Los beneficios de los libros digitales",
+    "photoUri": [],
+    "photo": null,
+    "videoThumbnail": "https://classmate-space.s3.amazonaws.com/post/thumbnails/libros_digitales-thumbnail.jpg",
+    "videoViews": 180,
+    "user": {
+      "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image2.png",
+      "id": "670d394ad3d17966d66b6304",
+      "name": "Mario Sánchez",
+      "userName": "mariosan",
+      "verified": true
+    },
+    "createdAt": "2024-11-10T13:20:00"
+  },
+  {
+    "id": "67306e7ff26c068fa251d0b9",
+    "userId": "670d394ad3d17966d66b6304",
+    "postText": "La enseñanza de la programación en la educación básica fomenta el pensamiento lógico y la creatividad en los estudiantes. Este post muestra algunas herramientas y recursos que los educadores pueden utilizar para introducir a los niños al mundo de la programación.",
+    "_count": { "like": 16, "comments": 4, "repostUser": 1 },
+    "like": [{ "userId": "670e394ad3d17966d66b6305" }, { "userId": "670d384ad3d17966d66b6305" }],
+    "repostUser": [{ "id": "670f394ad3d17966d66b6306" }],
+    "link": null,
+    "audioUri": null,
+    "audioTitle": null,
+    "videoUri": null,
+    "videoTitle": null,
+    "photoUri": ["https://classmate-space.s3.amazonaws.com/post/programacion_educacion.jpg"],
+    "photo": {
+      "id": "67306e7ff26c068fa251d0b8",
+      "imageUri": "https://classmate-space.s3.amazonaws.com/post/programacion_educacion.jpg",
+      "imageHeight": 620,
+      "imageWidth": 1000
+    },
+    "videoThumbnail": null,
+    "videoViews": null,
+    "user": {
+      "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image2.png",
+      "id": "670d394ad3d17966d66b6304",
+      "name": "Mario Sánchez",
+      "userName": "mariosan",
+      "verified": true
+    },
+    "createdAt": "2024-11-01T09:00:00"
+  },
+  {
+    "id": "67316e7ff26c068fa251d0b9",
+    "userId": "670e394ad3d17966d66b6305",
+    "postText": "Las excursiones escolares brindan una oportunidad única para que los estudiantes aprendan fuera del aula. Este post destaca los beneficios educativos de las visitas a museos y sitios históricos.",
+    "_count": { "like": 19, "comments": 7, "repostUser": 2 },
+    "like": [{ "userId": "670d394ad3d17966d66b6304" }, { "userId": "670f394ad3d17966d66b6306" }],
+    "repostUser": [{ "id": "670d384ad3d17966d66b6305" }, { "id": "670c384ad3d17966d66b6304" }],
+    "link": null,
+    "audioUri": null,
+    "audioTitle": null,
+    "videoUri": null,
+    "videoTitle": null,
+    "photoUri": ["https://classmate-space.s3.amazonaws.com/post/excursion_educativa.jpg"],
+    "photo": {
+      "id": "67316e7ff26c068fa251d0b8",
+      "imageUri": "https://classmate-space.s3.amazonaws.com/post/excursion_educativa.jpg",
+      "imageHeight": 480,
+      "imageWidth": 1000
+    },
+    "videoThumbnail": null,
+    "videoViews": null,
+    "user": {
+      "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image5.png",
+      "id": "670e394ad3d17966d66b6305",
+      "name": "Valeria Torres",
+      "userName": "valeriat",
+      "verified": true
+    },
+    "createdAt": "2024-11-02T14:45:00"
+  },
+  {
+    "id": "67326e7ff26c068fa251d0b9",
+    "userId": "670d384ad3d17966d66b6305",
+    "postText": "La educación ambiental debe ser parte esencial del currículo escolar. En este post hablamos sobre cómo enseñar a los estudiantes la importancia de cuidar el medio ambiente mediante actividades prácticas.",
+    "_count": { "like": 24, "comments": 11, "repostUser": 3 },
+    "like": [{ "userId": "670e394ad3d17966d66b6305" }, { "userId": "670d394ad3d17966d66b6304" }, { "userId": "670f394ad3d17966d66b6306" }],
+    "repostUser": [{ "id": "670d394ad3d17966d66b6304" }, { "id": "670e394ad3d17966d66b6305" }],
+    "link": null,
+    "audioUri": null,
+    "audioTitle": null,
+    "videoUri": null,
+    "videoTitle": null,
+    "photoUri": ["https://classmate-space.s3.amazonaws.com/post/educacion_ambiental.jpg"],
+    "photo": {
+      "id": "67326e7ff26c068fa251d0b8",
+      "imageUri": "https://classmate-space.s3.amazonaws.com/post/educacion_ambiental.jpg",
+      "imageHeight": 520,
+      "imageWidth": 1000
+    },
+    "videoThumbnail": null,
+    "videoViews": null,
+    "user": {
+      "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image3.png",
+      "id": "670d384ad3d17966d66b6305",
+      "name": "Laura Mendoza",
+      "userName": "lauram",
+      "verified": false
+    },
+    "createdAt": "2024-11-03T08:30:00"
+  },
+  {
+    "id": "67336e7ff26c068fa251d0b9",
+    "userId": "670f394ad3d17966d66b6306",
+    "postText": "El arte en la educación ayuda a los estudiantes a desarrollar habilidades emocionales y creativas. En este post discutimos actividades artísticas que pueden ser incluidas en la escuela para mejorar la expresión personal.",
+    "_count": { "like": 17, "comments": 5, "repostUser": 1 },
+    "like": [{ "userId": "670d394ad3d17966d66b6304" }, { "userId": "670e394ad3d17966d66b6305" }],
+    "repostUser": [{ "id": "670d384ad3d17966d66b6305" }],
+    "link": null,
+    "audioUri": null,
+    "audioTitle": null,
+    "videoUri": null,
+    "videoTitle": null,
+    "photoUri": ["https://classmate-space.s3.amazonaws.com/post/arte_educacion.jpg"],
+    "photo": {
+      "id": "67336e7ff26c068fa251d0b8",
+      "imageUri": "https://classmate-space.s3.amazonaws.com/post/arte_educacion.jpg",
+      "imageHeight": 600,
+      "imageWidth": 1000
+    },
+    "videoThumbnail": null,
+    "videoViews": null,
+    "user": {
+      "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image4.png",
+      "id": "670f394ad3d17966d66b6306",
+      "name": "Carlos Pérez",
+      "userName": "carlosp",
+      "verified": false
+    },
+    "createdAt": "2024-11-04T11:00:00"
+  },
+  {
+    "id": "67346e7ff26c068fa251d0b9",
+    "userId": "670e394ad3d17966d66b6305",
+    "postText": "Las habilidades de comunicación son esenciales para el éxito en el mundo moderno. Este post comparte algunos ejercicios que los maestros pueden usar para mejorar la oratoria y la confianza de los estudiantes en clase.",
+    "_count": { "like": 21, "comments": 9, "repostUser": 2 },
+    "like": [{ "userId": "670d394ad3d17966d66b6304" }, { "userId": "670f394ad3d17966d66b6306" }],
+    "repostUser": [{ "id": "670d384ad3d17966d66b6305" }, { "id": "670c384ad3d17966d66b6304" }],
+    "link": null,
+    "audioUri": null,
+    "audioTitle": null,
+    "videoUri": null,
+    "videoTitle": null,
+    "photoUri": ["https://classmate-space.s3.amazonaws.com/post/comunicacion_habilidades.jpg"],
+    "photo": {
+      "id": "67346e7ff26c068fa251d0b8",
+      "imageUri": "https://classmate-space.s3.amazonaws.com/post/comunicacion_habilidades.jpg",
+      "imageHeight": 500,
+      "imageWidth": 1000
+    },
+    "videoThumbnail": null,
+    "videoViews": null,
+    "user": {
+      "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image5.png",
+      "id": "670e394ad3d17966d66b6305",
+      "name": "Valeria Torres",
+      "userName": "valeriat",
+      "verified": true
+    },
+    "createdAt": "2024-11-04T14:20:00"
+  },
+  {
+    "id": "67356e7ff26c068fa251d0b9",
+    "userId": "670d394ad3d17966d66b6304",
+    "postText": "Las ciencias experimentales permiten a los estudiantes explorar el mundo a través de la observación y el experimento. Este post presenta ideas para actividades de laboratorio que se pueden realizar con materiales simples.",
+    "_count": { "like": 14, "comments": 6, "repostUser": 1 },
+    "like": [{ "userId": "670e394ad3d17966d66b6305" }, { "userId": "670d394ad3d17966d66b6304" }],
+    "repostUser": [{ "id": "670f394ad3d17966d66b6306" }],
+    "link": null,
+    "audioUri": null,
+    "audioTitle": null,
+    "videoUri": null,
+    "videoTitle": null,
+    "photoUri": ["https://classmate-space.s3.amazonaws.com/post/ciencias_experimentales.jpg"],
+    "photo": {
+      "id": "67356e7ff26c068fa251d0b8",
+      "imageUri": "https://classmate-space.s3.amazonaws.com/post/ciencias_experimentales.jpg",
+      "imageHeight": 500,
+      "imageWidth": 1000
+    },
+    "videoThumbnail": null,
+    "videoViews": null,
+    "user": {
+      "imageUri": "https://classmate-space.s3.amazonaws.com/profile/profile_image2.png",
+      "id": "670d394ad3d17966d66b6304",
+      "name": "Mario Sánchez",
+      "userName": "mariosan",
+      "verified": true
+    },
+    "createdAt": "2024-11-05T09:00:00"
+  }
+]

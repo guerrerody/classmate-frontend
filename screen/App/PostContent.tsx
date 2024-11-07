@@ -357,7 +357,7 @@ export default function PostContent({ navigation }: PostContentProp) {
 
   return (
     <AnimatedScreen>
-      <View style={{ flex: 1, padding: 20, marginTop: 30 }}>
+      <View style={{ flex: 1, padding: 20, marginTop: 30, backgroundColor: "#512DA8" }}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View
             style={{

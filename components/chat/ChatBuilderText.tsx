@@ -1,13 +1,10 @@
 import { View, Text, Dimensions, Pressable } from "react-native";
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useGetMode from "../../hooks/GetMode";
 import { formatDateForChat } from "../../util/date";
 import Animated, {
   FadeIn,
-  FadeInDown,
-  FadeInUp,
   FadeOut,
-  FadeOutDown,
 } from "react-native-reanimated";
 import { CheckIcon } from "../icons";
 
@@ -17,9 +14,9 @@ import { Image } from "expo-image";
 import { ActivityIndicator } from "react-native-paper";
 import { BlurView } from "expo-blur";
 import { isEmoji } from "../../util/emoji";
-import { useAppSelector } from "../../redux/hooks/hooks";
 
 const { width } = Dimensions.get("window");
+
 function ChatBuilderText({
   isMe,
   time,
@@ -43,7 +40,7 @@ function ChatBuilderText({
   photo?: { imageWidth: number; imageHeight: number };
   isLast: boolean;
 }) {
-  console.log(">>>> file: ChatBuilderText.tsx:45 ~ isClicked:", isClicked);
+  console.log(">>>> file: ChatBuilderText.tsx ~ isClicked:", isClicked);
   const dark = useGetMode();
   const backgroundColorForMe = dark ? "#35383A" : "#0c81f8";
   const backgroundColor = dark ? "#181B1D" : "#e8e8eb";
@@ -51,13 +48,15 @@ function ChatBuilderText({
   const [height, setHeight] = useState(0);
   const navigate = useNavigation<ChatNavigation>();
   const chatTextRef = useRef<Animated.View>(null);
+
   useEffect(() => {
     chatTextRef.current?.measure((x, y, width, height, pageX, pageY) => {
       setHeight(height);
     });
   }, []);
-  const isHighEndDevice = useAppSelector((state) => state?.prefs?.isHighEnd);
+
   console.log("isEmoji", isEmoji(text));
+
   return (
     <Animated.View
       exiting={FadeOut.delay(20)}
@@ -126,7 +125,7 @@ function ChatBuilderText({
                   <>
                     {
                       <BlurView
-                        experimentalBlurMethod=  {isHighEndDevice ?"dimezisBlurView": undefined}
+                        experimentalBlurMethod={undefined}
                         style={{
                           height: 200,
                           width: 600,

@@ -12,15 +12,10 @@ import { BlurView } from "expo-blur";
 import IconButtons from "../../components/global/Buttons/BottomBarButtons";
 import ProfileButton from "../../components/home/header/ProfileButton";
 import {
-  HomeIcon,
-  SearchIcon,
-  MessagesIcon,
-  NotificationIcon,
-  HomeIconUnfocused,
-  SearchUnfocused,
-  MessageUnfocused,
-  NotificationUnfocused,
-  MessageAvailableIcon,
+  GraduationIcon,
+  SearchIcon2,
+  TrophyIcon,
+  FavoriteIcon,
 } from "../../components/icons";
 import useGetMode from "../../hooks/GetMode";
 import Discover from "../../screen/App/Discover";
@@ -38,34 +33,20 @@ const Tab = createBottomTabNavigator<BottomRootStackParamList>();
 
 export function BottomTabNavigator() {
   const dark = useGetMode();
-  const dispatch = useAppDispatch();
-  const isNewMessage = useAppSelector((state) => state?.chatlist?.new);
+  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats ni socket
+  //const isNewMessage = useAppSelector((state) => state?.chatlist?.new);
   const isDark = dark;
   const tint = !isDark ? "light" : "dark";
   const color = isDark ? "white" : "black";
   const backgroundColor = isDark ? "black" : "white";
   const insets = useSafeAreaInsets();
-  const isHighEndDevice = useAppSelector((state) => state?.prefs?.isHighEnd);
   const borderColor = isDark ? "#FFFFFF7D" : "#4545452D";
+
   return (
     <Tab.Navigator
       tabBar={(props) => (
         <>
-          {isHighEndDevice ? (
-            <BlurView
-              experimentalBlurMethod="dimezisBlurView"
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
-              }}
-              tint={tint}
-              intensity={200}
-            >
-              <BottomTabBar {...props} />
-            </BlurView>
-          ) : (
+          {(
             <View
               style={{
                 position: "absolute",
@@ -87,72 +68,37 @@ export function BottomTabNavigator() {
           headerStatusBarHeight: 30,
           animation: "shift",
           tabBarStyle: {
-            backgroundColor: isHighEndDevice ? "transparent" : backgroundColor,
+            backgroundColor: backgroundColor,
             elevation: 0,
-            height: Platform.OS == "ios" ? 40 + insets.bottom : 60,
-            paddingTop:10,
-            borderTopWidth: 0.2,
-
+            height: Platform.OS == "ios" ? 40 + insets.bottom : 60 + insets.bottom,
+            paddingBottom: insets.bottom,
+            paddingTop: 10,
+            borderTopWidth: 0.5,
             borderColor,
           },
           headerBackgroundContainerStyle: {
             borderBottomWidth: 0.2,
             borderColor,
           },
-
-          headerBackground: () => (
-            <>
-              {isHighEndDevice && (
-                <BlurView
-                  experimentalBlurMethod="dimezisBlurView"
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    top: 0,
-                    right: 0,
-                  }}
-                  tint={tint}
-                  intensity={200}
-                />
-              )}
-            </>
-          ),
           tabBarIcon: ({ focused }) => {
-            const iconFocused = () => {
+            const icon = () => {
               if (route.name === "BottomHome") {
-                return HomeIcon;
-              }
-              if (route.name === "Discover") {
-                return SearchIcon;
-              }
-              if (route.name === "Messages") {
-                return MessagesIcon;
+                return GraduationIcon;
+              } else if (route.name === "Discover") {
+                return SearchIcon2;
+              } else if (route.name === "Messages") {
+                return TrophyIcon;
               } else {
-                return NotificationIcon;
+                return FavoriteIcon;
               }
             };
-            const iconUnfocused = () => {
-              if (route.name === "BottomHome") {
-                return HomeIconUnfocused;
-              }
-              if (route.name === "Discover") {
-                return SearchUnfocused;
-              }
-              if (route.name === "Messages") {
-                if (!isNewMessage) {
-                  return MessageUnfocused;
-                } else {
-                  return MessageAvailableIcon;
-                }
-              } else {
-                return NotificationUnfocused;
-              }
-            };
+            const fillColor = focused ? "blue" : "white";
             return (
               <IconButtons
-                Icon={focused ? iconFocused() : iconUnfocused()}
+                Icon={icon()}
                 onPress={() => navigation.navigate(route.name)}
+                size={26}
+                color={fillColor}
               />
             );
           },
@@ -227,6 +173,38 @@ export function BottomTabNavigator() {
       />
 
       <Tab.Screen
+        name="Messages"
+        component={Messages}
+        options={{
+          headerBackground: () => (
+            <BlurView
+              experimentalBlurMethod="dimezisBlurView"
+              style={{
+                opacity: 0,
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                top: 0,
+                right: 0,
+              }}
+              tint={tint}
+              intensity={100}
+            />
+          ),
+          headerTitleAlign: "left",
+          headerTitleStyle: {
+            fontFamily: "uberBold",
+            paddingTop: 10,
+            fontSize: 30,
+            color,
+          },
+          title: "Ratings",
+          headerTransparent: true,
+          headerBackgroundContainerStyle: undefined,
+        }}
+      />
+
+      <Tab.Screen
         name="Notifications"
         component={Notifications}
         options={({ navigation }) => {
@@ -247,12 +225,12 @@ export function BottomTabNavigator() {
                       color,
                     }}
                   >
-                    Notifications
+                    Favorites
                   </Text>
                   <Text
                     style={{ fontFamily: "jakara", includeFontPadding: false }}
                   >
-                    Check Your Notifications
+                    Favorites Posts
                   </Text>
                 </View>
               );
@@ -280,37 +258,8 @@ export function BottomTabNavigator() {
           };
         }}
       />
-      <Tab.Screen
-        name="Messages"
-        component={Messages}
-        options={{
-          headerBackground: () => (
-            <BlurView
-              experimentalBlurMethod="dimezisBlurView"
-              style={{
-                opacity: 0,
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                top: 0,
-                right: 0,
-              }}
-              tint={tint}
-              intensity={100}
-            />
-          ),
-          headerTitleAlign: "left",
-          headerTitleStyle: {
-            fontFamily: "uberBold",
-            paddingTop: 10,
-            fontSize: 30,
-            color,
-          },
-          title: "Messages",
-          headerTransparent: true,
-          headerBackgroundContainerStyle: undefined,
-        }}
-      />
+
+
     </Tab.Navigator>
   );
 }

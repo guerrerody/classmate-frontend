@@ -38,11 +38,12 @@ export default function Messages() {
       dispatch(clearNewFromChatList());
     }, [])
   );
+
   return (
     <AnimatedScreen style={{ marginTop: 80, flex: 1 }}>
       <Recent offset={offset} />
       <ChatList scrollHandler={scrollHandler} offset={offset}/>
-      <Fab item={<AddMessage size={25} color={color} />} />
+      {/* <Fab item={<AddMessage size={25} color={color} />} /> */}
     </AnimatedScreen>
   );
 }

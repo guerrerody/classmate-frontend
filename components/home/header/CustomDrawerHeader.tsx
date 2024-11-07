@@ -4,29 +4,24 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
-  useColorScheme,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ProfileButton from "./ProfileButton";
 import React from "react";
 import { HomeNavigationProp } from "../../../types/navigation";
-import Animated from "react-native-reanimated";
-import {
-  DrawerHeaderProps,
-  DrawerProps,
-} from "@react-navigation/drawer/lib/typescript/src/types";
+import { DrawerHeaderProps } from "@react-navigation/drawer";
 import useGetMode from "../../../hooks/GetMode";
-import { useAppSelector } from "../../../redux/hooks/hooks";
+
 function CustomDrawerHeader(props: DrawerHeaderProps) {
   const navigation = useNavigation<HomeNavigationProp>();
   const dark = useGetMode();
   const isDark = dark;
   const TextColor = isDark ? "white" : "black";
-  const isHighEndDevice = useAppSelector((state) => state?.prefs?.isHighEnd);
+
   return (
     <SafeAreaView>
       <BlurView
-        experimentalBlurMethod= {isHighEndDevice ?"dimezisBlurView": undefined}
+        experimentalBlurMethod= {undefined}
         style={[
           style.blurView,
           { borderBlockColor: isDark ? "#0000002F" : "#FFFFFF30" },
@@ -42,7 +37,6 @@ function CustomDrawerHeader(props: DrawerHeaderProps) {
               color={isDark ? "white" : "black"}
             />
           </View>
-
           <View style={{ width: "33.3%", alignItems: "center" }}>
             <Text style={[style.headerStyle, { color: TextColor }]}>
               {props.options.title}
@@ -56,6 +50,7 @@ function CustomDrawerHeader(props: DrawerHeaderProps) {
 }
 
 export default React.memo(CustomDrawerHeader);
+
 const style = StyleSheet.create({
   blurView: {
     position: "absolute",

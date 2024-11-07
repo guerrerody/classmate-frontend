@@ -104,6 +104,7 @@ export default function PostBuilder({
               thumbNail,
               isReposted,
               link,
+              idx
             });
           }}
           android_ripple={{ color: rColor, foreground: true }}

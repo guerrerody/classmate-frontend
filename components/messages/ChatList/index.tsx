@@ -18,6 +18,9 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
+import Fab from "../../../components/messages/ChatList/Fab";
+import { TrophyIcon } from "../../../components/icons";
+
 export default function ChatList({
   scrollHandler,
   offset,
@@ -59,8 +62,9 @@ export default function ChatList({
                 alignItems: "center",
               }}
             >
+              <TrophyIcon size={55} color={"white"} />
               <Text style={{ fontFamily: "jakaraBold" }}>
-                Start Chatting Now!
+                My Rating here!
               </Text>
             </View>
           ) : (
