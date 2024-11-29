@@ -77,21 +77,11 @@ export default function Posts() {
               id={item.id}
               date={item.createdAt}
               comments={item._count.comments}
-              isReposted={
-                item?.repostUser?.find(
-                  (repostUser) => repostUser?.id === authId
-                )
-                  ? true
-                  : false
-              }
+              isReposted={!!item?.repostUsers?.find((repostUser) => repostUser?.id === authId)}
               link={item.link}
-              like={item._count.like}
+              like={item._count.likes}
               thumbNail={item.videoThumbnail}
-              isLiked={
-                item?.like?.find((like) => like?.userId === authId)
-                  ? true
-                  : false
-              }
+              isLiked={!!item?.likes?.find((like) => like?.userId === authId)}
               imageUri={item.user?.imageUri}
               name={item.user?.name}
               userTag={item.user?.userName}

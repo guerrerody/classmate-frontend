@@ -1,14 +1,11 @@
 import {
   View,
-  Text,
   FlatList,
   TextInput,
   ActivityIndicator,
-  Pressable,
   Keyboard,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import AnimatedScreen from "../../components/global/AnimatedScreen";
 import { ViewPost } from "../../types/navigation";
 import FullScreenPost from "../../components/home/post/FullScreenPost";
 import {
@@ -21,17 +18,14 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { openToast } from "../../redux/slice/toast/toast";
 import CommentBuilder from "../../components/home/post/comment/CommentBuilder";
 import useGetMode from "../../hooks/GetMode";
-import Button from "../../components/global/Buttons/Button";
 import CommentButton from "../../components/home/post/comment/PostButton";
 import uuid from "react-native-uuid";
-import { BlurView } from "expo-blur";
 import Animated, {
-  FadeIn,
   useAnimatedKeyboard,
   useAnimatedStyle,
 } from "react-native-reanimated";
 
-export default function PostScreen({ navigation, route }: ViewPost) {
+export default function PostScreen({ navigation, route }: Readonly<ViewPost>) {
   const { params } = route;
   const dispatch = useAppDispatch();
   const [comments, setComments] = useState<IComment[]>([]);
@@ -62,18 +56,17 @@ export default function PostScreen({ navigation, route }: ViewPost) {
             openToast({ text: "Failed to get Comments", type: "Failed" })
           );
         });
-    } else {
-      if (singlePostResponse.data?.posts)
-        getComments({ id: singlePostResponse.data?.posts.id })
-          .unwrap()
-          .then((r) => {
-            setComments(r.comment);
-          })
-          .catch((e) => {
-            dispatch(
-              openToast({ text: "Failed to get Comments", type: "Failed" })
-            );
-          });
+    } else if (singlePostResponse.data?.posts) {
+      getComments({ id: singlePostResponse.data?.posts.id })
+        .unwrap()
+        .then((r) => {
+          setComments(r.comment);
+        })
+        .catch((e) => {
+          dispatch(
+            openToast({ text: "Failed to get Comments", type: "Failed" })
+          );
+        });
     }
   }, [params?.id]);
 
@@ -113,7 +106,7 @@ export default function PostScreen({ navigation, route }: ViewPost) {
       setComments((prev) => [
         {
           id: uuid.v4().toString(),
-          User: {
+          user: {
             id: "0",
             imageUri: user?.imageUri || "",
             verified: false,
@@ -128,8 +121,6 @@ export default function PostScreen({ navigation, route }: ViewPost) {
       postComment({ id: params.id, comment: commentText });
     }
   };
-
-  const tint = dark ? "dark" : "light";
   
   return (
     <View
@@ -144,24 +135,14 @@ export default function PostScreen({ navigation, route }: ViewPost) {
             singlePostResponse.data?.posts && (
               <FullScreenPost
                 id={singlePostResponse.data?.posts.id}
-                isReposted={
-                  singlePostResponse.data?.posts?.repostUser?.find(
-                    (repostUser) => repostUser?.id === user?.id
-                  )
-                    ? true
-                    : false
-                }
+                isReposted={!!singlePostResponse.data?.posts?.repostUsers?.find(
+                  (repostUser) => repostUser?.id === user?.id
+                )}
                 date={singlePostResponse.data?.posts.createdAt}
                 link={singlePostResponse.data?.posts.link}
                 comments={singlePostResponse.data?.posts._count?.comments}
-                like={singlePostResponse.data?.posts._count?.like}
-                isLiked={
-                  singlePostResponse.data?.posts?.like?.find(
-                    (like) => like?.userId === user?.id
-                  )
-                    ? true
-                    : false
-                }
+                like={singlePostResponse.data?.posts._count?.likes}
+                isLiked={!!singlePostResponse.data?.posts?.likes?.find((like) => like?.userId === user?.id)}
                 photo={
                   singlePostResponse.data?.posts.photo
                     ? {
@@ -178,12 +159,12 @@ export default function PostScreen({ navigation, route }: ViewPost) {
                 userId={singlePostResponse.data?.posts.user?.id}
                 userTag={singlePostResponse.data?.posts.user?.userName}
                 verified={singlePostResponse.data?.posts.user?.verified}
-                audioUri={singlePostResponse.data?.posts.audioUri || undefined}
+                audioUri={singlePostResponse.data?.posts.audioUri ?? undefined}
                 photoUri={singlePostResponse.data?.posts.photoUri}
                 videoTitle={
-                  singlePostResponse.data?.posts.videoTitle || undefined
+                  singlePostResponse.data?.posts.videoTitle ?? undefined
                 }
-                videoUri={singlePostResponse.data?.posts.videoUri || undefined}
+                videoUri={singlePostResponse.data?.posts.videoUri ?? undefined}
                 postText={singlePostResponse.data?.posts.postText}
                 videoViews={singlePostResponse.data?.posts.videoViews?.toString()}
               />
@@ -200,14 +181,14 @@ export default function PostScreen({ navigation, route }: ViewPost) {
         }
         renderItem={({ item }) => (
           <CommentBuilder
-            imageUri={item.User?.imageUri}
-            name={item.User?.name}
+            imageUri={item.user?.imageUri}
+            name={item.user?.name}
             comment={item.comment}
             date={item.createdAt}
-            userTag={item.User.userName}
-            verified={item.User.verified}
+            userTag={item.user.userName}
+            verified={item.user.verified}
             photoUri={[]}
-            id={item.User.id}
+            id={item.user.id}
           />
         )}
       />
@@ -228,7 +209,7 @@ export default function PostScreen({ navigation, route }: ViewPost) {
         
         <TextInput
           placeholder="Post comment"
-          value={commentText || ""}
+          value={commentText ?? ""}
           onChangeText={setCommentText}
           placeholderTextColor={"grey"}
           style={{

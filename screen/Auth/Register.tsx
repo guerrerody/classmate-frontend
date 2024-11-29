@@ -78,6 +78,7 @@ export default function Register({ navigation }: RegisterScreen) {
   const shakeName = useCallback(() => {
     vibrateAnimation(animName);
   }, []);
+  
   const onSubmit = (data: {
     userName: string;
     password: string;
@@ -90,8 +91,8 @@ export default function Register({ navigation }: RegisterScreen) {
         dispatch(openToast({ type: "Success", text: "Successfully Created" }));
         navigation.replace("Login");
       })
-      .catch((e) => {
-        dispatch(openToast({ type: "Failed", text: e?.data.message }));
+      .catch((err) => {
+        dispatch(openToast({ text: err?.data?.msg, type: "Failed" }));
       });
   };
   useEffect(() => {

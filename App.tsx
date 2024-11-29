@@ -64,17 +64,17 @@ export default function App() {
     const subscriptionResponse =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log("response", response.actionIdentifier);
-        console.log(">>>> file: App.tsx:81 ~ Notifications.addNotificationResponseReceivedListener ~ response:");
+        console.log(">>>> file: App.tsx ~ Notifications.addNotificationResponseReceivedListener ~ response: ");
         if (response.actionIdentifier === "message") {
           const userText = response.userText;
-          console.log(">>>> file: App.tsx:83 ~ Notifications.addNotificationResponseReceivedListener ~ userText:",
+          console.log(">>>> file: App.tsx ~ Notifications.addNotificationResponseReceivedListener ~ userText: ",
             userText
           );
         }
       });
 
       Notifications.getNotificationCategoriesAsync().then((e) => {
-        console.log(e[0]);
+        console.log(">>>> Notification: ", e[0]);
       });
       return () => {
         subscription.remove();
@@ -290,10 +290,7 @@ const Navigation = () => {
   useGetFollowDetailsQuery(null);
   const { route } = useAppSelector((state) => state.routes);
   const userAuthenticated = useAppSelector((state) => state.user.token);
-  console.log(
-    ">>>> file: App.tsx:330 ~ Navigation ~ userAuthenticated:",
-    userAuthenticated
-  );
+  console.log(">>>> file: App.tsx ~ Navigation ~ userAuthenticated: ", userAuthenticated);
 
   const netInfo = useNetInfo();
 
@@ -318,15 +315,15 @@ const Navigation = () => {
   useEffect(() => {
     Device.deviceYearClass;
     console.log(
-      ">>>> file: App.tsx:351 ~ useEffect ~ Device:",
+      ">>>> file: App.tsx ~ useEffect ~ Device:",
       Device.modelName
     );
     const getRam = DeviceInfo.getTotalMemorySync();
-    console.log(">>>> file: App.tsx:351 ~ useEffect ~ getRam:", getRam);
+    console.log(">>>> file: App.tsx ~ useEffect ~ getRam: ", getRam);
     const isHighEnd =
       (DeviceInfo.getApiLevelSync() >= 33 && getRam >= 6_442_450_944) ||
       Platform.OS === "ios";
-    console.log(">>>> file: App.tsx:446 ~ useEffect ~ isHighEnd:", isHighEnd);
+    console.log(">>>> file: App.tsx ~ useEffect ~ isHighEnd: ", isHighEnd);
 
     dispatch(setHighEnd({ isHighEnd }));
   }, []);
@@ -381,7 +378,7 @@ const Navigation = () => {
       // First, you may want to do the default deep link handling
       // Check if app was opened from a deep link
       const url = await Linking.getInitialURL();
-      console.log(">>>> file: App.tsx:277 ~ getInitialURL ~ url:", url);
+      console.log(">>>> file: App.tsx ~ getInitialURL ~ url: ", url);
 
       if (url != null) {
         return url;
@@ -389,10 +386,7 @@ const Navigation = () => {
 
       // Handle URL from expo push notifications
       const response = await Notifications.getLastNotificationResponseAsync();
-      console.log(
-        ">>>> file: App.tsx:285 ~ getInitialURL ~ response:",
-        response?.notification.request.content.data
-      );
+      console.log(">>>> file: App.tsx ~ getInitialURL ~ response: ", response?.notification.request.content.data);
 
       return response?.notification.request.content.data.url;
     },

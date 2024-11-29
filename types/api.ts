@@ -47,10 +47,10 @@ export interface User {
 
 export interface IPost {
   id: string;
-  _count: { like: number; comments: number; repostUser: number };
+  _count: { likes: number; comments: number; repostUsers: number };
   userId: string;
-  like: Array<{ userId: string }>;
-  repostUser: Array<{ id: string }>;
+  likes: Array<{ userId: string }>;
+  repostUsers: Array<{ id: string }>;
   link: {
     id: string;
     imageHeight?: number;
@@ -58,7 +58,6 @@ export interface IPost {
     imageWidth?: number;
     title: string;
   } | null;
-
   audioUri: string | null;
   audioTitle: string | null;
   videoUri: string | null;
@@ -80,15 +79,17 @@ export interface IPost {
 export interface IComment {
   id: string;
   comment: string;
-  User: User;
+  user: User;
   createdAt: string;
 }
+
 export interface IChatUser {
   userName: string;
   name: string;
   imageUri: string;
   id: string;
 }
+
 export interface IChatMessage {
   text: string;
   photoUri?: string;
@@ -105,6 +106,7 @@ export interface IChatMessage {
   };
   createdAt: string;
 }
+
 export interface IChatList {
   id: string;
   users: IChatUser[];

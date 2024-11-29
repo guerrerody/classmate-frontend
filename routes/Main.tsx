@@ -1,58 +1,26 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Platform, View, StyleSheet, AppState } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-import { RootStackParamList } from "../types/navigation";
-
-import { BlurView } from "expo-blur";
-
-import ImageFullScreen from "../screen/App/ImageFullScreen";
-
-import Profile from "../screen/App/Profile";
-
-import useGetMode from "../hooks/GetMode";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import { BottomSheetContainer } from "../components/global/BottomSheetContainer";
-import PostContent from "../screen/App/PostContent";
-
-import VideoFullScreen from "../screen/App/VideoFullScreen";
-import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
-import {
-  useGetUserQuery,
-  useUpdateNotificationIdMutation,
-} from "../redux/api/user";
-import PostScreen from "../screen/App/PostScreen";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-
-import {
-  updateFollowers,
-  updateFollowing,
-} from "../redux/slice/user/followers";
-import ProfilePeople from "../screen/App/ProfilePeople";
-import ChatScreen from "../screen/App/ChatScreen";
-import SearchUsers from "../screen/App/SearchUsers";
-
-import {
-  addNewChat,
-  addNewIndication,
-  addToChatList,
-} from "../redux/slice/chat/chatlist";
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
 
-import { updateOnlineIds } from "../redux/slice/chat/online";
-import { openToast } from "../redux/slice/toast/toast";
-import { IMessageSocket } from "../types/socket";
-
-import useSocket from "../hooks/Socket";
-
-import Notifications from "../util/notification";
-
+import { RootStackParamList } from "../types/navigation";
+import ImageFullScreen from "../screen/App/ImageFullScreen";
+import Profile from "../screen/App/Profile";
+import useGetMode from "../hooks/GetMode";
+import { BottomSheetContainer } from "../components/global/BottomSheetContainer";
+import PostContent from "../screen/App/PostContent";
+import VideoFullScreen from "../screen/App/VideoFullScreen";
+import { useGetUserQuery } from "../redux/api/user";
+import PostScreen from "../screen/App/PostScreen";
+import ProfilePeople from "../screen/App/ProfilePeople";
+import ChatScreen from "../screen/App/ChatScreen";
+import SearchUsers from "../screen/App/SearchUsers";
 import { BottomTabNavigator } from "./Main/BottomNavigation";
-import { dismissAllNotificationsAsync } from "expo-notifications";
-import { useLazyGetAllChatsQuery } from "../redux/api/chat";
 import FollowingFollowers from "../screen/App/FollowingFollowers";
 import EditProfile from "../screen/App/EditProfile";
 import ChangeData from "../screen/App/ChangeData";
@@ -63,242 +31,31 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
   const now = Date.now();
 
-  console.log(
-    `Got background fetch call at date: ${new Date(now).toISOString()}`
-  );
+  console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);
 
   // Be sure to return the successful result type!
   return BackgroundFetch.BackgroundFetchResult.NewData;
 });
 
 export default function Main() {
-  // PRIMERA ENTREGA. No es necesario los mensajes Push
-  //const [updateNotificationId] = useUpdateNotificationIdMutation();
-  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats ni socket
-  //const chatList = useAppSelector((state) => state?.chatlist?.data);
-  const id = useAppSelector((state) => state.user?.data?.id);
   const dark = useGetMode();
   const isDark = dark;
-  const tint = isDark ? "dark" : "light";
   const backgroundColor = isDark ? "black" : "white";
   const color = !isDark ? "black" : "white";
-  const dispatch = useAppDispatch();
-  // PRIMERA ENTREGA. No es necesario. No trabajeremos con socket
-  //const socket = useSocket();
   const borderColor = isDark ? "#FFFFFF7D" : "#4545452D";
-  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats
-  //const [getAllChats] = useLazyGetAllChatsQuery();
 
-  // PRIMERA ENTREGA. No es necesario. Ya tenemos establecido el setUserData desde el Login
-  //useGetUserQuery(null);
-  
-  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats
-  /*
-  useEffect(() => {
-    getAllChats(null)
-      .then((e) => {})
-      .catch((e) => e);
-  }, []);
-  */
-
-  // PRIMERA ENTREGA. No es necesario los mensajes Push
-  /*
-  useEffect(() => {
-    console.log(process.env.EXPO_PUBLIC_PROJECT_ID);
-    async function registerForPushNotificationsAsync() {
-      try {
-        let token;
-        const { status: existingStatus } = await Notifications.getPermissionsAsync();
-        let finalStatus = existingStatus;
-        if (existingStatus !== "granted") {
-          const { status } = await Notifications.requestPermissionsAsync();
-          finalStatus = status;
-        }
-        if (finalStatus !== "granted") {
-          dispatch(
-            openToast({
-              text: "Notifications are disabled",
-              type: "Failed",
-            })
-          );
-        }
-        token = await Notifications.getExpoPushTokenAsync({
-          projectId: process.env.EXPO_PUBLIC_PROJECT_ID as string,
-        });
-        console.log(token);
-
-        if (Platform.OS === "android") {
-          Notifications.setNotificationChannelAsync("default", {
-            name: "default",
-            importance: Notifications.AndroidImportance.MAX,
-            vibrationPattern: [0, 250, 250, 250],
-            lightColor: "#8FFF1FC0",
-          });
-          Notifications.setNotificationCategoryAsync("message", [
-            {
-              identifier: "message",
-              buttonTitle: "Reply",
-              textInput: {
-                submitButtonTitle: "reply",
-                placeholder: "Enter Reply",
-              },
-            },
-          ]);
-        }
-        return token;
-      } catch (e) {}
-    }
-
-    registerForPushNotificationsAsync()
-      .then((e) => {
-        console.log(">>>> file: Main.tsx ~ .then ~ e:", e);
-        updateNotificationId({ notificationId: e?.data as string });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-
-    dismissAllNotificationsAsync()
-      .then((e) => {
-        console.log(e);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
-  */
-
-  // PRIMERA ENTREGA. No es necesario. No trabajeremos con socket
-  /*
-  useEffect(() => {
-    socket?.emit("followedStatus");
-    socket?.on("following", (following: number) => {
-      if (following) dispatch(updateFollowing({ following }));
-    });
-    socket?.on("followers", (followers: number) => {
-      if (followers) dispatch(updateFollowers({ followers }));
-    });
-    return () => {
-      socket?.off("following");
-      socket?.off("followers");
-    };
-  }, [socket]);
-  */
-
-  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats ni socket
-  /*
-  useEffect(() => {
-    const rooms: string[] = [];
-    for (let i in chatList) {
-      rooms.push(chatList[i]?.id);
-    }
-    socket?.emit("chat", rooms);
-
-    return () => {
-      socket?.off("chat");
-    };
-  }, [chatList]);
-  */
-
-  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats ni socket
-  /*
-  useEffect(() => {
-    if (socket) {
-      socket?.on("newChat", (chatMessages) => {
-        console.log(">>>> file: Main.tsx ~ socket?.on ~ chatMessages:", chatMessages);
-        if (chatMessages) {
-          if (chatMessages?.isNew) {
-            dispatch(
-              addToChatList({
-                id: chatMessages?.id,
-                messages: chatMessages?.messages,
-                users: chatMessages?.users,
-              })
-            );
-            dispatch(addNewIndication());
-          }
-        }
-      });
-    }
-    return () => {
-      socket?.off("newChat");
-    };
-  }, [socket]);
-  */
-
-  // PRIMERA ENTREGA. No es necesario. No trabajeremos con socket
-  /*
-  useEffect(() => {
-    socket?.on("online", (online) => {
-      dispatch(updateOnlineIds({ ids: online }));
-    });
-
-    socket?.on("message", (data: IMessageSocket) => {
-      if (data) {
-        console.log(
-          ">>>> file: Main.tsx ~ socket?.on ~ data:",
-          new Date(),
-          data
-        );
-        if (data.message?.sender?.id !== id) {
-          dispatch(addNewChat(data));
-          dispatch(addNewIndication());
-          dispatch(
-            openToast({
-              type: "Message",
-              text: data?.message.text,
-              imageUri: data.imageUri,
-            })
-          );
-        }
-      }
-    });
-    return () => {
-      socket?.off("online");
-      socket?.off("message");
-    };
-  }, [socket]);
-  */
+  useGetUserQuery(null);
 
   const appState = useRef(AppState.currentState);
 
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   console.log(">>>> file: Main.tsx ~ Main ~ appStateVisible:", appStateVisible);
-
-  // PRIMERA ENTREGA. No es necesario. No trabajeremos con socket
-  /*
-  useEffect(() => {
-    const subscription = AppState.addEventListener("change", (nextAppState) => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === "active"
-      ) {
-        socket?.emit("online");
-        console.log("App has come to the foreground!");
-      }
-
-      appState.current = nextAppState;
-      setAppStateVisible(appState.current);
-      console.log("AppState", appState.current);
-      if (appState.current === "background") {
-        socket?.emit("away");
-      }
-    });
-    return () => {
-      subscription.remove();
-    };
-  }, []);
-  */
   
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   // callbacks
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
-  }, []);
-  
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
   }, []);
 
   useEffect(() => {
@@ -406,22 +163,6 @@ export default function Main() {
         <Stack.Screen
           name="ViewPost"
           options={{
-            // headerBackground: () => (
-            //   <BlurView
-            //     experimentalBlurMethod="dimezisBlurView"
-            //     style={{
-            //       position: "absolute",
-            //       bottom: 0,
-            //       left: 0,
-            //       top: 0,
-            //       right: 0,
-            //       borderColor,
-            //       borderBottomWidth: 0.5,
-            //     }}
-            //     tint={tint}
-            //     intensity={200}
-            //   />
-            // ),
             title: "Post",
             animation:"fade_from_bottom",
             headerTitleStyle: { fontFamily: "uberBold", fontSize: 20, color },

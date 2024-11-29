@@ -8,102 +8,63 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { FlashList } from "@shopify/flash-list";
+import { ActivityIndicator } from "react-native-paper";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+
 import Fab from "../../../components/home/post/components/Fab";
 import { AddIcon } from "../../../components/icons";
 import PostBuilder from "../../../components/home/post/PostBuilder";
-import { FlashList } from "@shopify/flash-list";
 import AnimatedScreen from "../../../components/global/AnimatedScreen";
 import useGetMode from "../../../hooks/GetMode";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
-import { ActivityIndicator } from "react-native-paper";
 import { IPost } from "../../../types/api";
 import { useLazyGetFollowedPostsQuery } from "../../../redux/api/services";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import SkeletonGroupPost from "../../../components/home/misc/SkeletonGroupPost";
 import EmptyList from "../../../components/home/misc/EmptyList";
 import { resetPost } from "../../../redux/slice/post/followed";
 import { resetPost as resetAllPosts } from "../../../redux/slice/post";
 
-// PRIMERA ENTREGA. Importar fake posts.
-import fakePosts from "../../../data/fakeFollowedPosts.json";
-
 export default function HomeFollowed() {
   const dark = useGetMode();
   const dispatch = useAppDispatch();
   const authId = useAppSelector((state) => state.user.data?.id);
-
-  // PRIMERA ENTREGA. Quitamos el state de post y establecemos el nuevo con fakePosts.
-  //  const posts = useAppSelector((state) => state.followedPost);
-  const [posts, setPosts] = useState<IPost[]>(
-    fakePosts.map((post) => ({
-      ...post,
-      createdAt: new Date(post.createdAt),
-    }))
-  );
+  const posts = useAppSelector((state) => state.followedPost);
 
   const isDark = dark;
   const color = !isDark ? "white" : "black";
-  const backgroundColor = !isDark ? "white" : "black";
   const height = Dimensions.get("window").height;
   const width = Dimensions.get("window").width;
 
-    // PRIMERA ENTREGA. NO lo necesitamos.
-  /*
   const [skip, setSkip] = useState(0);
   const [noMore, setNoMore] = useState(false);
   const [getLazyPost, postRes] = useLazyGetFollowedPostsQuery();
-  */
   const [refreshing, setRefreshing] = React.useState(false);
 
-// PRIMERA ENTREGA. NO obtenemos Posts desde API.
-  /*
   useEffect(() => {
     dispatch(resetAllPosts());
   }, []);
-  */
 
-   // PRIMERA ENTREGA. NO hacemos refresh con respecto al API.
-  /*
   const onRefresh = useCallback(() => {
     dispatch(resetPost());
     setSkip(0);
     setNoMore(false);
-    setRefreshing(false),
-      getLazyPost({ take: 20, skip })
-        .unwrap()
-        .then((e) => {
-          setSkip(skip + e.posts.length);
-
-          if (e.posts.length === 0) {
-            setNoMore(true);
-          }
-        })
-        .catch((e) => {
-          // dispatch(
-          //   openToast({ text: "couldn't get recent posts", type: "Failed" })
-          // );
-        });
-  }, []);
-  */
-
-  // PRIMERA ENTREGA. Nuevo refresh donde simulamos una pequeña demora para mostrar el refresh.
-  const onRefresh = useCallback(() => {
-    if (!authId) return;
-    setRefreshing(true);
-    setTimeout(() => {
-      // Refrescar los datos ficticios (simulando un pull-to-refresh)
-      setPosts(
-        fakePosts.map((post) => ({
-          ...post,
-          createdAt: new Date(post.createdAt), // Asegurarse de convertir a Date al refrescar
-        }))
-      );
-      setRefreshing(false);
-    }, 1000);
+    setRefreshing(false);
+    getLazyPost({ take: 20, skip })
+      .unwrap()
+      .then((e) => {
+        setSkip(skip + e.posts.length);
+        if (e.posts.length === 0) {
+          setNoMore(true);
+        }
+      })
+      .catch((e) => {
+        // dispatch(
+        //   openToast({ text: "couldn't get recent posts", type: "Failed" })
+        // );
+      });
   }, []);
 
-    // PRIMERA ENTREGA. NO necesitamos este renderFooter ya que no tendremos More ni Loading. Lo refactorizamos.
-  /*
   const renderFooter = () => {
     if (noMore) {
       return (
@@ -115,7 +76,6 @@ export default function HomeFollowed() {
             alignItems: "center",
           }}
         >
-
         </View>
       );
     } else if (posts.loading) {
@@ -135,25 +95,7 @@ export default function HomeFollowed() {
       );
     }
   };
- */
 
-  const renderFooter = () => {
-    return (
-      <View
-        style={{
-          width: "100%",
-          marginTop: 20,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <ActivityIndicator color={color} size={20} />
-      </View>
-    );
-  };
-
-    // PRIMERA ENTREGA. NO obtenemos Posts desde API.
-  /*
   useEffect(() => {
     getLazyPost({ take: 20, skip })
       .unwrap()
@@ -166,10 +108,7 @@ export default function HomeFollowed() {
         // );
       });
   }, []);
-  */
 
-    // PRIMERA ENTREGA. NO necesitamos fetchMoreData ya que no tendremos More Data
-  /*
   const fetchMoreData = () => {
     if (!noMore)
       getLazyPost({ take: 20, skip })
@@ -187,10 +126,7 @@ export default function HomeFollowed() {
           // );
         });
   };
-  */
 
-  // PRIMERA ENTREGA. NO necesitamos handleRefetch ya que no tendremos Refetch con el API.
-  /*
   const handleRefetch = () => {
     setSkip(0);
     setNoMore(false);
@@ -206,15 +142,12 @@ export default function HomeFollowed() {
         // );
       });
   };
-  */
 
   const renderItem = ({ item, index }: { item: IPost; index: number }) => (
     <PostBuilder
       id={item.id}
       date={item.createdAt}
-      isReposted={
-        item?.repostUser?.find((repostUser) => repostUser?.id === authId) ? true : false
-      }
+      isReposted={!!item?.repostUsers?.find((repostUser) => repostUser?.id === authId)}
       link={item.link}
       photo={
         item.photo
@@ -226,19 +159,17 @@ export default function HomeFollowed() {
           : undefined
       }
       comments={item._count.comments}
-      like={item._count.like}
-      isLiked={
-        item?.like?.find((like) => like?.userId === authId) ? true : false
-      }
+      like={item._count.likes}
+      isLiked={!!item?.likes?.find((like) => like?.userId === authId)}
       imageUri={item.user?.imageUri}
       name={item.user?.name}
       thumbNail={item.videoThumbnail}
       userTag={item.user?.userName}
       verified={item.user?.verified}
-      audioUri={item.audioUri || undefined}
+      audioUri={item.audioUri ?? undefined}
       photoUri={item.photoUri}
-      videoTitle={item.videoTitle || undefined}
-      videoUri={item.videoUri || undefined}
+      videoTitle={item.videoTitle ?? undefined}
+      videoUri={item.videoUri ?? undefined}
       postText={item.postText}
       videoViews={item.videoViews?.toString()}
       idx={index}
@@ -247,69 +178,42 @@ export default function HomeFollowed() {
 
   const keyExtractor = (item: IPost) => item.id?.toString();
 
-  // PRIMERA ENTREGA. NO lo necesitamos. Igualmente no se usa.
-  /*
-  return (
-    <AnimatedScreen>
-      {posts.loading && posts.data.length === 0 ? (
-        <SkeletonGroupPost />
-      ) : posts.data.length === 0 ? (
-        <EmptyList handleRefetch={handleRefetch} />
-      ) : (
-        <Animated.View style={{ flex: 1 }}>
-          <FlashList
-            data={posts.data}
-            decelerationRate={0.991}
-            estimatedItemSize={600}
-            ListFooterComponent={renderFooter}
-            refreshControl={
-              <RefreshControl
-                style={{marginTop:200}}
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-                colors={["red", "blue"]}
-              />
-            }
-            keyExtractor={keyExtractor}
-            onEndReachedThreshold={0.3}
-            onEndReached={fetchMoreData}
-            estimatedListSize={{ width: width, height: height }}
-            renderItem={renderItem}
-            contentContainerStyle={{ paddingTop: 100, paddingBottom: 100 }}
-          />
-        </Animated.View>
-      )}
-      <Fab item={<AddIcon size={30} color={color} />} />
-    </AnimatedScreen>
-  );
-  */
+  let content;
+
+  if (posts.loading && posts.data.length === 0) {
+    content = <SkeletonGroupPost />;
+  } else if (posts.data.length === 0) {
+    content = <EmptyList handleRefetch={handleRefetch} />;
+  } else {
+    content = (
+      <Animated.View style={{ flex: 1 }}>
+        <FlashList
+          data={posts.data}
+          decelerationRate={0.991}
+          estimatedItemSize={100}
+          ListFooterComponent={renderFooter}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={["red", "blue"]}
+            />
+          }
+          keyExtractor={keyExtractor}
+          onEndReachedThreshold={0.3}
+          onEndReached={fetchMoreData}
+          estimatedListSize={{ width: width, height: height }}
+          renderItem={renderItem}
+          contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
+        />
+      </Animated.View>
+    );
+  }
 
   return (
-    <View style={{ flex: 1 }}>
-      {posts.length === 0 ? (
-        <EmptyList handleRefetch={onRefresh} />
-      ) : (
-        <Animated.View style={{ flex: 1 }}>
-          <FlashList
-            data={posts}
-            decelerationRate={0.991}
-            estimatedItemSize={100}
-            ListFooterComponent={renderFooter}
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-                colors={["red", "blue"]}
-              />
-            }
-            keyExtractor={keyExtractor}
-            estimatedListSize={{ width: width, height: height }}
-            renderItem={renderItem}
-            contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
-          />
-        </Animated.View>
-      )}
+    <AnimatedScreen>
+      {content}
       <Fab item={<AddIcon size={30} color={color} />} />
-    </View>
+    </AnimatedScreen>
   );
 }

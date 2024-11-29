@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { authApi } from "../../api/auth";
 import { IUSerData } from "../../../types/api";
 import { userApi } from "../../api/user";
@@ -19,17 +19,6 @@ const user = createSlice({
     token: null,
   } as UserState,
   reducers: {
-    // PRIMERA ENTREGA. nuevo reducers para Login con usuario ficticio.
-    setUserData: (
-      state,
-      action: PayloadAction<{ userData: IUSerData; token: string }>
-    ) => {
-      state.data = action.payload.userData;
-      state.token = action.payload.token;
-      state.error = null;
-      state.loading = false;
-    },
-
     signOut: (state) => {
       state.error = null;
       state.loading = false;
@@ -93,4 +82,4 @@ const user = createSlice({
 
 export default user.reducer;
 
-export const { setUserData, signOut, clearUserData } = user.actions;
+export const { signOut, clearUserData } = user.actions;

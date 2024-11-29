@@ -1,3 +1,5 @@
+import { Platform, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   BottomTabBar,
   createBottomTabNavigator,
@@ -22,19 +24,12 @@ import Discover from "../../screen/App/Discover";
 import Messages from "../../screen/App/Messages";
 import DrawerNavigator from "./DrawerNavigation";
 import Notifications from "../../screen/App/Notifications";
-
-import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-
 import SearchBar from "../../components/discover/SearchBar";
-import { Platform, Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator<BottomRootStackParamList>();
 
 export function BottomTabNavigator() {
   const dark = useGetMode();
-  // PRIMERA ENTREGA. No es necesario. No trabajeremos con chats ni socket
-  //const isNewMessage = useAppSelector((state) => state?.chatlist?.new);
   const isDark = dark;
   const tint = !isDark ? "light" : "dark";
   const color = isDark ? "white" : "black";
@@ -115,9 +110,7 @@ export function BottomTabNavigator() {
         options={({ navigation, route }: BottomProp) => {
           return {
             headerShown: false,
-
             title: "Home",
-
             headerTitleStyle: { fontFamily: "instaBold", fontSize: 24 },
             headerTitleAlign: "center",
           };
@@ -221,7 +214,6 @@ export function BottomTabNavigator() {
                     style={{
                       fontFamily: "uberBold",
                       fontSize: 30,
-
                       color,
                     }}
                   >
@@ -258,8 +250,6 @@ export function BottomTabNavigator() {
           };
         }}
       />
-
-
     </Tab.Navigator>
   );
 }
