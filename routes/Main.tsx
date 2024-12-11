@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { Platform, View, StyleSheet, AppState } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
@@ -47,9 +47,6 @@ export default function Main() {
   useGetUserQuery(null);
 
   const appState = useRef(AppState.currentState);
-
-  const [appStateVisible, setAppStateVisible] = useState(appState.current);
-  console.log(">>>> file: Main.tsx ~ Main ~ appStateVisible:", appStateVisible);
   
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 

@@ -42,7 +42,6 @@ export default function PostButton({
         style={{
           height: 45,
           width: 80,
-
           borderRadius: 9999,
           justifyContent: "center",
           alignItems: "center",

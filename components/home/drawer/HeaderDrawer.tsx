@@ -1,12 +1,11 @@
-import { View, Text, useColorScheme, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
+import { useEffect } from "react";
+import { Image } from "expo-image";
+import { useNavigation } from "@react-navigation/native";
 
 import useGetMode from "../../../hooks/GetMode";
 import { useAppSelector } from "../../../redux/hooks/hooks";
 import { ProfileIcon, VerifiedIcon } from "../../icons";
-
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Image } from "expo-image";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { HomeNavigationProp } from "../../../types/navigation";
 import { useGetFollowDetailsQuery } from "../../../redux/api/user";
 
@@ -21,9 +20,9 @@ export default function HeaderDrawer() {
   const getFollowData = useGetFollowDetailsQuery(null);
 
   useEffect(() => {
-    console.log(getFollowData.data);
     getFollowData.refetch();
   }, []);
+
   return (
     <View style={{  flex: 1 }}>
       {user?.imageUri ? (

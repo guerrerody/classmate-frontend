@@ -1,5 +1,5 @@
 import { IPost } from "./../../../types/api";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { servicesApi } from "../../api/services";
 
 export type postState = {
@@ -21,6 +21,9 @@ const post = createSlice({
       state.data = [];
       state.error = null;
       state.loading = false;
+    },
+    deletePost: (state, action: PayloadAction<string>) => {
+      state.data = state.data.filter((post) => post.id !== action.payload);
     },
   },
 
@@ -52,4 +55,4 @@ const post = createSlice({
 });
 
 export default post.reducer;
-export const {resetPost} = post.actions
+export const {resetPost, deletePost} = post.actions

@@ -29,6 +29,7 @@ import * as Device from "expo-device";
 import * as NavigationBar from "expo-navigation-bar";
 import DeviceInfo from "react-native-device-info";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+// import { SystemBars } from "react-native-edge-to-edge";
 
 import { FadeInView } from "./components/global/AnimatedScreen/FadeInView";
 import { store } from "./redux/store";
@@ -290,7 +291,6 @@ const Navigation = () => {
   useGetFollowDetailsQuery(null);
   const { route } = useAppSelector((state) => state.routes);
   const userAuthenticated = useAppSelector((state) => state.user.token);
-  console.log(">>>> file: App.tsx ~ Navigation ~ userAuthenticated: ", userAuthenticated);
 
   const netInfo = useNetInfo();
 
@@ -314,10 +314,7 @@ const Navigation = () => {
 
   useEffect(() => {
     Device.deviceYearClass;
-    console.log(
-      ">>>> file: App.tsx ~ useEffect ~ Device:",
-      Device.modelName
-    );
+    console.log(">>>> file: App.tsx ~ useEffect ~ Device:", Device.modelName);
     const getRam = DeviceInfo.getTotalMemorySync();
     console.log(">>>> file: App.tsx ~ useEffect ~ getRam: ", getRam);
     const isHighEnd =
@@ -422,15 +419,14 @@ const Navigation = () => {
 
   return (
     <NavigationContainer onReady={onLayoutRootView} linking={linking}>
+      {/* <SystemBars style={style} /> */}
       <AnimatedSplashScreen>
         <StatusBar
           animated={true}
           style={style}
           backgroundColor="transparent"
         />
-        <GestureHandlerRootView
-          style={{ flex: 1, backgroundColor: dark ? "black" : "white" }}
-        >
+        <GestureHandlerRootView style={{ flex: 1, backgroundColor: dark ? "black" : "white" }}>
           {renderRoute()}
         </GestureHandlerRootView>
       </AnimatedSplashScreen>

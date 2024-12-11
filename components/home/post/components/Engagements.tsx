@@ -85,21 +85,19 @@ export default function Engagements({
         />
         <MessageButton
           isLiked={false}
-          text={"20"}
           clicked={false}
           setClicked={() => {}}
         />
-        <FavoritesButton
-          isLiked={false}
-          text={"1.2K"}
-          clicked={false}
-          setClicked={() => {}}
-        />
-        {/* <RepostButton
+        {/* <FavoritesButton
+          isLiked={isReposted}
+          clicked={reposted}
+          setClicked={handleRepost}
+        /> */}
+        <RepostButton
           isPosted={isReposted}
           clicked={reposted}
           setReposted={handleRepost}
-        /> */}
+        />
       </View>
 
     </View>

@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import React, { useEffect } from "react";
 import { Skeleton } from "./Skeleton";
 import Animated, {

@@ -8,6 +8,7 @@ import { ProfileIcon } from "../icons";
 import { Image } from "expo-image";
 
 const heightFromScreen = Dimensions.get("window").height;
+
 export default function TextArea({
   handlePostText,
 }: {
@@ -55,7 +56,7 @@ export default function TextArea({
             alignItems: "flex-start",
           }}
           placeholderTextColor={"grey"}
-          placeholder="What's What do you what to contribute?"
+          placeholder="What do you what to contribute?"
         />
       </View>
     </View>

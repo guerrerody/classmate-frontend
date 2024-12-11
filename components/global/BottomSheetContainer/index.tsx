@@ -46,7 +46,6 @@ export const BottomSheetContainer = () => {
       )
     }
   }, [BottomSheetState?.isOpen]);
-  console.log("bottomsheet", BottomSheetState);
 
   const renderBackdrop = useCallback(
     (props: any) => (

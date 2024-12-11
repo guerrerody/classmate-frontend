@@ -28,11 +28,6 @@ export default function ImageFullScreen({
 
   const dispatch = useAppDispatch();
 
-  console.log(
-    "sssss",
-    photoUri?.split(".")[photoUri?.split(".")?.length - 1],
-    uuid.v4()
-  );
   const handleDownload = () => {
     ReactNativeBlobUtil.config({
       // response data will be saved to this path if it has access right.

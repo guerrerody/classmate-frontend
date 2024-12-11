@@ -1,26 +1,21 @@
-import {
-  View,
-  Dimensions,
-  RefreshControl,
-} from "react-native";
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { View, Text, Dimensions, RefreshControl } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import Animated from "react-native-reanimated";
+import { ActivityIndicator } from "react-native-paper";
+import { FlashList } from "@shopify/flash-list";
+
 import Fab from "../../../components/home/post/components/Fab";
 import { AddIcon } from "../../../components/icons";
 import PostBuilder from "../../../components/home/post/PostBuilder";
-import { FlashList } from "@shopify/flash-list";
 import useGetMode from "../../../hooks/GetMode";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
-import { ActivityIndicator } from "react-native-paper";
 import { IPost } from "../../../types/api";
 import { useLazyGetAllPostsQuery } from "../../../redux/api/services";
 import { openToast } from "../../../redux/slice/toast/toast";
-import Animated from "react-native-reanimated";
 import SkeletonGroupPost from "../../../components/home/misc/SkeletonGroupPost";
 import EmptyList from "../../../components/home/misc/EmptyList";
+import { resetPost } from "../../../redux/slice/post";
+
 
 export default function HomeAll() {
   const dark = useGetMode();
@@ -35,34 +30,42 @@ export default function HomeAll() {
 
   const [skip, setSkip] = useState(0);
   const [noMore, setNoMore] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [getLazyPost, postRes] = useLazyGetAllPostsQuery({});
-  const [refreshing, setRefreshing] = React.useState(false);
+
+  const fetchPosts = async (reset = false) => {
+    if (reset) {
+      dispatch(resetPost());
+      setSkip(0);
+      setNoMore(false);
+    }
+    try {
+      const response = await getLazyPost({ take: 20, skip: reset ? 0 : skip }).unwrap();
+      if (reset) {
+        setSkip(response.posts.length);
+      } else { 
+        setSkip((prev) => prev + response.posts.length);
+      }
+      setNoMore(response.posts.length < 20); // No more data if we receive less than 20
+    } catch {
+      dispatch(openToast({ text: "Couldn't fetch posts", type: "Failed" }));
+    }
+  };
 
   useEffect(() => {
-    getLazyPost({ take: 20, skip: 0 })
-      .unwrap()
-      .then((r) => {});
-  }, []);
+    fetchPosts(true); // Load initial posts
+  }, [dispatch, getLazyPost]);
 
   const onRefresh = useCallback(() => {
-    if (!authId) return;
-    setSkip(0);
-    setNoMore(false);
     setRefreshing(true);
-    getLazyPost({ take: 20, skip: 0 })
-      .unwrap()
-      .then((e) => {
-        setSkip(e.posts.length);
-        setRefreshing(false);
-        if (e.posts.length === 0) setNoMore(true);
-      })
-      .catch(() => {
-        setRefreshing(false);
-        dispatch(
-          openToast({ text: "Couldn't get recent posts", type: "Failed" })
-        );
-      });
-  }, [authId, dispatch, getLazyPost]);
+    fetchPosts(true).finally(() => setRefreshing(false));
+  }, []);
+
+  const fetchMoreData = () => {
+    if (!noMore) {
+      fetchPosts();
+    }
+  };
 
   const renderFooter = () => {
     if (noMore) {
@@ -75,6 +78,7 @@ export default function HomeAll() {
             alignItems: "center",
           }}
         >
+          <Text>No more posts</Text>
         </View>
       );
     } else if (posts.loading) {
@@ -87,66 +91,20 @@ export default function HomeAll() {
             alignItems: "center",
           }}
         >
-          <ActivityIndicator color={color} size={20} />
+          <ActivityIndicator color={color} size={20}/>
         </Animated.View>
       );
     }
   };
-
-  useEffect(() => {
-    getLazyPost({ take: 20, skip })
-      .unwrap()
-      .then((payload) => {
-        setSkip(payload.posts?.length);
-      })
-      .catch((err) => {
-        // dispatch(
-        //   openToast({ text: "couldn't get recent posts", type: "Failed" })
-        // );
-      });
-  }, []);
-
-  const fetchMoreData = () => {
-    if (!noMore)
-      getLazyPost({ take: 20, skip })
-        .unwrap()
-        .then((payload) => {
-          setSkip(skip + payload.posts.length);
-          if (payload.posts.length === 0) {
-            setNoMore(true);
-          }
-        })
-        .catch((err) => {
-          // dispatch(
-          //   openToast({ text: "couldn't get recent posts", type: "Failed" })
-          // );
-        });
-  };
-
-  const handleRefetch = () => {
-    setSkip(0);
-    setNoMore(false);
-    getLazyPost({ take: 10, skip: 0 })
-      .unwrap()
-      .then((payload) => {
-        setRefreshing(false);
-      })
-      .catch((err) => {
-        setRefreshing(false);
-        // dispatch(
-        //   openToast({ text: "couldn't get recent posts", type: "Failed" })
-        // );
-      });
-  };
-
+  
   const renderItem = ({ item, index }: { item: IPost; index: number }) => (
     <PostBuilder
       id={item.id}
       isReposted={!!item?.repostUsers?.find((repostUser) => repostUser?.id === authId)}
       date={item.createdAt}
       link={item.link}
-      comments={item._count?.comments}
-      like={item._count?.likes}
+      comments={item._count.comments}
+      like={item._count.likes}
       isLiked={!!item?.likes?.find((like) => like?.userId === authId)}
       photo={
         item.photo
@@ -157,8 +115,8 @@ export default function HomeAll() {
             }
           : undefined
       }
-      thumbNail={item.videoThumbnail}
       imageUri={item.user?.imageUri}
+      thumbNail={item.videoThumbnail}
       name={item.user?.name}
       userId={item.user?.id}
       userTag={item.user?.userName}
@@ -173,19 +131,16 @@ export default function HomeAll() {
     />
   );
 
-  const keyExtractor = (item: IPost) => item?.id?.toString();
-
-  let content;
-
-  if (posts.loading && posts.data.length === 0) {
-    content = <SkeletonGroupPost />;
-  } else if (posts.data.length === 0) {
-    content = <EmptyList handleRefetch={handleRefetch} />;
-  } else {
-    content = (
+  const renderContent = () => {
+    if (posts.loading && posts.data.length === 0) {
+      return <SkeletonGroupPost />;
+    } else if (posts.data.length === 0) {
+      return <EmptyList handleRefetch={onRefresh} />;
+    }
+    return (
       <Animated.View style={{ flex: 1 }}>
         <FlashList
-          data={posts?.data}
+          data={posts.data}
           decelerationRate={0.991}
           estimatedItemSize={100}
           ListFooterComponent={renderFooter}
@@ -196,12 +151,12 @@ export default function HomeAll() {
               colors={["red", "blue"]}
             />
           }
-          keyExtractor={keyExtractor}
-          estimatedListSize={{ width: width, height: height }}
+          keyExtractor={(item) => item.id.toString()}
+          estimatedListSize={{ width, height }}
           onEndReachedThreshold={0.3}
           onEndReached={fetchMoreData}
           renderItem={renderItem}
-          contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
+          contentContainerStyle={{ paddingTop: 10, paddingBottom: 50 }}
         />
       </Animated.View>
     );
@@ -209,7 +164,7 @@ export default function HomeAll() {
 
   return (
     <View style={{ flex: 1 }}>
-      {content}
+      {renderContent()} 
       <Fab item={<AddIcon size={30} color={color} />} />
     </View>
   );

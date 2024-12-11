@@ -17,6 +17,7 @@ import {
 } from "../../../../redux/api/services";
 import CommentButton from "./CommentButton";
 import RepostButton from "./RepostButton";
+import FavoritesButton from "./FavoritesButton";
 
 export default function EngagementsFullScreen({
   title,
@@ -96,6 +97,11 @@ export default function EngagementsFullScreen({
           clicked={clicked}
           setClicked={handleClicked}
         />
+        {/* <FavoritesButton
+          isLiked={isReposted}
+          clicked={reposted}
+          setClicked={handleRepost}
+        /> */}
         <RepostButton
           isPosted={isReposted}
           clicked={reposted}

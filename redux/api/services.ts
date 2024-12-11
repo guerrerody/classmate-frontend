@@ -4,7 +4,6 @@ import {
   IPerson,
   IPost,
   IPostContent,
-  IUSerData,
 } from "../../types/api";
 import { RootState } from "../store";
 
@@ -23,6 +22,7 @@ export const servicesApi = createApi({
   }),
   tagTypes: ["post"],
   endpoints: (builder) => ({
+
     uploadPhoto: builder.mutation<
       {
         photo: {
@@ -59,7 +59,6 @@ export const servicesApi = createApi({
       { mimeType: string; uri: string; name: string }
     >({
       query: (payload) => {
-        console.log(">>>> file: services.ts:70 ~ payload:", payload)
         const blob: any = {
           name: payload.name,
           type: payload.mimeType,
@@ -79,6 +78,7 @@ export const servicesApi = createApi({
       },
       invalidatesTags: ["post"],
     }),
+
     uploadVideo: builder.mutation<
       { video: string; thumbNail: string },
       { mimeType: string; uri: string }
@@ -102,11 +102,11 @@ export const servicesApi = createApi({
         };
       },
     }),
+
     postContent: builder.mutation<{ msg: string }, IPostContent>({
       query: (payload) => ({
         url: "/post",
         method: "POST",
-
         body: payload,
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -123,26 +123,32 @@ export const servicesApi = createApi({
       providesTags: ["post"],
       extraOptions: { maxRetries: 2 },
     }),
+
     getSinglePost: builder.query<{ posts: IPost }, { id: string }>({
       query: ({ id }) => `/single-post?id=${id}`,
       extraOptions: { maxRetries: 2 },
     }),
+
     getRandomPosts: builder.query<{ posts: IPost[] }, null>({
       query: () => "/random-posts",
       extraOptions: { maxRetries: 2 },
     }),
+
     getRandomPeople: builder.query<{ people: IPerson[] }, null>({
       query: () => "/random-people",
       extraOptions: { maxRetries: 2 },
     }),
+
     searchPosts: builder.query<{ posts: IPost[] }, { q: string }>({
       query: ({ q }) => `/search-posts?q=${q}`,
       extraOptions: { maxRetries: 0 },
     }),
+
     searchPeople: builder.query<{ people: IPerson[] }, { q: string }>({
       query: ({ q }) => `/search-people?q=${q}`,
       extraOptions: { maxRetries: 0 },
     }),
+
     followUser: builder.query<{ msg: string }, { id: string }>({
       query: ({ id }) => `/follow?id=${id}`,
       extraOptions: { maxRetries: 0 },
@@ -152,6 +158,7 @@ export const servicesApi = createApi({
       query: ({ id }) => `/like-post?id=${id}`,
       extraOptions: { maxRetries: 2 },
     }),
+
     postComment: builder.mutation<
       { msg: string },
       { id: string; comment: string }
@@ -166,10 +173,12 @@ export const servicesApi = createApi({
         },
       }),
     }),
+
     getCommentByPost: builder.query<{ comment: IComment[] }, { id: string }>({
       query: ({ id }) => `/get-postComment?id=${id}`,
       extraOptions: { maxRetries: 2 },
     }),
+
     getFollowedPosts: builder.query<
       { posts: IPost[] },
       { take: number; skip: number }
@@ -178,6 +187,7 @@ export const servicesApi = createApi({
 
       extraOptions: { maxRetries: 2 },
     }),
+
     getMyPosts: builder.query<
       { posts: IPost[] },
       { take: number; skip: number }
@@ -186,6 +196,7 @@ export const servicesApi = createApi({
 
       extraOptions: { maxRetries: 2 },
     }),
+
     getGuestPosts: builder.query<
       { posts: IPost[] },
       { take: number; skip: number; id: string }
@@ -195,9 +206,11 @@ export const servicesApi = createApi({
 
       extraOptions: { maxRetries: 2 },
     }),
+
     repost: builder.query<{ msg: string }, { id: string }>({
       query: ({ id }) => `/re-post?id=${id}`,
     }),
+
     deletePostById: builder.mutation<
       { msg: string },
       {

@@ -65,9 +65,9 @@ export function BottomTabNavigator() {
           tabBarStyle: {
             backgroundColor: backgroundColor,
             elevation: 0,
-            height: Platform.OS == "ios" ? 40 + insets.bottom : 60 + insets.bottom,
+            height: Platform.OS == "ios" ? 40 + insets.bottom : 50 + insets.bottom,
             paddingBottom: insets.bottom,
-            paddingTop: 10,
+            paddingTop: Platform.OS == "ios" ? 10 : 0,
             borderTopWidth: 0.5,
             borderColor,
           },

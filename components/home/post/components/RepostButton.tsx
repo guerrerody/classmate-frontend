@@ -13,6 +13,7 @@ import Animated, {
 } from "react-native-reanimated";
 import useGetMode from "../../../../hooks/GetMode";
 import { Repost, RepostUnFocused } from "../../../icons";
+import { FavoriteIcon } from "../../../icons";
 
 export default function RepostButton({
   isPosted,
@@ -76,14 +77,14 @@ export default function RepostButton({
         <View style={{ width: 18 }}>
           {
             <>
-              <Animated.View
-                style={[StyleSheet.absoluteFillObject, outlineStyle]}
-              >
-                <RepostUnFocused size={18} color={color} />
+              <Animated.View style={[StyleSheet.absoluteFillObject, outlineStyle]}>
+                {/* <RepostUnFocused size={18} color={color} /> */}
+                <FavoriteIcon size={18} color={"white"} />
               </Animated.View>
 
               <Animated.View style={fillStyle}>
-                <Repost size={18} color={rColor} />
+                {/* <Repost size={18} color={rColor} /> */}
+                <FavoriteIcon size={18} color={"white"} />
               </Animated.View>
             </>
           }

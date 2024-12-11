@@ -5,29 +5,59 @@ import Animated, { LinearTransition, ScrollHandlerProcessed } from "react-native
 
 import PostBuilder from "../../../components/home/post/PostBuilder";
 import useGetMode from "../../../hooks/GetMode";
-import { useAppSelector } from "../../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { IPost } from "../../../types/api";
 import {
   useDeletePostByIdMutation,
   useLazyGetMyPostsQuery,
 } from "../../../redux/api/services";
+import { openToast } from "../../../redux/slice/toast/toast";
 import Bio from "../../../components/profile/Bio";
+import { deletePost as deletePostAction } from "../../../redux/slice/post";
 
 export default function MyPosts({ onScroll }: Readonly<{ onScroll: ScrollHandlerProcessed<Record<string, unknown>> }>) {
   const dark = useGetMode();
+  const dispatch = useAppDispatch();
   const authId = useAppSelector((state) => state.user.data?.id);
   const isDark = dark;
   const color = isDark ? "white" : "black";
 
   const [skip, setSkip] = useState(0);
   const [noMore, setNoMore] = useState(false);
-  const [getLazyPost, postRes] = useLazyGetMyPostsQuery();
   const [isLoading, setIsLoading] = useState(false);
 
+  const [getLazyPost, postRes] = useLazyGetMyPostsQuery();
   const [posts, setPosts] = useState<IPost[]>([]);
+  const [deletePostById] = useDeletePostByIdMutation();
+
+  const handleFetch = (initial = false) => {
+    if (!initial && (noMore || isLoading)) return;
+    setIsLoading(true);
+    getLazyPost({ take: 10, skip: initial ? 0 : skip })
+      .unwrap()
+      .then(({ posts: newPosts }) => {
+        setPosts((prev) => (initial ? newPosts : [...prev, ...newPosts]));
+        setSkip((prevSkip) => (initial ? newPosts.length : prevSkip + newPosts.length));
+        setNoMore(newPosts.length < 10); // No more data if we receive less than 10
+      })
+      .catch(() => dispatch(openToast({ text: "Couldn't load posts", type: "Failed" })))
+      .finally(() => setIsLoading(false));
+  };
+
+  useEffect(() => handleFetch(true), [getLazyPost]);
+
+  const deletePost = (id: string) => {
+    deletePostById({ id })
+      .then((payload) => {
+        setPosts((prev) => prev.filter((post) => post.id !== id));
+        dispatch(deletePostAction(id)); // Updates the global status
+        console.log(">>>> Delete Post: ", payload);
+      })
+      .catch(() => dispatch(openToast({ text: "Couldn't delete post", type: "Failed" })));
+  };
 
   const renderFooter = () => {
-    if (postRes.isLoading || isLoading) {
+    if (isLoading) {
       return (
         <View
           style={{
@@ -42,50 +72,6 @@ export default function MyPosts({ onScroll }: Readonly<{ onScroll: ScrollHandler
         </View>
       );
     }
-  };
-
-  useEffect(() => {
-    getLazyPost({ take: 10, skip })
-      .unwrap()
-      .then((e) => {
-        setPosts(e.posts);
-        setSkip(e.posts?.length);
-      })
-      .catch((e) => {
-        // dispatch(
-        //   openToast({ text: "couldn't get recent posts", type: "Failed" })
-        // );
-      });
-  }, []);
-
-  const fetchMoreData = () => {
-    setIsLoading(true);
-    if (!noMore && !postRes.error && skip > 0)
-      getLazyPost({ take: 10, skip })
-        .unwrap()
-        .then((e) => {
-          console.log(">>>> file: MyPosts.tsx:73 ~ .then ~ e:", e.posts.length);
-          setIsLoading(false);
-          setPosts((prev) => [...prev, ...e.posts]);
-          setSkip(skip + e.posts.length);
-
-          if (e.posts.length < 10) {
-            setNoMore(true);
-          }
-        })
-        .catch((e) => {
-          setIsLoading(false);
-          // dispatch(
-          //   openToast({ text: "couldn't get recent posts", type: "Failed" })
-          // );
-        });
-  };
-
-  const [deletePostById] = useDeletePostByIdMutation();
-
-  const deletePost = (id: string) => {
-    deletePostById({ id }).then((e) => console.log(e));
-    setPosts((prev) => [...prev.filter((prev) => prev.id !== id)]);
   };
   
   const renderItem = ({ item, index }: { item: IPost; index: number }) => (
@@ -111,6 +97,7 @@ export default function MyPosts({ onScroll }: Readonly<{ onScroll: ScrollHandler
       isLiked={!!item?.likes?.find((like) => like?.userId === authId)}
       imageUri={item.user?.imageUri}
       name={item.user?.name}
+      userId={item.user?.id}
       userTag={item.user?.userName}
       verified={item.user?.verified}
       audioUri={item.audioUri ?? undefined}
@@ -123,23 +110,21 @@ export default function MyPosts({ onScroll }: Readonly<{ onScroll: ScrollHandler
     />
   );
 
-  const keyExtractor = (item: IPost) => item.id?.toString();
-
   return (
     <View style={{ flex: 1 }}>
       <Animated.FlatList
         onScroll={onScroll}
         itemLayoutAnimation={LinearTransition.springify()}
-        data={posts.length === 0 ? postRes.data?.posts : posts}
+        data={posts}
         decelerationRate={0.991}
         ListHeaderComponent={<Bio />}
         ListFooterComponent={renderFooter}
         scrollEventThrottle={16}
-        keyExtractor={keyExtractor}
+        keyExtractor={(item) => item.id.toString()}
         onEndReachedThreshold={0.3}
-        onEndReached={fetchMoreData}
+        onEndReached={() => handleFetch()}
         renderItem={renderItem}
-        contentContainerStyle={{ paddingTop: 10, paddingBottom: 20 }}
+        contentContainerStyle={{ paddingTop: 10, paddingBottom: 50 }}
       />
     </View>
   );
